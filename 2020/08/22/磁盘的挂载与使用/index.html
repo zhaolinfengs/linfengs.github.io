@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>linux下设备的挂载与使用 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="注：linux中的所有设备只有在经过挂载后才可以正常使用 挂载的分类1.临时挂载（mount &#x2F;设备目录  &#x2F;挂载点目录）临时挂载：需要临时性的调用存储设备，可用临时挂载,重启后自动卸载 命令语法：     mount &#x2F;dev&#x2F;sdb    &#x2F;mnt&#x2F;sdb 下面是一个临时挂载实例： （1）[root@localhost ~]# lsblk            &#x2F;&#x2F;查看分区表，是否有需要挂载的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="linux下设备的挂载与使用">
+<meta property="og:url" content="http://yoursite.com/2020/08/22/%E7%A3%81%E7%9B%98%E7%9A%84%E6%8C%82%E8%BD%BD%E4%B8%8E%E4%BD%BF%E7%94%A8/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="注：linux中的所有设备只有在经过挂载后才可以正常使用 挂载的分类1.临时挂载（mount &#x2F;设备目录  &#x2F;挂载点目录）临时挂载：需要临时性的调用存储设备，可用临时挂载,重启后自动卸载 命令语法：     mount &#x2F;dev&#x2F;sdb    &#x2F;mnt&#x2F;sdb 下面是一个临时挂载实例： （1）[root@localhost ~]# lsblk            &#x2F;&#x2F;查看分区表，是否有需要挂载的">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-08-21T17:53:22.432Z">
+<meta property="article:modified_time" content="2019-06-20T08:32:34.531Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="linux&#x2F;storage">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 5.0.2"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-磁盘的挂载与使用" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/08/22/%E7%A3%81%E7%9B%98%E7%9A%84%E6%8C%82%E8%BD%BD%E4%B8%8E%E4%BD%BF%E7%94%A8/" class="article-date">
+  <time datetime="2020-08-21T17:53:22.432Z" itemprop="datePublished">2020-08-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      linux下设备的挂载与使用
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>注：linux中的所有设备只有在经过挂载后才可以正常使用</p>
+<h3 id="挂载的分类"><a href="#挂载的分类" class="headerlink" title="挂载的分类"></a>挂载的分类</h3><h4 id="1-临时挂载（mount-设备目录-挂载点目录）"><a href="#1-临时挂载（mount-设备目录-挂载点目录）" class="headerlink" title="1.临时挂载（mount /设备目录  /挂载点目录）"></a>1.临时挂载（mount /设备目录  /挂载点目录）</h4><h4 id="临时挂载："><a href="#临时挂载：" class="headerlink" title="临时挂载："></a>临时挂载：</h4><pre><code>需要临时性的调用存储设备，可用临时挂载,重启后自动卸载
+命令语法：
+    mount /dev/sdb    /mnt/sdb
+下面是一个临时挂载实例：
+（1）[root@localhost ~]# lsblk            //查看分区表，是否有需要挂载的设备，如果没有在虚拟机添加即可
+    NAME          MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT
+    sda             8:0    0   40G  0 disk 
+    ├─sda1          8:1    0    1G  0 part /boot
+    └─sda2          8:2    0   39G  0 part 
+       ├─rhel-root 253:0    0   37G  0 lvm  /
+       └─rhel-swap 253:1    0    2G  0 lvm  [SWAP]
+    sdb             8:16   0   20G  0 disk                 //这里找到一个没有挂载的硬盘，sdb
+    sr0            11:0    1  4.2G  0 rom  /mnt/cdrom
+
+（2）[root@localhost ~]# lsblk -f                 //查看分区表详细信息，是否被格式化
+    NAME          FSTYPE      LABEL                  UUID                                   MOUNTPOINT
+    sda                                                                                     
+    ├─sda1        xfs                                7b098c20-4c39-4404-b1b6-d9e74ea76731   /boot
+    └─sda2        LVM2_member                        dgIvNr-jVu4-LMnp-RW5C-0az1-qH6A-C4XPuQ 
+      ├─rhel-root xfs                                c6732474-557a-472f-b4c9-63d47334f170   /
+      └─rhel-swap swap                               09c4d911-ba14-4886-95b8-aa9a321f0865   [SWAP]
+    sdb                                          //在这里可以看到，sdb没有带文件系统                             
+    sr0           iso9660     RHEL-7.6 Server.x86_64 2018-10-10-18-34-13-00                 /mnt/cdrom
+
+（3）[root@localhost ~]# fdisk /dev/sdb                 //对刚刚添加的硬盘进行一个分区操作
+    Welcome to fdisk (util-linux 2.23.2).
+
+    Changes will remain in memory only, until you decide to write them.
+    Be careful before using the write command.
+
+    Device does not contain a recognized partition table
+    Building a new DOS disklabel with disk identifier 0xbf9f7ca3.
+
+    Command (m for help): n    //新建分区  
+    Partition type:
+       p   primary (0 primary, 0 extended, 4 free)
+       e   extended
+    Select (default p):         //主分区和逻辑分区的选择，默认主分区
+    Using default response p
+    Partition number (1-4, default 1):             //分区编号，一般默认
+    First sector (2048-41943039, default 2048):     //起始扇区，一般默认
+    Using default value 2048
+    Last sector, +sectors or +size&#123;K,M,G&#125; (2048-41943039, default 41943039):     //结束扇区，一般+&#123;K,M,G&#125;
+    Using default value 41943039
+    Partition 1 of type Linux and of size 20 GiB is set        //创建成功
+
+    Command (m for help): w                    //保存退出
+
+（4）[root@localhost ~]# mkfs.xfs /dev/sdb1                //对刚刚创建的分区进行格式化操作
+    meta-data=/dev/sdb1              isize=512    agcount=4, agsize=1310656 blks
+             =                       sectsz=512   attr=2, projid32bit=1
+             =                       crc=1        finobt=0, sparse=0
+    data     =                       bsize=4096   blocks=5242624, imaxpct=25
+             =                       sunit=0      swidth=0 blks
+    naming   =version 2              bsize=4096   ascii-ci=0 ftype=1
+    log      =internal log           bsize=4096   blocks=2560, version=2
+             =                       sectsz=512   sunit=0 blks, lazy-count=1
+    realtime =none                   extsz=4096   blocks=0, rtextents=0
+
+（5）[root@localhost ~]# mkdir /mnt/sdb                //创建一个挂载点
+（5）[root@localhost ~]# mount /dev/sdb1 /mnt/sdb
+    [root@localhost ~]# lsblk
+    NAME          MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT
+    sda             8:0    0   40G  0 disk 
+    ├─sda1          8:1    0    1G  0 part /boot
+    └─sda2          8:2    0   39G  0 part 
+      ├─rhel-root 253:0    0   37G  0 lvm  /
+      └─rhel-swap 253:1    0    2G  0 lvm  [SWAP]
+    sdb             8:16   0   20G  0 disk 
+    └─sdb1          8:17   0   20G  0 part /mnt/sdb      //这里可以看到以已经挂载到我们刚刚创建的挂载点上了
+    sr0            11:0    1  4.2G  0 rom  /mnt/cdrom</code></pre>
+<h4 id="2-永久性挂载（vim-etc-fstab）"><a href="#2-永久性挂载（vim-etc-fstab）" class="headerlink" title="2.永久性挂载（vim /etc/fstab）"></a>2.永久性挂载（vim /etc/fstab）</h4><h4 id="永久性挂载："><a href="#永久性挂载：" class="headerlink" title="永久性挂载："></a>永久性挂载：</h4><pre><code>一次挂载，永久生效
+方法法：
+    写入挂载表 vim /etc/fstab
+    添加一行：
+        /设备目录        /挂载点         文件系统格式            挂载选项        硬盘开机检测 检测级别    
+下面是一个永久挂载实例：
+
+ （1）[root@localhost ~]# lsblk                    //查看当前设备
+      NAME          MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT
+      sda             8:0    0   40G  0 disk 
+      ├─sda1          8:1    0    1G  0 part /boot
+      └─sda2          8:2    0   39G  0 part 
+        ├─rhel-root 253:0    0   37G  0 lvm  /
+        └─rhel-swap 253:1    0    2G  0 lvm  [SWAP]
+      sr0            11:0    1 1024M  0 rom  
+
+ （2）添加一块硬盘，重启（在虚拟机设置里面有设置一个功能按钮，一直点到底就添加成功了）
+
+ （3）[root@localhost ~]# lsblk            //可以查看一下我们添加一新硬盘为sdb
+         NAME          MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT
+      sda             8:0    0   40G  0 disk 
+      ├─sda1          8:1    0    1G  0 part /boot
+      └─sda2          8:2    0   39G  0 part 
+        ├─rhel-root 253:0    0   37G  0 lvm  /
+        └─rhel-swap 253:1    0    2G  0 lvm  [SWAP]
+      sdb             8:16   0   20G  0 disk 
+      sr0            11:0    1 1024M  0 rom  
+
+
+ （4）[root@localhost ~]# fdisk /dev/sdb            //我们在这里执行一个分区操作
+    Welcome to fdisk (util-linux 2.23.2).
+
+    Changes will remain in memory only, until you decide to write them.
+    Be careful before using the write command.
+
+    Device does not contain a recognized partition table
+    Building a new DOS disklabel with disk identifier 0x77251762.
+
+    Command (m for help): n
+    Partition type:
+       p   primary (0 primary, 0 extended, 4 free)
+       e   extended
+    Select (default p): 
+    Using default response p
+    Partition number (1-4, default 1): 
+    First sector (2048-41943039, default 2048): 
+    Using default value 2048
+    Last sector, +sectors or +size&#123;K,M,G&#125; (2048-41943039, default 41943039): 
+    Using default value 41943039
+    Partition 1 of type Linux and of size 20 GiB is set
+
+    Command (m for help): 
+
+ （5）[root@localhost ~]# mkfs.xfs /dev/sdb1    //对刚刚的创建的分区进行一个格式化操作
+      meta-data=/dev/sdb1              isize=512    agcount=4, agsize=1310656 blks
+               =                       sectsz=512   attr=2, projid32bit=1
+               =                       crc=1        finobt=0, sparse=0
+      data     =                       bsize=4096   blocks=5242624, imaxpct=25
+               =                       sunit=0      swidth=0 blks
+      naming   =version 2              bsize=4096   ascii-ci=0 ftype=1
+      log      =internal log           bsize=4096   blocks=2560, version=2
+               =                       sectsz=512   sunit=0 blks, lazy-count=1
+      realtime =none                   extsz=4096   blocks=0, rtextents=0
+
+ （6）[root@localhost ~]# vim /etc/fstab
+      #
+      # /etc/fstab
+      # Created by anaconda on Mon Mar 18 03:41:38 2019
+      #
+      # Accessible filesystems, by reference, are maintained under &#39;/dev/disk&#39;
+      # See man pages fstab(5), findfs(8), mount(8) and/or blkid(8) for more info
+      #
+      /dev/mapper/rhel-root   /                       xfs     defaults        0 0
+      UUID=7b098c20-4c39-4404-b1b6-d9e74ea76731 /boot                   xfs     defaults        0 0
+      /dev/mapper/rhel-swap   swap                    swap    defaults        0 0
+添加：/dev/sdb1                 /mnt/sdb                  xfs      defaults          0 0
+    设备目录                     挂载点                    文件系统     选项              开机检查，检查级别
+
+ （7）[root@localhost ~]# mkdir /mnt/sdb                //刚刚忘了创建的挂载点
+
+ （8）[root@localhost ~]# mount -a                    //重读挂载表
+ （9）[root@localhost ~]# lsblk                        //查看挂载设备
+      NAME          MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT
+      sda             8:0    0   40G  0 disk 
+      ├─sda1          8:1    0    1G  0 part /boot
+      └─sda2          8:2    0   39G  0 part 
+        ├─rhel-root 253:0    0   37G  0 lvm  /
+        └─rhel-swap 253:1    0    2G  0 lvm  [SWAP]
+      sdb             8:16   0   20G  0 disk 
+         └─sdb1          8:17   0   20G  0 part /mnt/sdb      //这里可以看到我们的sdb1已经挂载到/mnt/sdb上了，可以正常使用了
+      sr0            11:0    1 1024M  0 rom  </code></pre>
+<h4 id="3-自动性挂载（vim-etc-fstab）"><a href="#3-自动性挂载（vim-etc-fstab）" class="headerlink" title="3.自动性挂载（vim /etc/fstab）"></a>3.自动性挂载（vim /etc/fstab）</h4><h4 id="自动挂载："><a href="#自动挂载：" class="headerlink" title="自动挂载："></a>自动挂载：</h4><pre><code>有需要时触发条件，自动挂载，不使用时自动卸载
+配置自动挂载流程：
+（1）搭建Yum仓库
+ [root@localhost ~]# mount /dev/sr0 /mnt/cdrom
+ [root@localhost ~]# vim /etc/yum.repos.d/a.repo
+ 内容：     [a]
+        name=a
+        gpgcheck=0
+        enabled=1
+        baseurl=file：///mnt/cdrom
+ [root@localhost ~]# yum repolist
+ Loaded plugins: langpacks, product-id, search-disabled-repos, subscription-manager
+ This system is not registered with an entitlement server. You can use subscription-manager to register.
+    a                                                                                   | 4.3 kB  00:00:00     
+    (1/2): a/group_gz                                                                   | 146 kB  00:00:00     
+    (2/2): a/primary_db                                                                 | 4.2 MB  00:00:00     
+    repo id                                              repo name                                       status
+    a                                                    a                                               5,152
+    repolist: 5,152
+    仓库搭建成功 
+
+（2）[root@localhost ~]# yum install -y autofs      //安装自动挂载的组件程序包
+    Loaded plugins: langpacks, product-id, search-disabled-repos, subscription-manager
+    This system is not registered with an entitlement server. You can use subscription-manager to register.
+    Resolving Dependencies
+    --&gt; Running transaction check
+    ---&gt; Package autofs.x86_64 1:5.0.7-99.el7 will be installed
+    --&gt; Processing Dependency: libhesiod.so.0()(64bit) for package: 1:autofs-5.0.7-99.el7.x86_64
+    --&gt; Running transaction check
+    ---&gt; Package hesiod.x86_64 0:3.2.1-3.el7 will be installed
+    --&gt; Finished Dependency Resolution
+
+    Dependencies Resolved
+
+    ===========================================================================================================
+     Package                 Arch                    Version                          Repository          Size
+    ===========================================================================================================
+    Installing:
+     autofs                  x86_64                  1:5.0.7-99.el7                   a                  814 k
+    Installing for dependencies:
+     hesiod                  x86_64                  3.2.1-3.el7                      a                   30 k
+
+    Transaction Summary
+    ===========================================================================================================
+    Install  1 Package (+1 Dependent package)
+
+    Total download size: 843 k
+    Installed size: 5.1 M
+    Downloading packages:
+    -----------------------------------------------------------------------------------------------------------
+    Total                                                                       18 MB/s | 843 kB  00:00:00     
+    Running transaction check
+    Running transaction test
+    Transaction test succeeded
+    Running transaction
+      Installing : hesiod-3.2.1-3.el7.x86_64                                                               1/2 
+      Installing : 1:autofs-5.0.7-99.el7.x86_64                                                            2/2 
+    a/productid                                                                         | 1.6 kB  00:00:00     
+      Verifying  : hesiod-3.2.1-3.el7.x86_64                                                               1/2 
+      Verifying  : 1:autofs-5.0.7-99.el7.x86_64                                                            2/2 
+
+    Installed:
+      autofs.x86_64 1:5.0.7-99.el7                                                                             
+
+    Dependency Installed:
+      hesiod.x86_64 0:3.2.1-3.el7                                                                              
+
+    Complete!
+
+（3）[root@localhost ~]# vim /etc/auto.master     //编辑主配置文件
+添加一行：    
+    /mnt/           /etc/auto.file          --timeout=30
+
+（4）[root@localhost ~]# vim /etc/auto.file        //映射文件，默认没有，自行创建
+添加一行：
+    redhat          -fstype=xfs     :/dev/sdb1
+
+ (5)[root@localhost ~]# lsblk -f                //检查一下sdb是不是xfs格式，如果不是则需要自行格式化：mkfs.xfs /dev/sdb
+    NAME          FSTYPE      LABEL                  UUID                                   MOUNTPOINT
+    sda                                                                                     
+    ├─sda1        xfs                                7b098c20-4c39-4404-b1b6-d9e74ea76731   /boot
+    └─sda2        LVM2_member                        dgIvNr-jVu4-LMnp-RW5C-0az1-qH6A-C4XPuQ 
+      ├─rhel-root xfs                                c6732474-557a-472f-b4c9-63d47334f170   /
+      └─rhel-swap swap                               09c4d911-ba14-4886-95b8-aa9a321f0865   [SWAP]
+    sdb                                                                                     
+    └─sdb1        xfs                                ad8d116b-6d99-441b-aca8-2ec798655d30   
+    sr0           iso9660     RHEL-7.6 Server.x86_64 2018-10-10-18-34-13-00                 /mnt/cdrom
+
+
+ (6)[root@localhost ~]# lsblk                //验证一下sdb1是没有挂载上去的
+    NAME          MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT
+    sda             8:0    0   40G  0 disk 
+    ├─sda1          8:1    0    1G  0 part /boot
+    └─sda2          8:2    0   39G  0 part 
+      ├─rhel-root 253:0    0   37G  0 lvm  /
+      └─rhel-swap 253:1    0    2G  0 lvm  [SWAP]
+    sdb             8:16   0   20G  0 disk 
+    └─sdb1          8:17   0   20G  0 part                 //这里的挂载为空
+    sr0            11:0    1  4.2G  0 rom  /mnt/cdrom
+
+ (7)[root@localhost ~]# systemctl restart autofs           //重启服务
+（8)[root@localhost ~]# ls /mnt/redhat                    //触发条件
+（9)[root@localhost ~]# lsblk                            //验证一下有没有挂载上去
+    NAME          MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT
+    sda             8:0    0   40G  0 disk 
+    ├─sda1          8:1    0    1G  0 part /boot
+    └─sda2          8:2    0   39G  0 part 
+      ├─rhel-root 253:0    0   37G  0 lvm  /
+      └─rhel-swap 253:1    0    2G  0 lvm  [SWAP]
+    sdb             8:16   0   20G  0 disk 
+    └─sdb1          8:17   0   20G  0 part /mnt/redhat    //这里显示为挂载上去了
+    sr0            11:0    1  4.2G  0 rom  /mnt/cdrom
+
+(10)自动卸载,时间是我们在主配置文件里面写的&quot;--timeout=30&quot;的30s,如果闲置30s,则会自动卸载</code></pre>
+<p>###心得体会：<br>    1.学习Linux是一件枯燥的事情,但学习linux也是一件有趣的事情<br>    2.学习linux没有统一的标准，流程，学习linux是一个不断积累的过程<br>    3.做的多了，会的也就多了，才算得上是懂了linux</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/08/22/%E7%A3%81%E7%9B%98%E7%9A%84%E6%8C%82%E8%BD%BD%E4%B8%8E%E4%BD%BF%E7%94%A8/" data-id="cke4j8nnq000xj4t956xb91au" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux-storage/" rel="tag">linux/storage</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/08/22/%E4%BA%A4%E6%8D%A2%E6%9C%BA%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          交换机的工作原理
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/08/22/windows%E5%B9%B3%E5%8F%B0%E4%B8%8B%E8%AE%BE%E7%BD%AE%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">windows下设置文件共享</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/internet/" rel="tag">internet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux-network/" rel="tag">linux/network</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux-network-storage/" rel="tag">linux/network storage</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux-server/" rel="tag">linux/server</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux-storage/" rel="tag">linux/storage</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux-user/" rel="tag">linux/user</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/network/" rel="tag">network</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/windows/" rel="tag">windows</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/internet/" style="font-size: 13.33px;">internet</a> <a href="/tags/linux-network/" style="font-size: 10px;">linux/network</a> <a href="/tags/linux-network-storage/" style="font-size: 10px;">linux/network storage</a> <a href="/tags/linux-server/" style="font-size: 20px;">linux/server</a> <a href="/tags/linux-storage/" style="font-size: 16.67px;">linux/storage</a> <a href="/tags/linux-user/" style="font-size: 10px;">linux/user</a> <a href="/tags/network/" style="font-size: 10px;">network</a> <a href="/tags/windows/" style="font-size: 10px;">windows</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/08/22/%E7%BD%91%E5%8D%A1%E9%93%BE%E8%B7%AF%E8%81%9A%E5%90%88/">网卡链路聚合</a>
+          </li>
+        
+          <li>
+            <a href="/2020/08/22/%E4%BA%A4%E6%8D%A2%E6%9C%BA%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/">交换机的工作原理</a>
+          </li>
+        
+          <li>
+            <a href="/2020/08/22/%E7%A3%81%E7%9B%98%E7%9A%84%E6%8C%82%E8%BD%BD%E4%B8%8E%E4%BD%BF%E7%94%A8/">linux下设备的挂载与使用</a>
+          </li>
+        
+          <li>
+            <a href="/2020/08/22/windows%E5%B9%B3%E5%8F%B0%E4%B8%8B%E8%AE%BE%E7%BD%AE%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB/">windows下设置文件共享</a>
+          </li>
+        
+          <li>
+            <a href="/2020/08/22/VLAN%E6%8A%80%E6%9C%AF%E7%9A%84%E5%8E%9F%E7%90%86/">VLAN技术的原理</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,1639 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://yoursite.com/page/2/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:locale" content="en_US">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 5.0.2"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-NFS服务器的基本搭建" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/08/22/NFS%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%90%AD%E5%BB%BA/" class="article-date">
+  <time datetime="2020-08-21T17:53:22.413Z" itemprop="datePublished">2020-08-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/08/22/NFS%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%90%AD%E5%BB%BA/">NFS服务器的基本搭建</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="环境"><a href="#环境" class="headerlink" title="环境:"></a>环境:</h3><pre><code>redhat 7.6 server
+redhat 7.6 client
+vmware workstation</code></pre>
+<h3 id="一、搭建yum仓库"><a href="#一、搭建yum仓库" class="headerlink" title="一、搭建yum仓库"></a>一、搭建yum仓库</h3><pre><code>1.挂载本地光盘
+ (1)创建挂载点
+ mkdir /mnt/cdrom
+
+ (2)编写挂载表
+  vim /etc/fstab
+ 内容：
+  /dev/sr0     /mnt/cdrom        iso9660        defaults    0 0
+ (3)刷新挂载表
+  mount -a
+
+ (4)查看是否挂载成功
+  lsblk
+
+2.创建仓库文件
+  vim /etc/yum.repo.d/a.repo    //&quot;a.repo&quot;为仓库文件，需要手动创建
+ 内容：
+    [a]
+    name=a
+    gpgcheck=0
+    enabled=1
+    baseurl=file:///mnt/cdrom
+保存退出wq
+
+2.查看仓库文件是否生效
+    yum repolist</code></pre>
+<h3 id="二、安装nfs组件"><a href="#二、安装nfs组件" class="headerlink" title="二、安装nfs组件"></a>二、安装nfs组件</h3><pre><code>yum install -y nfs*</code></pre>
+<h3 id="三、编写主配置文件"><a href="#三、编写主配置文件" class="headerlink" title="三、编写主配置文件"></a>三、编写主配置文件</h3><pre><code>vim /etc/exports
+内容：
+/tmp/redhat     192.168.8.0/24(rw,sync)        //主配置文件分为两列，第一列为共享的资源（目录），第二列为可以接受共享的用户后面括号是（共享选项）
+保存退出wq</code></pre>
+<h3 id="四、重启服务"><a href="#四、重启服务" class="headerlink" title="四、重启服务"></a>四、重启服务</h3><pre><code>systemctl restart nfs</code></pre>
+<h3 id="五、测试"><a href="#五、测试" class="headerlink" title="五、测试"></a>五、测试</h3><pre><code>切换到client系统下：
+
+showmount -e 192.168.8.200            //查看目标路径的共享资源
+mount -t nfs     192.168.8.200:/tmp/redhat /mnt/nfs    //将目标用户共享的资源/tmp/redhat挂载到本地的 /mnt/nfs下</code></pre>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/08/22/NFS%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%90%AD%E5%BB%BA/" data-id="cke4j8nn60004j4t96pi064x1" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux-network-storage/" rel="tag">linux/network storage</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Nextcloud个人云盘搭建完整过程" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/08/22/Nextcloud%E4%B8%AA%E4%BA%BA%E4%BA%91%E7%9B%98%E6%90%AD%E5%BB%BA%E5%AE%8C%E6%95%B4%E8%BF%87%E7%A8%8B/" class="article-date">
+  <time datetime="2020-08-21T17:53:22.410Z" itemprop="datePublished">2020-08-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>##Nextcloud私有云盘搭建教程 ##<br>###环境：###<br>    操作系统：centos_7.6 x86-64<br>    mariadb:5.5.56-Mariadb<br>    php:php 7.0.31<br>    nextcloud:nextcloud-13.0.5<br>    确保机器正常连网<br>    ……<br>1.安装过程</p>
+<pre><code>安装Nginx
+安装 epel源
+    yum instlal -y epel-release
+    yum instlal -y nginx
+启动nginx
+    systemctl start nginx
+    systemctl enable nginx</code></pre>
+<p>2.安装mariadb</p>
+<pre><code>更换国内的yum源
+    cd /etc/yum.repo.d/
+    wget -O Centos-Base.repo http://mirrors.aliyum.com/repo/Centos-7.repo
+    yum clean all &amp;&amp; yum makecache
+如果是最小化安装的操作系统，是没有wget工具的，所发需要安装一下wget
+    yum install -y wget
+
+安装mariadb 
+    yum install -y mariadb-server mariadb
+    systemctl start mariadb
+    systemctl enable mariadb
+设置数据库密码
+    echo &#39;skip-grant-tables&#39;&gt;&gt;/etc/my.cnf
+    systemctl restart maridb
+    mysql -u root 
+
+    MariaDB [(none)]&gt; use mysql;
+    MariaDB [mysql]&gt; select user, password, host from user;
+    MariaDB [mysql]&gt; update user set password=password(&#39;这里输入自己的密码&#39;) where User=&quot;root&quot; and Host=&quot;localhost&quot;;
+    MariaDB [mysql]&gt; flush privileges;
+    MariaDB [mysql]&gt; exit
+
+注释掉/etc/my.cnf最后一行，重启数据库
+    systemctl restart mariadb
+    systemctl enable mariadb</code></pre>
+<p>3.安装PHP</p>
+<pre><code>安装php及依赖插件
+
+    yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+    yum install http://rpms.remirepo.net/enterprise/remi-release-7.rpm
+
+安装php环境
+
+    yum install yum-utils
+    yum-config-manager --enable remi-php70   [Install PHP 7.0]
+    yum-config-manager --enable remi-php71   [Install PHP 7.1]
+    yum-config-manager --enable remi-php72   [Install PHP 7.2]
+
+安装扩展
+    yum install php php-mcrypt php-cli php-gd php-curl php-mysql php-ldap php-zip php-fileinfo \
+    php-devel php-pear php-gd php-opcache php-cli php-pdo php-process php-pecl-apcu php-mcrypt \
+    php-mysql php-fpm php-pecl-memcached php-common php-xml php-mbstring php-pecl-igbinary-devel
+
+    所有的组件都要安装哦，太长可以先复制到记事本，然后再复制到xshell或者mobaxter等远程工具。
+
+制作签名和SSL证书
+    mkdir /etc/nginx/cert/
+    cd /etc/nginx/cert/
+    openssl rep -new -x509 -days 365 -nodes -out /etc/nginx/cert/nextcloud.crt -keyout /etc/nginx/cert/nextcloud.key
+
+赋权限
+
+    chmod 600 /etc/nginx/cert/*
+    chmod 700 /etc/nginx/cert/</code></pre>
+<p>4.下载Nextcloud</p>
+<pre><code>下载13.0.2版本
+    cd /opt/
+    wget https://download.nextcloud.com/server/releases/nextcloud-13.0.5.zip
+    unzip nextcloud-13.0.5.zip
+    cd /usr/share/nginx/html
+    rm -rf *
+    cp -R /op/nextcloud/* .
+    chown -R nginx:nginx /usr/share/nginx/html</code></pre>
+<p>5.配置php和nginx</p>
+<pre><code>    配置PHP
+
+    vim /etc/php-fpm.d/www.conf
+    -------------------------------------
+    user = nginx                                   //将用户和组都改为nginx
+    group = nginx
+    listen = 127.0.0.1:9000
+    env[HOSTNAME] = $HOSTNAME                     //将以下几行，去掉注释
+    env[PATH] = /usr/local/bin:/usr/bin:/bin
+    env[TMP] = /tmp
+    env[TMPDIR] = /tmp
+    env[TEMP] = /tmp
+    -------------------------------------
+
+    # 创建session文件夹
+    mkdir -p /var/lib/php/session
+    chown nginx:nginx -R /var/lib/php/session/
+
+    配置Nginx
+
+    cd /etc/nginx/conf.d/
+    vim nextcloud.conf
+    -------------------------------------
+upstream php-handler &#123;
+server 127.0.0.1:9000;
+#server unix:/var/run/php5-fpm.sock;
+&#125;
+server &#123;
+listen 80;
+    server_name localhost;
+   # enforce https
+rewrite ^(.*)$ https://$host$1 permanent;
+&#125;
+
+
+server &#123;
+listen 443 ssl;
+server_name localhost;
+
+ssl_certificate /etc/nginx/cert/nextcloud.crt;
+ssl_certificate_key /etc/nginx/cert/nextcloud.key;
+
+# Add headers to serve security related headers
+# Before enabling Strict-Transport-Security headers please read into this
+# topic first.
+add_header Strict-Transport-Security &quot;max-age=15768000;
+includeSubDomains; preload;&quot;;
+add_header X-Content-Type-Options nosniff;
+add_header X-Frame-Options &quot;SAMEORIGIN&quot;;
+add_header X-XSS-Protection &quot;1; mode=block&quot;;
+add_header X-Robots-Tag none;
+add_header X-Download-Options noopen;
+add_header X-Permitted-Cross-Domain-Policies none;
+
+# Path to the root of your installation
+root /usr/share/nginx/html/;       //这个地址要注意，是主页的保存地址，也就是解压nextcloud的地址
+
+
+location = /robots.txt &#123;
+    allow all;
+    log_not_found off;
+    access_log off;
+&#125;
+
+
+# The following 2 rules are only needed for the user_webfinger app.
+# Uncomment it if you&#39;re planning to use this app.
+#rewrite ^/.well-known/host-meta /public.php?service=host-meta last;
+#rewrite ^/.well-known/host-meta.json /public.php?service=host-meta-json
+# last;
+
+
+location = /.well-known/carddav &#123;
+  return 301 $scheme://$host/remote.php/dav;
+&#125;
+location = /.well-known/caldav &#123;
+  return 301 $scheme://$host/remote.php/dav;
+&#125;
+
+
+# set max upload size
+client_max_body_size 10240M;    # 上传文件最大限制，php.ini中也要修改，最后优化时会提及。
+fastcgi_buffers 64 4K;
+
+# Disable gzip to avoid the removal of the ETag header
+gzip on;
+gzip_vary on;
+gzip_comp_level 4;
+gzip_min_length 256;
+gzip_proxied expired no-cache no-store private no_last_modified no_etag auth;
+gzip_types application/atom+xml application/javascript application/json application/ld+json application/manifest+json application/rss+xml application/vnd.geo+json application/vnd.ms-fontobject application/x-font-ttf application/x-web-app-manifest+json application/xhtml+xml application/xml font/opentype image/bmp image/svg+xml image/x-icon text/cache-manifest text/css text/plain text/vcard text/vnd.rim.location.xloc text/vtt text/x-component text/x-cross-domain-policy;
+
+
+# Uncomment if your server is build with the ngx_pagespeed module
+# This module is currently not supported.
+#pagespeed off;
+
+
+error_page 403 /core/templates/403.php;
+error_page 404 /core/templates/404.php;
+
+
+location / &#123;
+    rewrite ^ /index.php$uri;
+&#125;
+
+
+location ~ ^/(?:build|tests|config|lib|3rdparty|templates|data)/ &#123;
+    deny all;
+&#125;
+location ~ ^/(?:\.|autotest|occ|issue|indie|db_|console) &#123;
+    deny all;
+&#125;
+
+location ~ ^/(?:index|remote|public|cron|core/ajax/update|status|ocs/v[12]|updater/.+|ocs-provider/.+|core/templates/40[34])\.php(?:$|/) &#123;
+    include fastcgi_params;
+    fastcgi_split_path_info ^(.+\.php)(/.*)$;
+    fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+    fastcgi_param PATH_INFO $fastcgi_path_info;
+    fastcgi_param HTTPS on;
+    #Avoid sending the security headers twice
+    fastcgi_param modHeadersAvailable true;
+    fastcgi_param front_controller_active true;
+    fastcgi_pass php-handler;
+    fastcgi_intercept_errors on;
+    fastcgi_request_buffering off;
+&#125;
+
+
+location ~ ^/(?:updater|ocs-provider)(?:$|/) &#123;
+    try_files $uri/ =404;
+    index index.php;
+&#125;
+
+
+# Adding the cache control header for js and css files
+# Make sure it is BELOW the PHP block
+location ~* \.(?:css|js)$ &#123;
+    try_files $uri /index.php$uri$is_args$args;
+    add_header Cache-Control &quot;public, max-age=7200&quot;;
+    # Add headers to serve security related headers (It is intended to
+    # have those duplicated to the ones above)
+    # Before enabling Strict-Transport-Security headers please read into
+    # this topic first.
+    add_header Strict-Transport-Security &quot;max-age=15768000;includeSubDomains; preload;&quot;;
+    add_header X-Content-Type-Options nosniff;
+    add_header X-Frame-Options &quot;SAMEORIGIN&quot;;
+    add_header X-XSS-Protection &quot;1; mode=block&quot;;
+    add_header X-Robots-Tag none;
+    add_header X-Download-Options noopen;
+    add_header X-Permitted-Cross-Domain-Policies none;
+    # Optional: Don&#39;t log access to assets
+    access_log off;
+&#125;
+
+location ~* \.(?:svg|gif|png|html|ttf|woff|ico|jpg|jpeg)$ &#123;
+    try_files $uri /index.php$uri$is_args$args;
+    # Optional: Don&#39;t log access to other assets
+    access_log off;
+&#125;
+&#125;
+
+
+
+注释掉默认配置文件里的80端口模块
+
+vim /etc/nginx/nginx.conf
+#server &#123;
+#    listen       80 default_server;
+#    listen       [::]:80 default_server;
+#    server_name  _;
+#    root         /usr/share/nginx/html;
+
+#    # Load configuration files for the default server block.
+#    include /etc/nginx/default.d/*.conf;
+
+#    location / &#123;
+#    &#125;
+
+#    error_page 404 /404.html;
+#        location = /40x.html &#123;
+#    &#125;
+
+#    error_page 500 502 503 504 /50x.html;
+#        location = /50x.html &#123;
+#    &#125;
+#&#125;</code></pre>
+<p>6.关掉SELINUX与防为墙<br>    setenforce 0<br>    sed -i “s/=enforcing/=disabled/g” /etc/selinux/config</p>
+<p>7.web访问&amp;&amp;安装<br>    默认80，打开浏览器，输入你的服务器ip<br>    一切顺利的话成功进入登陆页面（不顺利应该是php扩展的原因，再调试）：</p>
+<p>8.性能调整</p>
+<pre><code>admin用户登陆后页面上方会有警告提示，根据提示进行更改就好...</code></pre>
+<p>9.PHP<br>    vim /etc/php.ini<br>    [PHP]<br>    # 添加如下配置<br>    opcache.enable=1<br>    opcache.enable_cli=1<br>    opcache.interned_strings_buffer=8<br>    opcache.max_accelerated_files=10000<br>    opcache.memory_consumption=128<br>    opcache.save_comments=1<br>    opcache.revalidate_freq=1</p>
+<pre><code>upload_max_filesize = 10240M  #上传大小限制</code></pre>
+<p>10.缓存</p>
+<pre><code>yum install -y memcache
+vim /etc/sysconfig/memcached
+
+PORT=&quot;11211&quot;
+USER=&quot;memcached&quot;
+MAXCONN=&quot;1024&quot;
+CACHESIZE=&quot;2048&quot;
+OPTIONS=&quot;&quot;</code></pre>
+<p>11.nextcloud添加memcache缓存配置</p>
+<pre><code>vim /usr/share/nginx/html/config/config.php
+&#39;memcache.local&#39; =&gt; &#39;\OC\Memcache\APCu&#39;,
+  &#39;memcache.distributed&#39; =&gt; &#39;\OC\Memcache\Memcached&#39;,
+  &#39;memcached_servers&#39; =&gt; array(
+   array(&#39;localhost&#39;, 11211),
+    ),</code></pre>
+<p>12.重启<br>    systemctl restart memcached<br>    systemctl enable memcached</p>
+<p>说明：本文完全是参照大佬的文章，边做边写，边总结，里面也有一些小提示，不喜勿喷。原文地址：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/497a1f11e968">https://www.jianshu.com/p/497a1f11e968</a> </p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/08/22/Nextcloud%E4%B8%AA%E4%BA%BA%E4%BA%91%E7%9B%98%E6%90%AD%E5%BB%BA%E5%AE%8C%E6%95%B4%E8%BF%87%E7%A8%8B/" data-id="cke4j8nnb0008j4t90j7y66kb" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-linux用户和组的管理" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/08/22/linux%E7%94%A8%E6%88%B7%E5%92%8C%E7%BB%84%E7%9A%84%E7%AE%A1%E7%90%86/" class="article-date">
+  <time datetime="2020-08-21T17:53:22.408Z" itemprop="datePublished">2020-08-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/08/22/linux%E7%94%A8%E6%88%B7%E5%92%8C%E7%BB%84%E7%9A%84%E7%AE%A1%E7%90%86/">LINUX用户管理</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="环境："><a href="#环境：" class="headerlink" title="环境："></a>环境：</h3><pre><code>redhat7.6
+vmware workstation 15</code></pre>
+<h3 id="用户是什么？？"><a href="#用户是什么？？" class="headerlink" title="用户是什么？？"></a>用户是什么？？</h3><p>用户是使用机器的操作员，即对机器进行操作的角色</p>
+<h3 id="一、用户的分类"><a href="#一、用户的分类" class="headerlink" title="一、用户的分类"></a>一、用户的分类</h3><p>  1.普通用户</p>
+<pre><code>登录用户，权限有限，只能执行“/bin”下的命令，统一由root用户进行管理，分配</code></pre>
+<p>  2.超级管理员用户</p>
+<pre><code>在系统里面具有最高权限，uid=0,gid=0，可以执行所有操作</code></pre>
+<p>  3.系统用户</p>
+<pre><code>主要服务于应用，维护系统运行，不能登录
+常见的系统用户：
+bin:x:1:1:bin:/bin:/sbin/nologin
+daemon:x:2:2:daemon:/sbin:/sbin/nologin
+adm:x:3:4:adm:/var/adm:/sbin/nologin
+shutdown:x:6:0:shutdown:/sbin:/sbin/shutdown
+halt:x:7:0:halt:/sbin:/sbin/halt
+mail:x:8:12:mail:/var/spool/mail:/sbin/nologin
+uucp:x:10:14:uucp:/var/spool/uucp:/sbin/nologin
+operator:x:11:0:operator:/root:/sbin/nologin
+games:x:12:100:games:/usr/games:/sbin/nologin
+gopher:x:13:30:gopher:/var/gopher:/sbin/nologin
+ftp:x:14:50:FTP User:/var/ftp:/sbin/nologin
+nobody:x:99:99:Nobody:/:/sbin/nologin</code></pre>
+<p> 4.系统用户的功能</p>
+<pre><code>Linux系统的大部分权限和安全的管理依赖于对于文件权限（读、写、执行）的管理，而用户是能够获取系统资源的权限的集合，文件权限的拥有者为用户；当应用需要访问/操作/拥有系统的资源时，Linux就通过用户来控制/实现，这些用户就是系统用户。</code></pre>
+<p> 5.用户的管理与操作</p>
+<pre><code>useradd+[option] +user: ————用户的创建
+参数详解：
+    -c: 用户描述
+    -d: 指定用户家目录
+    -g: 指定用户的用户所属组，用gid表示，前提是gid必须存在
+    -s：指定shell 一般为： /bin/bash   不可登录设置为：／sbin/nologin  
+    -G: 指定用户所属附加组
+    ………………
+        想要了解更多参数请输入：man useradd
+
+usermod+[option]+user:————用户帐户修改
+参数详解：
+    -c：　修改用户帐号的备注文字。
+    -d：　修改用户家目录。
+    -e: 　修改帐号的有效期限。
+    -f: 　修改在密码过期后多少天即关闭该帐号。
+    -g: 　修改用户所属的群组。
+    -G: 　修改用户所属的附加群组。
+    -l: 　修改用户帐号名称。
+    -L:      使密码无效。
+    -s:   修改用户登入后所使用的shell。
+    -u: 　修改用户ID。
+    -U:      解除密码锁定。
+    ………………
+        想要了解更多参数请输入：man usermod
+
+userdel +[option]+ user: ————删除用户
+参数详解：
+    -r:  使用者目录下的档案一并删除，其他位置的档案也一并找出删除 
+注意：删除用户不带参数-r删除用户时，并不会删除用户家目录下的文档和所属用户组，所以不能再次创建同名的用户，和用户组
+
+    ………………
+        想要了解更多参数请输入：man userdel</code></pre>
+<p>6.为用户配置密码</p>
+<pre><code>方法一：
+    passwd + user
+    在提示下分别再次输入密码
+
+方法二:
+    echo redhat | passwd --stdin sanfu
+    配置成成功有提示,将sanfur的密码配置为redhat
+
+方法三：
+    echo sanfu redhat| chpasswd 
+    配置成功没有提示，将sanfu的密码配置为redhat</code></pre>
+<h3 id="二、用户组"><a href="#二、用户组" class="headerlink" title="二、用户组"></a>二、用户组</h3><h3 id="用户组是什么？？"><a href="#用户组是什么？？" class="headerlink" title="用户组是什么？？"></a>用户组是什么？？</h3><pre><code>linux系统以group来管理用户，用户和组的关系多对多，一人用户可以加入多个组，一个组也可以加入多个用户</code></pre>
+<h3 id="组的分类"><a href="#组的分类" class="headerlink" title="组的分类"></a>组的分类</h3><p>   1.主组</p>
+<pre><code>用户置默认的组，用户gid所标识的组，即用户创建时自动生成的组</code></pre>
+<p>  2.附属组</p>
+<pre><code>用户的附加组</code></pre>
+<p>  3.组的管理与操作</p>
+<pre><code>groupadd+[option]+group  ————创建用户组
+参数详解:
+    -g: 指定gid
+    -r:    创建系统工作组，系统工作组的id不得小于500
+    -o: 允许用不唯一的id号添加工作组
+
+groupmod+[option]+group    ————修改用户组
+参数详解：
+    -g:更改用户组的gid
+    -n:更改用户组的名称
+
+groupdel+[option]+group ————用户组的删除
+参数详解：
+    无</code></pre>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/08/22/linux%E7%94%A8%E6%88%B7%E5%92%8C%E7%BB%84%E7%9A%84%E7%AE%A1%E7%90%86/" data-id="cke4j8nnj000lj4t9el7i0gl5" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux-user/" rel="tag">linux/user</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-linux下配置交换分区" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/08/22/linux%E4%B8%8B%E9%85%8D%E7%BD%AE%E4%BA%A4%E6%8D%A2%E5%88%86%E5%8C%BA/" class="article-date">
+  <time datetime="2020-08-21T17:53:22.405Z" itemprop="datePublished">2020-08-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/08/22/linux%E4%B8%8B%E9%85%8D%E7%BD%AE%E4%BA%A4%E6%8D%A2%E5%88%86%E5%8C%BA/">linux交换分区管理</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="环境："><a href="#环境：" class="headerlink" title="环境："></a>环境：</h3><pre><code>vmware workstation 15
+redhat 7.6</code></pre>
+<h3 id="作用："><a href="#作用：" class="headerlink" title="作用："></a>作用：</h3><pre><code>类似于windows的虚拟内存，当系统内存不够时，拿出一部分的硬盘空间来当内存使用，从而解决内存不足的情况，它的功能就是在内存不够的情况下，操作系统先把内存中暂时不用的数据，存到硬盘的交换空间，腾出内存来让别的程序运行，和Windows的虚拟内存（pagefile.sys）的作用是一样的</code></pre>
+<h3 id="制作交换分区的方法"><a href="#制作交换分区的方法" class="headerlink" title="制作交换分区的方法"></a>制作交换分区的方法</h3><hr>
+<h5 id="方法一："><a href="#方法一：" class="headerlink" title="方法一："></a>方法一：</h5><pre><code>用空文件来做交换分区
+1.查看现在交换分区大小
+[root@localhost ~]# free -h       
+               total        used        free      shared  buff/cache   available
+Mem:           1.8G        508M        879M         10M        431M        1.1G
+Swap:          2.0G          0B        2.0G
+
+2. 创建一个空文件，做交换分区要用的
+[root@localhost ~]# dd if=/dev/zero of=/tmp/swap.file bs=1G count=1  
+1+0 records in
+1+0 records out
+1073741824 bytes (1.1 GB) copied, 13.1283 s, 81.8 MB/s
+
+3. 建立swap的文件系统
+[root@localhost ~]# mkswap /tmp/swap.file                             
+Setting up swapspace version 1, size = 1048572 KiB
+no label, UUID=72a276cb-280f-4af8-9702-e728ab16ab65
+
+4.启用swap文件
+[root@localhost ~]# swapon /tmp/swap.file                            
+swapon: /tmp/swap.file: insecure permissions 0644, 0600 suggested.
+
+5.挂载
+[root@localhost ~]# vim /etc/fstab
+添加一行内容：
+/tmp/swap.file          swap                    swap    defaults        0 0
+退出保存
+6.查看
+[root@localhost ~]# free -h
+              total        used        free      shared  buff/cache   available
+Mem:           1.8G        503M        1.0G         10M        250M        1.1G
+Swap:          3.0G        264K        3.0G
+
+结论：可以看到交换分区多了1G，扩展分区成功，如果不需要，卸载即可</code></pre>
+<h4 id="方法二："><a href="#方法二：" class="headerlink" title="方法二："></a>方法二：</h4><pre><code>用分区来做交换分区
+1.查看已知交换分区大小
+[root@localhost ~]# free -h
+              total        used        free      shared  buff/cache   available
+Mem:           1.8G        502M        1.0G         10M        264M        1.1G
+Swap:          3.0G        264K        3.0G
+2.创建一个分区来做交换分区
+[root@localhost ~]# fdisk /dev/sdb                        
+Welcome to fdisk (util-linux 2.23.2).
+
+Changes will remain in memory only, until you decide to write them.
+Be careful before using the write command.
+
+
+Command (m for help):  n                这里输入n新建分区
+Partition type:        
+   p   primary (1 primary, 0 extended, 3 free)
+   e   extended
+Select (default p):   p                  这里输入p新建主分区，输入e新建逻辑分区
+
+Partition number (2-4, default 2):       这里是分区编号，默认即可
+
+First sector (4196352-41943039, default 4196352):   起始扇区，如果没有特殊要求，默认即可
+Using default value 4196352
+Last sector, +sectors or +size&#123;K,M,G&#125; (4196352-41943039, default 41943039):      结束扇区,一般+&#123;K,M,G&#125;
+Partition 2 of type Linux and of size 2 GiB is set      我们这里分2G 
+Command (m for help): w                                    按w保存
+
+[root@localhost ~]# lsblk                                可以看到我们新创建的分区已经成功了，如果没有看到，用partparobe更新分区表
+NAME          MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT
+sda             8:0    0   40G  0 disk 
+├─sda1          8:1    0    1G  0 part /boot
+└─sda2          8:2    0   39G  0 part 
+  ├─rhel-root 253:0    0   37G  0 lvm  /
+  └─rhel-swap 253:1    0    2G  0 lvm  [SWAP]
+sdb             8:16   0   20G  0 disk 
+├─sdb1          8:17   0    2G  0 part /mnt/sdb
+└─sdb2          8:18   0    2G  0 part 
+sr0            11:0    1 1024M  0 rom  
+
+3.建立swap文件系统
+[root@localhost ~]# mkswap /dev/sdb2
+Setting up swapspace version 1, size = 2097148 KiB
+no label, UUID=5ee02ff1-b01b-4560-9544-b44bc1f620d9
+
+4.激活swap功能
+[root@localhost ~]# swapon /dev/sdb2
+
+5.挂载
+[root@localhost ~]# vim /etc/fstab
+添加一行内容：
+/dev/sdb2               swap                    swap    defaults        0 0
+按w保存退出
+
+[root@localhost ~]# lsblk                可以查看分区sdb2挂载的位置
+NAME          MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT
+sda             8:0    0   40G  0 disk 
+├─sda1          8:1    0    1G  0 part /boot
+└─sda2          8:2    0   39G  0 part 
+  ├─rhel-root 253:0    0   37G  0 lvm  /
+  └─rhel-swap 253:1    0    2G  0 lvm  [SWAP]
+sdb             8:16   0   20G  0 disk 
+├─sdb1          8:17   0    2G  0 part /mnt/sdb
+└─sdb2          8:18   0    2G  0 part [SWAP]
+sr0            11:0    1 1024M  0 rom  
+
+
+6.查看
+[root@localhost ~]# free -h
+              total        used        free      shared  buff/cache   available
+Mem:           1.8G        504M        990M         10M        323M        1.1G
+Swap:          5.0G        264K        5.0G
+这里可以看到交换分区扩展成功</code></pre>
+<h4 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h4><pre><code>1.交换分区的步骤有三步，建立文件系统——&gt;激活交换分区功能——&gt;挂载使用
+2.使用的命令有：
+    lsblk: 查看挂载表
+    free -h : 查看交换分区大小
+    mkswap : 建立交换分区的文件格式
+    swapon : 激活交换分区功能
+    swapon -s : 查看交换分区详细信息</code></pre>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/08/22/linux%E4%B8%8B%E9%85%8D%E7%BD%AE%E4%BA%A4%E6%8D%A2%E5%88%86%E5%8C%BA/" data-id="cke4j8nni000ij4t97vz2gslq" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux-storage/" rel="tag">linux/storage</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-linux下磁盘配额ext4&amp;xfs" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/08/22/linux%E4%B8%8B%E7%A3%81%E7%9B%98%E9%85%8D%E9%A2%9Dext4&xfs/" class="article-date">
+  <time datetime="2020-08-21T17:53:22.403Z" itemprop="datePublished">2020-08-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/08/22/linux%E4%B8%8B%E7%A3%81%E7%9B%98%E9%85%8D%E9%A2%9Dext4&xfs/">RHEL/CENTOS磁盘配额</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="环境："><a href="#环境：" class="headerlink" title="环境："></a>环境：</h3><pre><code>vmware workstation 15
+redhat 7.6/centos 7.6</code></pre>
+<h3 id="使用情景："><a href="#使用情景：" class="headerlink" title="使用情景："></a>使用情景：</h3><pre><code>配额是面向用户进行的磁盘空间管理工作，其目的是为了限制用户过多的使用磁盘资源，造成浪费，降低空间利用率</code></pre>
+<h3 id="一、ext4文件系统的配额方法"><a href="#一、ext4文件系统的配额方法" class="headerlink" title="一、ext4文件系统的配额方法"></a>一、ext4文件系统的配额方法</h3><pre><code>1.添加硬盘
+    在vmware workstation 的图形化界面中用鼠标添加一块新硬盘
+    重启，系统重新读盘
+ 2.分区 
+    fdisk /dev/sdb    /*我这是第一次添加一个硬盘，所以编号为sdb*/
+    Command (m for help): /*输入操作选项 新建分区输入n*/
+    Command action
+       a   toggle a bootable flag   设定硬盘启动区
+       b   edit bsd disklabel
+       c   toggle the dos compatibility flag
+       d   delete a partition        删除一个分区
+       g   create a new empty GPT partition table
+       G   create an IRIX (SGI) partition table
+       l   list known partition types  列出已知的分区类型，不常用的分区类型可以在这里找到
+       m   print this menu                                显示所有的列表
+       n   add a new partition                            新建一个分区
+       o   create a new empty DOS partition table   创建一个新的dos分区表
+       p   print the partition table               输出分区表
+       q   quit without saving changes      退出不保存
+       s   create a new empty Sun disklabel
+       t   change a partition&#39;s system id   更改分区类型
+       u   change display/entry units
+       v   verify the partition table        
+       w   write table to disk and exit 写入分区表，保存操作
+       x   extra functionality (experts only)
+
+
+        Partition type:
+           p   primary (1 primary, 0 extended, 3 free)        主分区
+           e   extended                                        扩展分区、
+        Select (default p):                                 这里输入p
+
+        Partition number (1-4, default 1):                     这里是分区编号，默认即可
+
+        First sector (2048-41943039, default 2048):         起始扇区，没有特殊要求默认即可
+
+        Using default value 2048                            从2048扇区开始
+        Last sector, +sectors or +size&#123;K,M,G&#125; (2048-41943039, default 41943039):     结束扇区，可以+&#123;K,M,G&#125;
+        Partition 1 of type Linux and of size 2 GiB is set    分区1，类型为linux主分区，大小是2G
+
+        分区创建成功！！
+
+3.格式化 
+    注意：所有的分区，逻辑卷，阵列，如果不进行格式化都不能进行挂载使用
+    mkfs.[type]+目录
+    例：mkfs.xfs /dev/sdb/sdb1
+4.挂载
+    注意：所有的分区，逻辑卷，阵列，如果不进行挂载就不能进行使用 
+    临时挂载：
+        mount  [目录] [挂载目录]
+        例：mount /dev/sdb/sdb1 /mnt
+    永久性挂载：
+        vim /etc/fstab    
+        内容：
+        添加一行：/dev/sdb/sdb1      /mnt/        iso9660        xfs        defaults  0 0
+
+5.更改权限
+     chmod 777 /mnt/            权限给到最大方便测试
+6.文件创建与扫描
+     quotacheck /mnt/
+7.激活配额点
+     quotaon  /mnt/
+8.对用户进行配额操作
+     edquota alex
+     编辑内容：
+        Disk quotas for user alex (uid 1001):
+          Filesystem                   blocks       soft       hard     inodes     soft     hard
+          /dev/sdb1                       352        300        400          1        0        0
+     参数详解：
+        blocks     块大小限制
+        inodes    文件个数限制
+        soft    软限制    
+        hard    硬限制
+
+9.验证
+    dd if=/dev/zero of=/mnt/1.test    bs=1k  count=401
+    提示：
+        [alex@localhost mnt]$ dd if=/dev/zero of=/mnt/1.test bs=1k count=401  测试写入401k
+        sdb1: warning, user block quota exceeded.
+        sdb1: write failed, user block limit reached.
+        dd: error writing ‘/mnt/1.test’: Disk quota exceeded    错误，超限,证明硬限制生效
+        401+0 records in
+        400+0 records out
+        409600 bytes (410 kB) copied, 0.00162328 s, 252 MB/s</code></pre>
+<h3 id="二、xfs文件系统的磁盘配额"><a href="#二、xfs文件系统的磁盘配额" class="headerlink" title="二、xfs文件系统的磁盘配额"></a>二、xfs文件系统的磁盘配额</h3><pre><code> 1.添加硬盘 
+    在vmware workstation    图形化界面中用鼠标添加一块新硬盘
+
+ 2.分区
+    对新添加的硬盘进行分区
+    fdisk /dev/sdb   选择新添加的硬盘进行分区操作
+    Command (m for help):             这里输入进行分区的操作，我们输入n,添加一个新分区 
+    Partition type:                    分区类型
+       p   primary (0 primary, 0 extended, 4 free) 主分区
+        e   extended                                     扩展分区
+    Select (default p):             这里我们输入p,默认输入p
+    Partition number (1-4, default 1):这里是分区编号，默认为1，最多只能创建4个主分区
+    First sector (2048-41943039, default 2048):       这里是起始扇区，如果没有特殊要求默认即可
+Using default value 2048
+    Last sector, +sectors or +size&#123;K,M,G&#125; (2048-41943039, default 41943039): 这里是结束扇区，可+&#123;K,M,G&#125;，根据需要输入
+    Partition 1 of type Linux and of size 2 GiB is set     分区1，类型为linux主分区，大小为2G
+    Command (m for help): p      输出所有的分区
+    Command (m for help): w   最后输入w保存退出
+
+ 3.格式化
+    注意：所有的设备，分区，阵列，逻辑卷，只有在格式化之后才可以被挂载
+    mkfs.xfs /dev/sdb1
+    lsblk -f            可查看是否格式化成功
+ 4.挂载
+    注意:所有的设备，分区，阵列，逻辑卷，只有在挂载后才能正常使用
+    临时挂载：
+        mount /dev/sdb1  /mnt/sdb   将dev下的设备sdb1挂载到/mnt/sdb
+    永久挂载
+        vim /etc/fstab   编辑挂载表文件
+        内容:
+        添加一行: 
+            /dev/sdb1  /mnt/sdb  xfs   defaults,usrquota      0 0
+        mount -a 重读分区表
+        mount 查看挂载是否成功
+        /dev/sdb1 on /mnt/sdb type xfs (rw,relatime,seclabel,attr2,inode64,usrquota)   确保挂载选项有usrquota
+
+  5.更改权限
+    chmod 777 /mnt/sdb  将权限开到最大，方便测试，在实际环境中，只要保证配额用户有写入权限
+  6.设置配额
+    xfs_quota -x -c &quot;limit bsoft=300k bhard=400k alex&quot; /mnt/sdb
+    注意：这里配置成功是没有提示的，需要用户自行测试
+  7.测试
+    切换用户alex
+    su - alex
+
+    测试1写入425k 
+    dd if=/dev/zero of=/mnt/sdb/1.txt bs=1k count=425
+    dd: error writing ‘/mnt/sdb/1.txt’: Disk quota exceeded
+    401+0 records in
+    400+0 records out
+    409600 bytes (410 kB) copied, 0.00254558 s, 161 MB/s
+
+    最终成功写入400k，证明硬限制400K生效
+    total 400K
+    -rw-rw-r--. 1 alex alex 400K Jun 12 07:16 1.txt
+
+    测试2写入350k
+    如果已经做了测试1，要把测试1生成的1.txt删除
+        rm -rf 1.txt
+
+    dd if=/dev/zero of=/mnt/sdb/2.txt bs=1k count=350   测试写入350k
+    350+0 records in
+    350+0 records out
+    358400 bytes (358 kB) copied, 0.00110362 s, 325 MB/s
+
+    ll -h 
+    /mnt/total 352K
+    -rw-rw-r--. 1 alex alex 350K Jun 12 07:23 2.txt   成功写入350k，但是没有报警，软限制没有生效</code></pre>
+<h3 id="三、总结"><a href="#三、总结" class="headerlink" title="三、总结"></a>三、总结</h3><pre><code>1.两种文件系统的配额方法不一样
+2.ext4文件系统的步骤为：
+ 准备：分区，格式化，挂载
+ 文件创建扫描
+ 激活配额挂载点
+ 编辑配额文件
+ 写入测试
+3.xfs文件系统的步骤为：
+ 准备：分区，格式化，挂载
+ 设置配额
+ 写入文件测试
+4.分区，阵列，逻辑卷都可以做配额
+5.针对用户做配额，在挂载选项里写defaults,usrquota,用mount查看挂载usrquota功能是否成功
+6.针对组做配额也可以，步骤大同小异
+7.学习linux，一定要有自学能力，如果你认为自己的自学能力很强，那请你再加强，如果你认为自学能力不强，那就赶紧培养，linux老师，是教不完的，是学不完的，学无止境</code></pre>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/08/22/linux%E4%B8%8B%E7%A3%81%E7%9B%98%E9%85%8D%E9%A2%9Dext4&xfs/" data-id="cke4j8nnf000ej4t9cdqq0upp" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux-storage/" rel="tag">linux/storage</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-ISCSI服务器基本搭建" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/08/22/ISCSI%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%9F%BA%E6%9C%AC%E6%90%AD%E5%BB%BA/" class="article-date">
+  <time datetime="2020-08-21T17:53:22.401Z" itemprop="datePublished">2020-08-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/08/22/ISCSI%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%9F%BA%E6%9C%AC%E6%90%AD%E5%BB%BA/">ISCS服务器基本搭建</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="环境："><a href="#环境：" class="headerlink" title="环境："></a>环境：</h3><pre><code>rhel 7.6 
+vmware workstation 15</code></pre>
+<h3 id="一、准备工作"><a href="#一、准备工作" class="headerlink" title="一、准备工作"></a>一、准备工作</h3><pre><code>1.配置静态IP地址
+ （1）方法一：
+    ifconfig ens33 10.10.128.100     //我这里用的是10.10.128.0网段
+ （2）方法二：
+    vim /etc/sysconfig/network-scripts/ifcfg-ens33
+    内容：
+        TYPE=Ethernet
+        BOOTPROTO=static
+        DEFROUTE=yes
+        NAME=ens33
+        DEVICE=ens33
+        ONBOOT=yes
+        IPADDR=10.10.128.100
+        NETMASK=255.255.255.0
+
+
+2.搭建本地yum仓库
+ （1）挂载光盘
+    vim /etc/fstab
+    内容：
+    添加一行：
+    /dev/sr0           /mnt/cdrom           iso9660 defaults        0 0
+
+ （2）创建挂载目录
+    mkdir /mnt/cdrom 
+ （3）重读挂载表
+    mount -a
+ （4）编辑仓库文件
+    vim /etc/yum.repos.d/a.repo        //a.repo为仓库名，
+     内容：
+    [a]
+    name=a
+    gpgcheck=0
+    enabled=1
+    baseurl=file:///mnt/cdrom
+
+ （5）列出仓库资源
+    yum repolist        //这里可以看到仓库是否创建成功，如果不成功就要排错
+
+3.安装组件
+ （1）安装iscsi组件
+    yum install -y targetcli
+ （2）查看是否安装成功
+    rpm -qa targetcli
+4.配置iscsi
+ （1）添加一块新硬盘作共享盘        //在vmware station中添加
+ （2）重启
+    reboot
+ （3）配置target
+    targetcli
+
+    进入这样的界面：
+    targetcli shell version 2.1.fb46
+    Copyright 2011-2013 by Datera, Inc and others.
+    For help on commands, type &#39;help&#39;.
+
+    /&gt; 
+
+ （4）创建block关联
+    /&gt; backstores/block create zlf.server /dev/sdb                //这条命令是创建共享名，关联刚刚添加的新硬盘sdb
+    Created block storage object zlf.server using /dev/sdb.        //这是提示创建成功
+ （5）查看
+    ls
+    结果：
+    /&gt; ls
+    o- / ................................................................................................................. [...]
+      o- backstores ...................................................................................................... [...]
+      | o- block .......................................................................................... [Storage Objects: 1]
+      | | o- zlf.server ............................................................ [/dev/sdb (20.0GiB) write-thru deactivated]        //这里可以看到刚刚添加的关联
+      | |   o- alua ........................................................................................... [ALUA Groups: 1]
+      | |     o- default_tg_pt_gp ............................................................... [ALUA state: Active/optimized]
+      | o- fileio ......................................................................................... [Storage Objects: 0]
+      | o- pscsi .......................................................................................... [Storage Objects: 0]
+      | o- ramdisk ........................................................................................ [Storage Objects: 0]
+      o- iscsi .................................................................................................... [Targets: 0]
+      o- loopback ................................................................................................. [Targets: 0]
+    /&gt; 
+
+ （6）创建target
+    /&gt; iscsi/ create  iqn.2019-07.com.example:server            //在iscsi下创建 iqn.2019-07.com.example:server 
+    Created target iqn.2019-07.com.example:server.
+    Created TPG 1.
+    Global pref auto_add_default_portal=true
+    Created default portal listening on all IPs (0.0.0.0), port 3260.        //创建成功
+ （7）创建访问控制
+    /&gt; iscsi/iqn.2019-07.com.example:server/tpg1/acls create iqn.2019-07.com.example:server                //这条命令是创建访问控制
+    Created Node ACL for iqn.2019-07.com.example:server                                                    //提示成功
+
+ （8）删除默认的允许访问列表
+    /&gt; iscsi/iqn.2019-07.com.example:server/tpg1/portals/ delete 0.0.0.0 3260                             //删除0.0.0.0 3260 默认的访问列表和端口
+    Deleted network portal 0.0.0.0:3260
+
+ （9）创建新的访问列表
+    /&gt; iscsi/iqn.2019-07.com.example:server/tpg1/portals  create 10.10.128.0 3260                        //开放给10.10.128.0这个网段访问
+    Using default IP port 3260
+    Created network portal 10.10.128.0:3260.
+
+ （10）查看
+    /&gt; ls
+    o- / ................................................................................................................. [...]
+      o- backstores ...................................................................................................... [...]
+      | o- block .......................................................................................... [Storage Objects: 1]
+      | | o- zlf.server ............................................................ [/dev/sdb (20.0GiB) write-thru deactivated]        //看到我们关联的硬盘
+      | |   o- alua ........................................................................................... [ALUA Groups: 1]
+      | |     o- default_tg_pt_gp ............................................................... [ALUA state: Active/optimized]
+      | o- fileio ......................................................................................... [Storage Objects: 0]
+      | o- pscsi .......................................................................................... [Storage Objects: 0]
+      | o- ramdisk ........................................................................................ [Storage Objects: 0]
+      o- iscsi .................................................................................................... [Targets: 1]
+      | o- iqn.2019-07.com.example:server ............................................................................ [TPGs: 1]        //看到我们创建的target
+      |   o- tpg1 ....................................................................................... [no-gen-acls, no-auth]
+      |     o- acls .................................................................................................. [ACLs: 1]
+      |     | o- iqn.2019-07.com.example:server ............................................................... [Mapped LUNs: 0]        //允许访问的target
+      |     o- luns .................................................................................................. [LUNs: 0]
+      |     o- portals ............................................................................................ [Portals: 1]
+      |       o- 10.10.128.0:3260 ......................................................................................... [OK]        //写的访问地址
+      o- loopback ................................................................................................. [Targets: 0]
+    /&gt; 
+
+ （11）保存、退出
+    /&gt; saveconfig
+    Configuration saved to /etc/target/saveconfig.json
+    /&gt; exit
+    Global pref auto_save_on_exit=true
+    Last 10 configs saved in /etc/target/backup/.
+    Configuration saved to /etc/target/saveconfig.json
+    [root@localhost ~]#                         //看到这里就退出成功了
+
+
+5.直接用windows访问
+ （1）打开iscsi发起程序
+ （2）更改配置名为 iqn.2019-07.com.example:server 
+ （3）输入目标ip ：10.10.128.100
+ （4）快速连接
+
+6.配置client端</code></pre>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/08/22/ISCSI%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%9F%BA%E6%9C%AC%E6%90%AD%E5%BB%BA/" data-id="cke4j8nn50003j4t99rmg7asy" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux-storage/" rel="tag">linux/storage</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-DNS主从服务器配置" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/08/22/DNS%E4%B8%BB%E4%BB%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%85%8D%E7%BD%AE/" class="article-date">
+  <time datetime="2020-08-21T17:53:22.399Z" itemprop="datePublished">2020-08-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/08/22/DNS%E4%B8%BB%E4%BB%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%85%8D%E7%BD%AE/">DNS主/从服务器基本配置</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="环境："><a href="#环境：" class="headerlink" title="环境："></a>环境：</h3><pre><code>redhat 7.6 *2 
+vmwware workstation 15pro</code></pre>
+<h2 id="一、搭建DNS主服务器"><a href="#一、搭建DNS主服务器" class="headerlink" title="一、搭建DNS主服务器"></a>一、搭建DNS主服务器</h2><h3 id="准备工作："><a href="#准备工作：" class="headerlink" title="准备工作："></a>准备工作：</h3><pre><code>（1)开启一台虚拟机
+（2)配置网络、静态IP</code></pre>
+<h3 id="1-搭建yum仓库"><a href="#1-搭建yum仓库" class="headerlink" title="1. 搭建yum仓库"></a>1. 搭建yum仓库</h3><pre><code>（1).挂载光盘
+    vim /etc/fstab
+    添加一行：
+    /dev/sr0        /mnt/cdrom        iso9660        defaults    0 0
+（2).配置yum仓库文件
+    vim /etc/yum.repo.d/a.repo
+    内容：
+    [a]
+    name=a
+    gpgcheck=0
+    enabled=1
+    baseurl=file:///mnt/cdrom    
+（3).检测仓库
+    yum repolist
+    以下为配置成功的界面</code></pre>
+<hr>
+<pre><code>    repo id         repo name                                status
+    !a                 a                                      5,152</code></pre>
+<hr>
+<h3 id="2-安装程序包"><a href="#2-安装程序包" class="headerlink" title="2.安装程序包"></a>2.安装程序包</h3><pre><code>yum install -y bind*</code></pre>
+<h3 id="3-编辑主配置文件"><a href="#3-编辑主配置文件" class="headerlink" title="3.编辑主配置文件"></a>3.编辑主配置文件</h3><pre><code>vim /etc/named.conf
+主配置文件如下：
+options &#123;
+    listen-on port 53 &#123; 192.168.35.1; &#125;;    //修改为监听的端口和主机
+    listen-on-v6 port 53 &#123; ::1; &#125;;
+    directory       &quot;/var/named&quot;;
+    dump-file       &quot;/var/named/data/cache_dump.db&quot;;
+    statistics-file &quot;/var/named/data/named_stats.txt&quot;;
+    memstatistics-file &quot;/var/named/data/named_mem_stats.txt&quot;;
+    recursing-file  &quot;/var/named/data/named.recursing&quot;;
+    secroots-file   &quot;/var/named/data/named.secroots&quot;;
+    allow-query     &#123; any; &#125;;            //配置访问控制
+    allow-transfer &#123; 192.168.35.2; &#125;;    //设置为从服务器的IP
+
+&#125;;
+
+logging &#123;
+        channel default_debug &#123;
+                file &quot;data/named.run&quot;;
+                severity dynamic;
+        &#125;;
+&#125;;</code></pre>
+<hr>
+<pre><code>zone&quot;zlf.com&quot; IN &#123;                    //此处为zlf.com的正向解析文件
+        type master;                //类型为master
+        file &quot;zlf.zone&quot;;            //解析文件存储在/var/named/目录下
+&#125;;</code></pre>
+<hr>
+<hr>
+<pre><code>zone &quot;35.168.192.in-addr.arpa&quot; IN &#123;        //此处为反向解析文件
+        type master;                    //类型为master
+        file &quot;rezlf.zone&quot;;                //反向解析文件存储在/var/named/目录下
+&#125;;</code></pre>
+<hr>
+<h3 id="4-创建正向解析文件"><a href="#4-创建正向解析文件" class="headerlink" title="4.创建正向解析文件"></a>4.创建正向解析文件</h3><pre><code>cd /var/named
+cp named.localhost  zlf.zone    //将模板文件复制为正向解析文件,这个正向解析文件名对应主配置文件里的正向解析文件名，如果文件名打错，则会无法解析
+vim /var/named.zlf.zone
+内容：
+$TTL 1D
+    @       IN SOA  www.zlf.com.     www.zlf.com. (
+                                            0       ; serial
+                                            1D      ; refresh
+                                            1H      ; retry
+                                            1W      ; expire
+                                            3H )    ; minimum
+             NS      www.zlf.com.
+    www     A       192.168.35.1</code></pre>
+<h3 id="5-创建反向解析文件"><a href="#5-创建反向解析文件" class="headerlink" title="5.创建反向解析文件"></a>5.创建反向解析文件</h3><pre><code>cd /var/named
+cp named.localhost rezlf.zone
+内容：
+$TTL 1D
+@       IN SOA  www.zlf.com. www.zlf.com. (
+                                        0       ; serial
+                                        1D      ; refresh
+                                        1H      ; retry
+                                        1W      ; expire
+                                        3H )    ; minimum
+        NS      www.zlf.com.
+1       PTR     www.zlf.com.</code></pre>
+<h3 id="6-重启服务"><a href="#6-重启服务" class="headerlink" title="6.重启服务"></a>6.重启服务</h3><pre><code>systemctl restart named</code></pre>
+<h3 id="7-测试"><a href="#7-测试" class="headerlink" title="7.测试"></a>7.测试</h3><pre><code>nslookup www.zlf.com
+dig -t xafr zlf.com           </code></pre>
+<h2 id="一、搭建DNS从服务器"><a href="#一、搭建DNS从服务器" class="headerlink" title="一、搭建DNS从服务器"></a>一、搭建DNS从服务器</h2><h3 id="准备工件"><a href="#准备工件" class="headerlink" title="准备工件"></a>准备工件</h3><pre><code>（1)开启另外一台服务器    
+（2)iP地址配置为和主服务器同一网段</code></pre>
+<h3 id="1-搭建Yum仓库"><a href="#1-搭建Yum仓库" class="headerlink" title="1.搭建Yum仓库"></a>1.搭建Yum仓库</h3><pre><code>（1).挂载光盘
+    vim /etc/fstab
+    添加一行：
+    /dev/sr0        /mnt/cdrom        iso9660        defaults    0 0
+（2).配置yum仓库文件
+    vim /etc/yum.repo.d/a.repo
+    内容：
+    [a]
+    name=a
+    gpgcheck=0
+    enabled=1
+    baseurl=file:///mnt/cdrom    
+（3).检测仓库
+    yum repolist
+    以下为配置成功的界面</code></pre>
+<hr>
+<pre><code>    repo id         repo name                                status
+    !a                 a                                      5,152</code></pre>
+<hr>
+<h3 id="2-安装软件包"><a href="#2-安装软件包" class="headerlink" title="2.安装软件包"></a>2.安装软件包</h3><pre><code>yum install -y bind*</code></pre>
+<h3 id="3-编辑主配置文件-1"><a href="#3-编辑主配置文件-1" class="headerlink" title="3.编辑主配置文件"></a>3.编辑主配置文件</h3><pre><code>vim /etc/    
+内容：
+options &#123;
+    listen-on port 53 &#123; 192.168.35.2; &#125;;        //设置监听端口
+    listen-on-v6 port 53 &#123; ::1; &#125;;
+    directory       &quot;/var/named&quot;;
+    dump-file       &quot;/var/named/data/cache_dump.db&quot;;
+    statistics-file &quot;/var/named/data/named_stats.txt&quot;;
+    memstatistics-file &quot;/var/named/data/named_mem_stats.txt&quot;;
+    recursing-file  &quot;/var/named/data/named.recursing&quot;;
+    secroots-file   &quot;/var/named/data/named.secroots&quot;;
+    allow-query     &#123; any; &#125;;                    //所有有可访问，这里可以是网段也可以是IP
+
+&#125;;
+
+logging &#123;
+        channel default_debug &#123;
+                file &quot;data/named.run&quot;;
+                severity dynamic;
+        &#125;;
+&#125;;
+zone &quot;zlf.com&quot; IN &#123;                        //正向解析文件
+        type slave;                        //类型为slave
+        file &quot;slaves/zlf.zone&quot;;            
+        masters &#123;192.168.35.1; &#125;;        //定义一个masters 为主服务器的ip地址
+&#125;;
+zone &quot;35.168.192.in-addr.arpa&quot; IN &#123;        //反向解析文件
+        type slave;                        //类型为slave
+        file &quot;slaves/rezlf.zone&quot;;        
+        masters &#123; 192.168.35.1; &#125;;        //定义一个masters 为主服务器的ip地址
+&#125;;</code></pre>
+<h3 id="4-配置网络"><a href="#4-配置网络" class="headerlink" title="4.配置网络"></a>4.配置网络</h3><pre><code>（1)开启一台虚拟机
+    vim /etc/sysconfig/network-scripts/ifcfg-ens33
+    内容：
+    TYPE=Ethernet
+    BOOTPROTO=static
+    DEFROUTE=yes
+    NAME=ens33
+    DEVICE=ens33
+    ONBOOT=yes
+    IPADDR=192.168.35.2
+    NETMASK=255.255.255.0
+    DNS1=192.168.35.2     //将DNS设置为从服务器的地址，稍后直观的可以看出从服务器是否正常工作
+
+（2)重启网络
+    systemctl restart network</code></pre>
+<h3 id="5-重启DNS服务"><a href="#5-重启DNS服务" class="headerlink" title="5.重启DNS服务"></a>5.重启DNS服务</h3><pre><code>    systemctl restart named</code></pre>
+<h3 id="6-测试"><a href="#6-测试" class="headerlink" title="6.测试"></a>6.测试</h3><pre><code>nslookup www.zlf.com
+dig -t arxf zlf.com</code></pre>
+<h3 id="结语："><a href="#结语：" class="headerlink" title="结语："></a>结语：</h3><pre><code>做到这里主从dns服务器就已经搭建完成了，这里有几个要注意的地方
+主服务器：
+    1、需要修改一个文件，创建两个文件,分别为/etc/named.conf  /var/named/正向解析文件  /var/named/反向解析文件
+    2、在optons中要添加一行
+        allow-transfer= &#123; 192.168.35.1&#125;;
+    3、
+从服务器:
+    1、只需要修改一个主配置文件 
+    2、需要和主服务器设置为同一网段
+    3、type  =slave
+    4、masters = &#123;192.168.35.1&#125;; 
+    5、file = &quot;slaves/zlf.zone &quot;          </code></pre>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/08/22/DNS%E4%B8%BB%E4%BB%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%85%8D%E7%BD%AE/" data-id="cke4j8nn10001j4t9f98e7awm" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux-server/" rel="tag">linux/server</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-DNS服务器的基本搭建" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/08/22/DNS%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%90%AD%E5%BB%BA/" class="article-date">
+  <time datetime="2020-08-21T17:53:22.382Z" itemprop="datePublished">2020-08-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/08/22/DNS%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%90%AD%E5%BB%BA/">DNS服务器基本搭建</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="一、配置服务器网络"><a href="#一、配置服务器网络" class="headerlink" title="一、配置服务器网络"></a>一、配置服务器网络</h3><pre><code>注意：DNS服务器要有必须要有一个静态的ip地址
+
+（1）编写网卡主配置文件
+    vim /etc/sysconfig/network-scripts/ifcfg-ens33 
+内容：
+    TYPE=Ethernet
+    BOOTPROTO=static
+    DEFROUTE=yes
+    IPV4_FAILURE_FATAL=no
+    NAME=ens33
+    UUID=7fac3a10-de6b-42c6-9175-cef32343c69b
+    DEVICE=ens33
+    ONBOOT=yes
+    IPADDR=192.168.35.1
+    NETMASK=255.255.255.0
+    DNS1=192.168.35.1            //指定为服务器
+
+（2）重启网络服务    
+    systemctl restart network   //重启网络服务
+
+（3）查看网卡配置文件是否生效
+    ifconfig         //查看网络配置</code></pre>
+<h3 id="二、搭建yum仓库"><a href="#二、搭建yum仓库" class="headerlink" title="二、搭建yum仓库"></a>二、搭建yum仓库</h3><pre><code>（1）挂载光盘
+    vim /etc/fstab
+内容：
+添加一行：
+    /dev/sr0        /mnt/cdrom        iso9660        defaults    0 0
+
+（2）创建挂载点
+    mkdir /mnt/cdrom
+
+（3）刷新挂载表
+    mount -a
+
+（4）查看
+    lsblk 
+
+（5）编辑仓库文件
+    vim /etc/yum.repo.d/a.repo
+内容：
+    [a]
+    name=a
+    gpgcheck=0
+    enabled=1
+    baseurl=file:///mnt/cdrom
+
+（6）查看仓库资源
+    yum repolist</code></pre>
+<h3 id="三、安装软件包"><a href="#三、安装软件包" class="headerlink" title="三、安装软件包"></a>三、安装软件包</h3><pre><code>    yum install -y bind*</code></pre>
+<h3 id="四、编辑主配置文件"><a href="#四、编辑主配置文件" class="headerlink" title="四、编辑主配置文件"></a>四、编辑主配置文件</h3><pre><code>    vim /etc/named.conf
+内容：
+    options &#123;
+    listen-on port 53 &#123; 192.168.35.1; &#125;;            //监听端口53，后面接本机Ip
+    listen-on-v6 port 53 &#123; ::1; &#125;;
+    directory       &quot;/var/named&quot;;
+    dump-file       &quot;/var/named/data/cache_dump.db&quot;;
+    statistics-file &quot;/var/named/data/named_stats.txt&quot;;
+    memstatistics-file &quot;/var/named/data/named_mem_stats.txt&quot;;
+    allow-query     &#123; any; &#125;;                    //所有人可访问
+    &#125;;
+    zone &quot;.&quot; IN &#123;
+            type hint;
+            file &quot;named.ca&quot;;
+    &#125;;
+    zone &quot;zlf.com&quot;IN &#123;                             //正向解析域 
+            type master;
+            file &quot;zlf.com.zone&quot;;                //正向解析文件
+    &#125;;
+
+    zone &quot;35.168.192.in-addr.arpa&quot; IN &#123;            /反向解析域 
+            type master;
+            file &quot;zlffx.com.zone&quot;;                //反向解析文件
+
+    &#125;;</code></pre>
+<h3 id="五、创建正向解析文件"><a href="#五、创建正向解析文件" class="headerlink" title="五、创建正向解析文件"></a>五、创建正向解析文件</h3><pre><code>（1）切换到解析文件存放目录下
+cd /var/named/
+（2）复制模板文件作为解析文件
+cp named.locahost zlf.com.zone            //复制为模板文件作为正向解析文件
+vim /var/named/zlf.com.zone                //编辑正向解析文件
+内容：
+    TL 1D
+    @       IN SOA  @ www.zlf.com. (
+                                            0       ; serial
+                                            1D      ; refresh
+                                            1H      ; retry
+                                            1W      ; expire
+                                            3H )    ; minimum
+            NS      www.zlf.com.
+    www     A       192.168.35.1
+    ftp     A       192.168.35.2</code></pre>
+<h3 id="六、创建反向解析文件"><a href="#六、创建反向解析文件" class="headerlink" title="六、创建反向解析文件"></a>六、创建反向解析文件</h3><pre><code>cd /var/named/
+cp named.localhost  zlffx.com.zone
+vim /var/named/zlffx.com.zone
+内容：
+$TTL 1D
+@       IN SOA  @ www.zlf.com. (
+                                        0       ; serial
+                                        1D      ; refresh
+                                        1H      ; retry
+                                        1W      ; expire
+                                        3H )    ; minimum
+        NS      www.zlf.com.
+1       PTR     www.zlf.com.
+2       PTR     ftp.zlf.com.</code></pre>
+<h3 id="七、重启服务"><a href="#七、重启服务" class="headerlink" title="七、重启服务"></a>七、重启服务</h3><pre><code>systemctl restart named</code></pre>
+<h3 id="八、测试"><a href="#八、测试" class="headerlink" title="八、测试"></a>八、测试</h3><pre><code>nslookup
+&gt;www.zlf.com
+&gt;</code></pre>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/08/22/DNS%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%90%AD%E5%BB%BA/" data-id="cke4j8nmu0000j4t9cv9obbap" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux-server/" rel="tag">linux/server</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/08/22/hello-world/" class="article-date">
+  <time datetime="2020-08-21T17:30:39.000Z" itemprop="datePublished">2020-08-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/08/22/hello-world/">Hello World</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/08/22/hello-world/" data-id="cke4inws30000b0t92dr588y0" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/internet/" rel="tag">internet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux-network/" rel="tag">linux/network</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux-network-storage/" rel="tag">linux/network storage</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux-server/" rel="tag">linux/server</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux-storage/" rel="tag">linux/storage</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux-user/" rel="tag">linux/user</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/network/" rel="tag">network</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/windows/" rel="tag">windows</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/internet/" style="font-size: 13.33px;">internet</a> <a href="/tags/linux-network/" style="font-size: 10px;">linux/network</a> <a href="/tags/linux-network-storage/" style="font-size: 10px;">linux/network storage</a> <a href="/tags/linux-server/" style="font-size: 20px;">linux/server</a> <a href="/tags/linux-storage/" style="font-size: 16.67px;">linux/storage</a> <a href="/tags/linux-user/" style="font-size: 10px;">linux/user</a> <a href="/tags/network/" style="font-size: 10px;">network</a> <a href="/tags/windows/" style="font-size: 10px;">windows</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/08/22/%E7%BD%91%E5%8D%A1%E9%93%BE%E8%B7%AF%E8%81%9A%E5%90%88/">网卡链路聚合</a>
+          </li>
+        
+          <li>
+            <a href="/2020/08/22/%E4%BA%A4%E6%8D%A2%E6%9C%BA%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/">交换机的工作原理</a>
+          </li>
+        
+          <li>
+            <a href="/2020/08/22/%E7%A3%81%E7%9B%98%E7%9A%84%E6%8C%82%E8%BD%BD%E4%B8%8E%E4%BD%BF%E7%94%A8/">linux下设备的挂载与使用</a>
+          </li>
+        
+          <li>
+            <a href="/2020/08/22/windows%E5%B9%B3%E5%8F%B0%E4%B8%8B%E8%AE%BE%E7%BD%AE%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB/">windows下设置文件共享</a>
+          </li>
+        
+          <li>
+            <a href="/2020/08/22/VLAN%E6%8A%80%E6%9C%AF%E7%9A%84%E5%8E%9F%E7%90%86/">VLAN技术的原理</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

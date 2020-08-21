@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>STP生成树协议 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="stp协议的背景为了解决单点故障的问题，提出冗余的概念，但是又产生了新的问题————环路 表现形式为： （1）MAC地址表抖动 （2）多帧复制 （3）广播风暴 stp (spanning-tree pro) 生成树协议先了解几个概念：Brige ID: 简称BID 即网桥ID ，网桥ID代表在当前环境下的唯一一台交换机     组成：     （1）优先级，代表一个交换机的优先程度，越小越优先）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="STP生成树协议">
+<meta property="og:url" content="http://yoursite.com/2020/08/22/STP%E7%94%9F%E6%88%90%E6%A0%91%E5%8D%8F%E8%AE%AE/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="stp协议的背景为了解决单点故障的问题，提出冗余的概念，但是又产生了新的问题————环路 表现形式为： （1）MAC地址表抖动 （2）多帧复制 （3）广播风暴 stp (spanning-tree pro) 生成树协议先了解几个概念：Brige ID: 简称BID 即网桥ID ，网桥ID代表在当前环境下的唯一一台交换机     组成：     （1）优先级，代表一个交换机的优先程度，越小越优先）">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i.imgur.com/6573T6U.png">
+<meta property="og:image" content="https://i.imgur.com/zBi728g.png">
+<meta property="og:image" content="https://i.imgur.com/UNYJqOB.png">
+<meta property="og:image" content="https://i.imgur.com/7eyanqH.png">
+<meta property="article:published_time" content="2020-08-21T17:53:22.424Z">
+<meta property="article:modified_time" content="2019-09-06T12:53:46.542Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="internet">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/6573T6U.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 5.0.2"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-STP生成树协议" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/08/22/STP%E7%94%9F%E6%88%90%E6%A0%91%E5%8D%8F%E8%AE%AE/" class="article-date">
+  <time datetime="2020-08-21T17:53:22.424Z" itemprop="datePublished">2020-08-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      STP生成树协议
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="stp协议的背景"><a href="#stp协议的背景" class="headerlink" title="stp协议的背景"></a>stp协议的背景</h3><pre><code>为了解决单点故障的问题，提出冗余的概念，但是又产生了新的问题————环路
+表现形式为：
+（1）MAC地址表抖动
+（2）多帧复制
+（3）广播风暴</code></pre>
+<h3 id="stp-spanning-tree-pro-生成树协议"><a href="#stp-spanning-tree-pro-生成树协议" class="headerlink" title="stp (spanning-tree pro) 生成树协议"></a>stp (spanning-tree pro) 生成树协议</h3><h4 id="先了解几个概念："><a href="#先了解几个概念：" class="headerlink" title="先了解几个概念："></a>先了解几个概念：</h4><pre><code>Brige ID: 简称BID 即网桥ID ，网桥ID代表在当前环境下的唯一一台交换机
+    组成：
+    （1）优先级，代表一个交换机的优先程度，越小越优先）
+    （2）MAC地址，交换机每个端口下都有一张网卡，值最小的mac，代表交换机mac
+
+Port ID：简称PID 即端口ID，用来表示交换机的唯一一个端口
+    组成：
+    （1）端口号
+    （2）MAC地址
+
+开销：衡量一根链路上传递数据花费的代价
+    HUAWEI官方参考数值
+    10M带宽            开销 20万
+    100M带宽            开销 2万
+    1000M带宽        开销 2000</code></pre>
+<h4 id="STP的工作原理"><a href="#STP的工作原理" class="headerlink" title="STP的工作原理"></a>STP的工作原理</h4><pre><code>第一步：选举根网桥
+    Root:控制整个网络的稳定
+    选举：
+        比较BID值的大小
+        （1）比较优先级，值越小越优先，
+        （2）若是优先级相同，则比较BID的另一部分，mac地址，取小的为根网桥</code></pre>
+<p><img src="https://i.imgur.com/6573T6U.png"></p>
+<pre><code>第二步：选举根端口（每个非根网桥只有一个）
+    Root port 简称RP:非根网桥接收来自根网桥的信息的端口
+    选举：
+        （1）比较到根网桥的开销，越小的越优先
+        （2）比较直连网桥的BID
+        （3）比较直连端口的PID</code></pre>
+<p><img src="https://i.imgur.com/zBi728g.png"></p>
+<pre><code>第三步：选取指定端口
+    DP：发送来自根网桥的信息，每一根链路只有一个指定端口
+    选举：
+        （1）比较到根网桥的开销，越小越优先（根网桥上所有的端口都为指定端口）
+        （2）比较端口所在网桥的BID</code></pre>
+<p><img src="https://i.imgur.com/UNYJqOB.png"></p>
+<pre><code>第四步：阻塞没有身份的所有端口</code></pre>
+<p><img src="https://i.imgur.com/7eyanqH.png"></p>
+<h4 id="BPDU-协议数据单元-Brige-PDU-也是数据帧的一种"><a href="#BPDU-协议数据单元-Brige-PDU-也是数据帧的一种" class="headerlink" title="BPDU:协议数据单元 Brige PDU 也是数据帧的一种"></a>BPDU:协议数据单元 Brige PDU 也是数据帧的一种</h4><pre><code>    confguration BPDU: 配置BPDU
+        （1）出现在stp刚启动的时候，用于网桥之间相互交换信息    
+        （2）出现在stp稳定之后，根网桥会定时向非根网发送BPDU，宣告自己的存在
+
+    TCN topology change notifacation PDU：网络拓扑改变BPDU
+        （1）出现在根网桥宕机的时候</code></pre>
+<h4 id="五种端口状态"><a href="#五种端口状态" class="headerlink" title="五种端口状态"></a>五种端口状态</h4><pre><code>disable      关闭        stp没有启动的时候
+blocking     阻塞        不能发送PDU,只能接收PDU
+listening     监听         出现在stp刚刚启动的时候，交换机相互交换信息confguration BPDU
+learning    学习        出现在stp选举的时候
+forwardin    转发        出现在stp已经稳定之后，可以正常转发数据</code></pre>
+<h4 id="用于配置stp的命令"><a href="#用于配置stp的命令" class="headerlink" title="用于配置stp的命令"></a>用于配置stp的命令</h4><pre><code>    stp     enable        启动stp
+    stp    mode stp        将stp的模式设置为stp
+    stp priority 0         设置设备的优先级，0~32768  必须为4096的倍数    </code></pre>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><pre><code>（1）stp是网络协议里唯一一个遵循越小越优先的协议
+（2）在stp里面，网桥只有两种身份，根网桥和非根网桥
+（3）在stp里面的端口只有两种角色，根端口，指定端口，没有身份的端口将会被阻塞
+（4）根端口的作用是非根网桥用来接收来自根网桥的信息
+（5）指定端口的作用是发送来处根网桥的信息</code></pre>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/08/22/STP%E7%94%9F%E6%88%90%E6%A0%91%E5%8D%8F%E8%AE%AE/" data-id="cke4j8nne000dj4t92v8t73og" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/internet/" rel="tag">internet</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/08/22/VLAN%E6%8A%80%E6%9C%AF%E7%9A%84%E5%8E%9F%E7%90%86/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          VLAN技术的原理
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/08/22/samba%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%80%9F%E5%80%9F%E6%9D%83%E6%93%8D%E4%BD%9C/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">samba服务器借权操作</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/internet/" rel="tag">internet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux-network/" rel="tag">linux/network</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux-network-storage/" rel="tag">linux/network storage</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux-server/" rel="tag">linux/server</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux-storage/" rel="tag">linux/storage</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux-user/" rel="tag">linux/user</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/network/" rel="tag">network</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/windows/" rel="tag">windows</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/internet/" style="font-size: 13.33px;">internet</a> <a href="/tags/linux-network/" style="font-size: 10px;">linux/network</a> <a href="/tags/linux-network-storage/" style="font-size: 10px;">linux/network storage</a> <a href="/tags/linux-server/" style="font-size: 20px;">linux/server</a> <a href="/tags/linux-storage/" style="font-size: 16.67px;">linux/storage</a> <a href="/tags/linux-user/" style="font-size: 10px;">linux/user</a> <a href="/tags/network/" style="font-size: 10px;">network</a> <a href="/tags/windows/" style="font-size: 10px;">windows</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/08/22/%E7%BD%91%E5%8D%A1%E9%93%BE%E8%B7%AF%E8%81%9A%E5%90%88/">网卡链路聚合</a>
+          </li>
+        
+          <li>
+            <a href="/2020/08/22/%E4%BA%A4%E6%8D%A2%E6%9C%BA%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/">交换机的工作原理</a>
+          </li>
+        
+          <li>
+            <a href="/2020/08/22/%E7%A3%81%E7%9B%98%E7%9A%84%E6%8C%82%E8%BD%BD%E4%B8%8E%E4%BD%BF%E7%94%A8/">linux下设备的挂载与使用</a>
+          </li>
+        
+          <li>
+            <a href="/2020/08/22/windows%E5%B9%B3%E5%8F%B0%E4%B8%8B%E8%AE%BE%E7%BD%AE%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB/">windows下设置文件共享</a>
+          </li>
+        
+          <li>
+            <a href="/2020/08/22/VLAN%E6%8A%80%E6%9C%AF%E7%9A%84%E5%8E%9F%E7%90%86/">VLAN技术的原理</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

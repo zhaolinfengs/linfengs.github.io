@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>windows下设置文件共享 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="环境：1.windows平台 2.由两台以上的主机  3.主机间要有物理连接（包括无线连接） 一、任意目录创建共享文件夹1.打开此电脑————&gt;打开任意磁盘————&gt;右击————&gt;新建————&gt;文件夹  2.选中文件夹————&gt;右击————&gt;属性————&gt;共享选项卡————&gt;共享————&gt;添加Everyone用户————&gt;共享 二、打开g">
+<meta property="og:type" content="article">
+<meta property="og:title" content="windows下设置文件共享">
+<meta property="og:url" content="http://yoursite.com/2020/08/22/windows%E5%B9%B3%E5%8F%B0%E4%B8%8B%E8%AE%BE%E7%BD%AE%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="环境：1.windows平台 2.由两台以上的主机  3.主机间要有物理连接（包括无线连接） 一、任意目录创建共享文件夹1.打开此电脑————&gt;打开任意磁盘————&gt;右击————&gt;新建————&gt;文件夹  2.选中文件夹————&gt;右击————&gt;属性————&gt;共享选项卡————&gt;共享————&gt;添加Everyone用户————&gt;共享 二、打开g">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-08-21T17:53:22.429Z">
+<meta property="article:modified_time" content="2019-06-20T08:31:35.938Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="windows">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 5.0.2"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-windows平台下设置文件共享" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/08/22/windows%E5%B9%B3%E5%8F%B0%E4%B8%8B%E8%AE%BE%E7%BD%AE%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB/" class="article-date">
+  <time datetime="2020-08-21T17:53:22.429Z" itemprop="datePublished">2020-08-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      windows下设置文件共享
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="环境："><a href="#环境：" class="headerlink" title="环境："></a>环境：</h4><pre><code>1.windows平台
+2.由两台以上的主机
+ 3.主机间要有物理连接（包括无线连接）</code></pre>
+<h3 id="一、任意目录创建共享文件夹"><a href="#一、任意目录创建共享文件夹" class="headerlink" title="一、任意目录创建共享文件夹"></a>一、任意目录创建共享文件夹</h3><pre><code>1.打开此电脑————&gt;打开任意磁盘————&gt;右击————&gt;新建————&gt;文件夹
+
+2.选中文件夹————&gt;右击————&gt;属性————&gt;共享选项卡————&gt;共享————&gt;添加Everyone用户————&gt;共享</code></pre>
+<h3 id="二、打开guest用户"><a href="#二、打开guest用户" class="headerlink" title="二、打开guest用户"></a>二、打开guest用户</h3><pre><code>1.打开控制面板————&gt;用户帐户————&gt;用户帐户————&gt;管理其他用户————&gt;选择guest用户————&gt;启用</code></pre>
+<h3 id="三、编辑组策略编辑器"><a href="#三、编辑组策略编辑器" class="headerlink" title="三、编辑组策略编辑器"></a>三、编辑组策略编辑器</h3><pre><code>1.win+r运行————&gt;输入gpedit.msc————&gt;计算机配置————&gt;windows设置————&gt;安全设置————&gt;
+
+2.本地策略————&gt;用户权限分配————&gt;找到“拒绝从网络访问这台计算机”————&gt;删除guest用户选项</code></pre>
+<h3 id="四、配置网络"><a href="#四、配置网络" class="headerlink" title="四、配置网络"></a>四、配置网络</h3><pre><code>要求：将提供共享文件的主机和接收文件共享的主机配置在同一个局域网内,并且保证两台主机的连通性
+例：
+    pc1 server 的ip: 10.10.128.1/24
+    pc2 client 的ip: 10.10.128.2/24
+测试方法：
+    在pc1使用Ping 命令测试到pc2的连通性
+    在pc2使用ping 命令测试到pc1的连通性</code></pre>
+<h3 id="五、说明"><a href="#五、说明" class="headerlink" title="五、说明"></a>五、说明</h3><pre><code>1.windows 版本不同，设置步骤有细微差别
+2.windows xp 只要设置共享文件夹即可实现局域网共享
+3.windows 7 则按上面操作即可
+4.windows 10 按上面操作即可
+5.windows server 的操作步骤也是一样的</code></pre>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/08/22/windows%E5%B9%B3%E5%8F%B0%E4%B8%8B%E8%AE%BE%E7%BD%AE%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB/" data-id="cke4j8nnm000qj4t9e3ep1yan" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/windows/" rel="tag">windows</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/08/22/%E7%A3%81%E7%9B%98%E7%9A%84%E6%8C%82%E8%BD%BD%E4%B8%8E%E4%BD%BF%E7%94%A8/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          linux下设备的挂载与使用
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/08/22/VLAN%E6%8A%80%E6%9C%AF%E7%9A%84%E5%8E%9F%E7%90%86/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">VLAN技术的原理</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/internet/" rel="tag">internet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux-network/" rel="tag">linux/network</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux-network-storage/" rel="tag">linux/network storage</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux-server/" rel="tag">linux/server</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux-storage/" rel="tag">linux/storage</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux-user/" rel="tag">linux/user</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/network/" rel="tag">network</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/windows/" rel="tag">windows</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/internet/" style="font-size: 13.33px;">internet</a> <a href="/tags/linux-network/" style="font-size: 10px;">linux/network</a> <a href="/tags/linux-network-storage/" style="font-size: 10px;">linux/network storage</a> <a href="/tags/linux-server/" style="font-size: 20px;">linux/server</a> <a href="/tags/linux-storage/" style="font-size: 16.67px;">linux/storage</a> <a href="/tags/linux-user/" style="font-size: 10px;">linux/user</a> <a href="/tags/network/" style="font-size: 10px;">network</a> <a href="/tags/windows/" style="font-size: 10px;">windows</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/08/22/%E7%BD%91%E5%8D%A1%E9%93%BE%E8%B7%AF%E8%81%9A%E5%90%88/">网卡链路聚合</a>
+          </li>
+        
+          <li>
+            <a href="/2020/08/22/%E4%BA%A4%E6%8D%A2%E6%9C%BA%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/">交换机的工作原理</a>
+          </li>
+        
+          <li>
+            <a href="/2020/08/22/%E7%A3%81%E7%9B%98%E7%9A%84%E6%8C%82%E8%BD%BD%E4%B8%8E%E4%BD%BF%E7%94%A8/">linux下设备的挂载与使用</a>
+          </li>
+        
+          <li>
+            <a href="/2020/08/22/windows%E5%B9%B3%E5%8F%B0%E4%B8%8B%E8%AE%BE%E7%BD%AE%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB/">windows下设置文件共享</a>
+          </li>
+        
+          <li>
+            <a href="/2020/08/22/VLAN%E6%8A%80%E6%9C%AF%E7%9A%84%E5%8E%9F%E7%90%86/">VLAN技术的原理</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

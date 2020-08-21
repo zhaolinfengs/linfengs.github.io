@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="##Nextcloud私有云盘搭建教程 #####环境：###    操作系统：centos_7.6 x86-64    mariadb:5.5.56-Mariadb    php:php 7.0.31    nextcloud:nextcloud-13.0.5    确保机器正常连网    ……1.安装过程 安装Nginx 安装 epel源     yum instlal -y epel-rel">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://yoursite.com/2020/08/22/Nextcloud%E4%B8%AA%E4%BA%BA%E4%BA%91%E7%9B%98%E6%90%AD%E5%BB%BA%E5%AE%8C%E6%95%B4%E8%BF%87%E7%A8%8B/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="##Nextcloud私有云盘搭建教程 #####环境：###    操作系统：centos_7.6 x86-64    mariadb:5.5.56-Mariadb    php:php 7.0.31    nextcloud:nextcloud-13.0.5    确保机器正常连网    ……1.安装过程 安装Nginx 安装 epel源     yum instlal -y epel-rel">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-08-21T17:53:22.410Z">
+<meta property="article:modified_time" content="2020-04-19T04:53:01.586Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 5.0.2"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Nextcloud个人云盘搭建完整过程" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/08/22/Nextcloud%E4%B8%AA%E4%BA%BA%E4%BA%91%E7%9B%98%E6%90%AD%E5%BB%BA%E5%AE%8C%E6%95%B4%E8%BF%87%E7%A8%8B/" class="article-date">
+  <time datetime="2020-08-21T17:53:22.410Z" itemprop="datePublished">2020-08-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>##Nextcloud私有云盘搭建教程 ##<br>###环境：###<br>    操作系统：centos_7.6 x86-64<br>    mariadb:5.5.56-Mariadb<br>    php:php 7.0.31<br>    nextcloud:nextcloud-13.0.5<br>    确保机器正常连网<br>    ……<br>1.安装过程</p>
+<pre><code>安装Nginx
+安装 epel源
+    yum instlal -y epel-release
+    yum instlal -y nginx
+启动nginx
+    systemctl start nginx
+    systemctl enable nginx</code></pre>
+<p>2.安装mariadb</p>
+<pre><code>更换国内的yum源
+    cd /etc/yum.repo.d/
+    wget -O Centos-Base.repo http://mirrors.aliyum.com/repo/Centos-7.repo
+    yum clean all &amp;&amp; yum makecache
+如果是最小化安装的操作系统，是没有wget工具的，所发需要安装一下wget
+    yum install -y wget
+
+安装mariadb 
+    yum install -y mariadb-server mariadb
+    systemctl start mariadb
+    systemctl enable mariadb
+设置数据库密码
+    echo &#39;skip-grant-tables&#39;&gt;&gt;/etc/my.cnf
+    systemctl restart maridb
+    mysql -u root 
+
+    MariaDB [(none)]&gt; use mysql;
+    MariaDB [mysql]&gt; select user, password, host from user;
+    MariaDB [mysql]&gt; update user set password=password(&#39;这里输入自己的密码&#39;) where User=&quot;root&quot; and Host=&quot;localhost&quot;;
+    MariaDB [mysql]&gt; flush privileges;
+    MariaDB [mysql]&gt; exit
+
+注释掉/etc/my.cnf最后一行，重启数据库
+    systemctl restart mariadb
+    systemctl enable mariadb</code></pre>
+<p>3.安装PHP</p>
+<pre><code>安装php及依赖插件
+
+    yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+    yum install http://rpms.remirepo.net/enterprise/remi-release-7.rpm
+
+安装php环境
+
+    yum install yum-utils
+    yum-config-manager --enable remi-php70   [Install PHP 7.0]
+    yum-config-manager --enable remi-php71   [Install PHP 7.1]
+    yum-config-manager --enable remi-php72   [Install PHP 7.2]
+
+安装扩展
+    yum install php php-mcrypt php-cli php-gd php-curl php-mysql php-ldap php-zip php-fileinfo \
+    php-devel php-pear php-gd php-opcache php-cli php-pdo php-process php-pecl-apcu php-mcrypt \
+    php-mysql php-fpm php-pecl-memcached php-common php-xml php-mbstring php-pecl-igbinary-devel
+
+    所有的组件都要安装哦，太长可以先复制到记事本，然后再复制到xshell或者mobaxter等远程工具。
+
+制作签名和SSL证书
+    mkdir /etc/nginx/cert/
+    cd /etc/nginx/cert/
+    openssl rep -new -x509 -days 365 -nodes -out /etc/nginx/cert/nextcloud.crt -keyout /etc/nginx/cert/nextcloud.key
+
+赋权限
+
+    chmod 600 /etc/nginx/cert/*
+    chmod 700 /etc/nginx/cert/</code></pre>
+<p>4.下载Nextcloud</p>
+<pre><code>下载13.0.2版本
+    cd /opt/
+    wget https://download.nextcloud.com/server/releases/nextcloud-13.0.5.zip
+    unzip nextcloud-13.0.5.zip
+    cd /usr/share/nginx/html
+    rm -rf *
+    cp -R /op/nextcloud/* .
+    chown -R nginx:nginx /usr/share/nginx/html</code></pre>
+<p>5.配置php和nginx</p>
+<pre><code>    配置PHP
+
+    vim /etc/php-fpm.d/www.conf
+    -------------------------------------
+    user = nginx                                   //将用户和组都改为nginx
+    group = nginx
+    listen = 127.0.0.1:9000
+    env[HOSTNAME] = $HOSTNAME                     //将以下几行，去掉注释
+    env[PATH] = /usr/local/bin:/usr/bin:/bin
+    env[TMP] = /tmp
+    env[TMPDIR] = /tmp
+    env[TEMP] = /tmp
+    -------------------------------------
+
+    # 创建session文件夹
+    mkdir -p /var/lib/php/session
+    chown nginx:nginx -R /var/lib/php/session/
+
+    配置Nginx
+
+    cd /etc/nginx/conf.d/
+    vim nextcloud.conf
+    -------------------------------------
+upstream php-handler &#123;
+server 127.0.0.1:9000;
+#server unix:/var/run/php5-fpm.sock;
+&#125;
+server &#123;
+listen 80;
+    server_name localhost;
+   # enforce https
+rewrite ^(.*)$ https://$host$1 permanent;
+&#125;
+
+
+server &#123;
+listen 443 ssl;
+server_name localhost;
+
+ssl_certificate /etc/nginx/cert/nextcloud.crt;
+ssl_certificate_key /etc/nginx/cert/nextcloud.key;
+
+# Add headers to serve security related headers
+# Before enabling Strict-Transport-Security headers please read into this
+# topic first.
+add_header Strict-Transport-Security &quot;max-age=15768000;
+includeSubDomains; preload;&quot;;
+add_header X-Content-Type-Options nosniff;
+add_header X-Frame-Options &quot;SAMEORIGIN&quot;;
+add_header X-XSS-Protection &quot;1; mode=block&quot;;
+add_header X-Robots-Tag none;
+add_header X-Download-Options noopen;
+add_header X-Permitted-Cross-Domain-Policies none;
+
+# Path to the root of your installation
+root /usr/share/nginx/html/;       //这个地址要注意，是主页的保存地址，也就是解压nextcloud的地址
+
+
+location = /robots.txt &#123;
+    allow all;
+    log_not_found off;
+    access_log off;
+&#125;
+
+
+# The following 2 rules are only needed for the user_webfinger app.
+# Uncomment it if you&#39;re planning to use this app.
+#rewrite ^/.well-known/host-meta /public.php?service=host-meta last;
+#rewrite ^/.well-known/host-meta.json /public.php?service=host-meta-json
+# last;
+
+
+location = /.well-known/carddav &#123;
+  return 301 $scheme://$host/remote.php/dav;
+&#125;
+location = /.well-known/caldav &#123;
+  return 301 $scheme://$host/remote.php/dav;
+&#125;
+
+
+# set max upload size
+client_max_body_size 10240M;    # 上传文件最大限制，php.ini中也要修改，最后优化时会提及。
+fastcgi_buffers 64 4K;
+
+# Disable gzip to avoid the removal of the ETag header
+gzip on;
+gzip_vary on;
+gzip_comp_level 4;
+gzip_min_length 256;
+gzip_proxied expired no-cache no-store private no_last_modified no_etag auth;
+gzip_types application/atom+xml application/javascript application/json application/ld+json application/manifest+json application/rss+xml application/vnd.geo+json application/vnd.ms-fontobject application/x-font-ttf application/x-web-app-manifest+json application/xhtml+xml application/xml font/opentype image/bmp image/svg+xml image/x-icon text/cache-manifest text/css text/plain text/vcard text/vnd.rim.location.xloc text/vtt text/x-component text/x-cross-domain-policy;
+
+
+# Uncomment if your server is build with the ngx_pagespeed module
+# This module is currently not supported.
+#pagespeed off;
+
+
+error_page 403 /core/templates/403.php;
+error_page 404 /core/templates/404.php;
+
+
+location / &#123;
+    rewrite ^ /index.php$uri;
+&#125;
+
+
+location ~ ^/(?:build|tests|config|lib|3rdparty|templates|data)/ &#123;
+    deny all;
+&#125;
+location ~ ^/(?:\.|autotest|occ|issue|indie|db_|console) &#123;
+    deny all;
+&#125;
+
+location ~ ^/(?:index|remote|public|cron|core/ajax/update|status|ocs/v[12]|updater/.+|ocs-provider/.+|core/templates/40[34])\.php(?:$|/) &#123;
+    include fastcgi_params;
+    fastcgi_split_path_info ^(.+\.php)(/.*)$;
+    fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+    fastcgi_param PATH_INFO $fastcgi_path_info;
+    fastcgi_param HTTPS on;
+    #Avoid sending the security headers twice
+    fastcgi_param modHeadersAvailable true;
+    fastcgi_param front_controller_active true;
+    fastcgi_pass php-handler;
+    fastcgi_intercept_errors on;
+    fastcgi_request_buffering off;
+&#125;
+
+
+location ~ ^/(?:updater|ocs-provider)(?:$|/) &#123;
+    try_files $uri/ =404;
+    index index.php;
+&#125;
+
+
+# Adding the cache control header for js and css files
+# Make sure it is BELOW the PHP block
+location ~* \.(?:css|js)$ &#123;
+    try_files $uri /index.php$uri$is_args$args;
+    add_header Cache-Control &quot;public, max-age=7200&quot;;
+    # Add headers to serve security related headers (It is intended to
+    # have those duplicated to the ones above)
+    # Before enabling Strict-Transport-Security headers please read into
+    # this topic first.
+    add_header Strict-Transport-Security &quot;max-age=15768000;includeSubDomains; preload;&quot;;
+    add_header X-Content-Type-Options nosniff;
+    add_header X-Frame-Options &quot;SAMEORIGIN&quot;;
+    add_header X-XSS-Protection &quot;1; mode=block&quot;;
+    add_header X-Robots-Tag none;
+    add_header X-Download-Options noopen;
+    add_header X-Permitted-Cross-Domain-Policies none;
+    # Optional: Don&#39;t log access to assets
+    access_log off;
+&#125;
+
+location ~* \.(?:svg|gif|png|html|ttf|woff|ico|jpg|jpeg)$ &#123;
+    try_files $uri /index.php$uri$is_args$args;
+    # Optional: Don&#39;t log access to other assets
+    access_log off;
+&#125;
+&#125;
+
+
+
+注释掉默认配置文件里的80端口模块
+
+vim /etc/nginx/nginx.conf
+#server &#123;
+#    listen       80 default_server;
+#    listen       [::]:80 default_server;
+#    server_name  _;
+#    root         /usr/share/nginx/html;
+
+#    # Load configuration files for the default server block.
+#    include /etc/nginx/default.d/*.conf;
+
+#    location / &#123;
+#    &#125;
+
+#    error_page 404 /404.html;
+#        location = /40x.html &#123;
+#    &#125;
+
+#    error_page 500 502 503 504 /50x.html;
+#        location = /50x.html &#123;
+#    &#125;
+#&#125;</code></pre>
+<p>6.关掉SELINUX与防为墙<br>    setenforce 0<br>    sed -i “s/=enforcing/=disabled/g” /etc/selinux/config</p>
+<p>7.web访问&amp;&amp;安装<br>    默认80，打开浏览器，输入你的服务器ip<br>    一切顺利的话成功进入登陆页面（不顺利应该是php扩展的原因，再调试）：</p>
+<p>8.性能调整</p>
+<pre><code>admin用户登陆后页面上方会有警告提示，根据提示进行更改就好...</code></pre>
+<p>9.PHP<br>    vim /etc/php.ini<br>    [PHP]<br>    # 添加如下配置<br>    opcache.enable=1<br>    opcache.enable_cli=1<br>    opcache.interned_strings_buffer=8<br>    opcache.max_accelerated_files=10000<br>    opcache.memory_consumption=128<br>    opcache.save_comments=1<br>    opcache.revalidate_freq=1</p>
+<pre><code>upload_max_filesize = 10240M  #上传大小限制</code></pre>
+<p>10.缓存</p>
+<pre><code>yum install -y memcache
+vim /etc/sysconfig/memcached
+
+PORT=&quot;11211&quot;
+USER=&quot;memcached&quot;
+MAXCONN=&quot;1024&quot;
+CACHESIZE=&quot;2048&quot;
+OPTIONS=&quot;&quot;</code></pre>
+<p>11.nextcloud添加memcache缓存配置</p>
+<pre><code>vim /usr/share/nginx/html/config/config.php
+&#39;memcache.local&#39; =&gt; &#39;\OC\Memcache\APCu&#39;,
+  &#39;memcache.distributed&#39; =&gt; &#39;\OC\Memcache\Memcached&#39;,
+  &#39;memcached_servers&#39; =&gt; array(
+   array(&#39;localhost&#39;, 11211),
+    ),</code></pre>
+<p>12.重启<br>    systemctl restart memcached<br>    systemctl enable memcached</p>
+<p>说明：本文完全是参照大佬的文章，边做边写，边总结，里面也有一些小提示，不喜勿喷。原文地址：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/497a1f11e968">https://www.jianshu.com/p/497a1f11e968</a> </p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/08/22/Nextcloud%E4%B8%AA%E4%BA%BA%E4%BA%91%E7%9B%98%E6%90%AD%E5%BB%BA%E5%AE%8C%E6%95%B4%E8%BF%87%E7%A8%8B/" data-id="cke4j8nnb0008j4t90j7y66kb" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/08/22/NFS%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%90%AD%E5%BB%BA/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          NFS服务器的基本搭建
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/08/22/linux%E7%94%A8%E6%88%B7%E5%92%8C%E7%BB%84%E7%9A%84%E7%AE%A1%E7%90%86/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">LINUX用户管理</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/internet/" rel="tag">internet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux-network/" rel="tag">linux/network</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux-network-storage/" rel="tag">linux/network storage</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux-server/" rel="tag">linux/server</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux-storage/" rel="tag">linux/storage</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux-user/" rel="tag">linux/user</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/network/" rel="tag">network</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/windows/" rel="tag">windows</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/internet/" style="font-size: 13.33px;">internet</a> <a href="/tags/linux-network/" style="font-size: 10px;">linux/network</a> <a href="/tags/linux-network-storage/" style="font-size: 10px;">linux/network storage</a> <a href="/tags/linux-server/" style="font-size: 20px;">linux/server</a> <a href="/tags/linux-storage/" style="font-size: 16.67px;">linux/storage</a> <a href="/tags/linux-user/" style="font-size: 10px;">linux/user</a> <a href="/tags/network/" style="font-size: 10px;">network</a> <a href="/tags/windows/" style="font-size: 10px;">windows</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/08/22/%E7%BD%91%E5%8D%A1%E9%93%BE%E8%B7%AF%E8%81%9A%E5%90%88/">网卡链路聚合</a>
+          </li>
+        
+          <li>
+            <a href="/2020/08/22/%E4%BA%A4%E6%8D%A2%E6%9C%BA%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/">交换机的工作原理</a>
+          </li>
+        
+          <li>
+            <a href="/2020/08/22/%E7%A3%81%E7%9B%98%E7%9A%84%E6%8C%82%E8%BD%BD%E4%B8%8E%E4%BD%BF%E7%94%A8/">linux下设备的挂载与使用</a>
+          </li>
+        
+          <li>
+            <a href="/2020/08/22/windows%E5%B9%B3%E5%8F%B0%E4%B8%8B%E8%AE%BE%E7%BD%AE%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB/">windows下设置文件共享</a>
+          </li>
+        
+          <li>
+            <a href="/2020/08/22/VLAN%E6%8A%80%E6%9C%AF%E7%9A%84%E5%8E%9F%E7%90%86/">VLAN技术的原理</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

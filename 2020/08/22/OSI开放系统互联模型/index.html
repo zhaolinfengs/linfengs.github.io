@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>OSI开放系统互联模型 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="一、概念网络技术的基础：OSI （开放系统互联模型） 也是所有网络的理论依据 三个名词：IOS:互联网操作系统  ISO:国际标准化组织 OSI:开放系统互联模型 四个点：（1）为什么有这个技术 （2）原理 （3）配置 （4）排错 二、OSI七层模型出现的原因（1）以前的网络是一个整体 （2）各个厂商之间不兼容 （3）不利于开发和排错 三、原理按照功能将网络分为七层，每一层都有各自的功能，相互独立">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OSI开放系统互联模型">
+<meta property="og:url" content="http://yoursite.com/2020/08/22/OSI%E5%BC%80%E6%94%BE%E7%B3%BB%E7%BB%9F%E4%BA%92%E8%81%94%E6%A8%A1%E5%9E%8B/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="一、概念网络技术的基础：OSI （开放系统互联模型） 也是所有网络的理论依据 三个名词：IOS:互联网操作系统  ISO:国际标准化组织 OSI:开放系统互联模型 四个点：（1）为什么有这个技术 （2）原理 （3）配置 （4）排错 二、OSI七层模型出现的原因（1）以前的网络是一个整体 （2）各个厂商之间不兼容 （3）不利于开发和排错 三、原理按照功能将网络分为七层，每一层都有各自的功能，相互独立">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i.imgur.com/l82AMji.png">
+<meta property="og:image" content="https://i.imgur.com/NJIkJeB.png">
+<meta property="og:image" content="https://i.imgur.com/gzEl523.png">
+<meta property="og:image" content="https://i.imgur.com/63sBETY.png">
+<meta property="og:image" content="https://i.imgur.com/uG7hqBJ.png">
+<meta property="article:published_time" content="2020-08-21T17:53:22.417Z">
+<meta property="article:modified_time" content="2019-09-04T08:17:07.900Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="internet">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/l82AMji.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 5.0.2"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-OSI开放系统互联模型" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/08/22/OSI%E5%BC%80%E6%94%BE%E7%B3%BB%E7%BB%9F%E4%BA%92%E8%81%94%E6%A8%A1%E5%9E%8B/" class="article-date">
+  <time datetime="2020-08-21T17:53:22.417Z" itemprop="datePublished">2020-08-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      OSI开放系统互联模型
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="一、概念"><a href="#一、概念" class="headerlink" title="一、概念"></a>一、概念</h3><pre><code>网络技术的基础：OSI （开放系统互联模型）
+也是所有网络的理论依据</code></pre>
+<h5 id="三个名词："><a href="#三个名词：" class="headerlink" title="三个名词："></a>三个名词：</h5><pre><code>IOS:互联网操作系统 
+ISO:国际标准化组织
+OSI:开放系统互联模型</code></pre>
+<h5 id="四个点："><a href="#四个点：" class="headerlink" title="四个点："></a>四个点：</h5><pre><code>（1）为什么有这个技术
+（2）原理
+（3）配置
+（4）排错</code></pre>
+<h3 id="二、OSI七层模型出现的原因"><a href="#二、OSI七层模型出现的原因" class="headerlink" title="二、OSI七层模型出现的原因"></a>二、OSI七层模型出现的原因</h3><pre><code>（1）以前的网络是一个整体
+（2）各个厂商之间不兼容
+（3）不利于开发和排错</code></pre>
+<h3 id="三、原理"><a href="#三、原理" class="headerlink" title="三、原理"></a>三、原理</h3><pre><code>按照功能将网络分为七层，每一层都有各自的功能，相互独立，却又相互联系
+
+![](https://i.imgur.com/bsITheX.png)</code></pre>
+<h3 id="物理层的功能"><a href="#物理层的功能" class="headerlink" title="物理层的功能"></a>物理层的功能</h3><pre><code>（1）定义：
+    介质类型  
+        有线：双绞线、同轴电缆、光纤
+        无线：无线电、微波
+
+    线缆标准：    
+        568B：橙白/橙/绿白/蓝/蓝白/绿/棕白/棕
+        568A：绿白/绿/橙白/蓝/蓝白/橙/棕白/棕
+
+    传输距离：
+        双绞线100m
+
+    信号类型
+        电信号
+        光信号
+
+（2）物理层的设备
+    Hub（集线器）：信号的放大和复制
+    特性:
+        所有设备在同一冲突域
+        所有设备在同一广播域
+        所有设备共享相同带宽（连接在hub上的设备是分时间片的使用带宽，达到名义上的相同带宽）
+
+    CSMA/CD（载波监听多点接入/碰撞检测）机制
+        CSMA/CD机制出现的原因：随着接入的设备越多，冲突也就越大
+        CSMA/CD机制提出：一个时间内只能有一台设备使用带宽，设备在使用链路时，要先对链路进行监听，如果有人在传输数据，则需要等待
+        如果没有人在传输数据，则不需要等待，在链路上发布jam信号，传输数据
+        如果别的设备此时需要传输数据，而监听到链路上的jam信号
+        则不会立即传输数据，而是等待当前设备传输完成后，链路上没有jam信号了，再进行传输            </code></pre>
+<h3 id="数据链路层的功能"><a href="#数据链路层的功能" class="headerlink" title="数据链路层的功能"></a>数据链路层的功能</h3><pre><code>（1）定义
+    源和目的物理地址（MAC）
+    帧校验序列FCS
+
+（2）数据帧的标准
+     (1) 以太网                点到多点               一般用于交换机
+     (2) PPP                 点到点            一根链路上只有两台设备
+     (3) FR帧中继标准            点到多点            指定链路，要提前预设好线路 ，不用mac,不用ip,用FR标识号
+
+（3）以太网帧的标准
+    IEEE 802.1 (没人用)
+    ETHERNET II  (点到多点链路)
+
+    帧组成：
+    FLAG    SMAC    DMAC    TYPE    DATA    FCS
+
+    FLAG:标志，标识一个帧的开始
+    SMAC:源mac地址
+    DMAC:目的mac地址
+    TYPE:类型，表明这个帧承载的上层协议
+            0X0800        上层协议为IP        
+            0X0806        上层协议为ARP
+    DATA:数据部分
+    FCS: 帧校验
+
+（4）数据链路层的设备
+    交换机
+    特性：
+        每一个端口都是一个冲突域
+        广播包向所有端口转发
+
+（5）极域软件的通信工作原理
+    利用广播的原理，由教师端的pc只需要向该网段的广播地址发送自己的屏幕图形，所以该网段内的所有主机都能收到老师端的屏幕数据
+    因为所有的主机，在开机状态下，都会自动监听本机所在网段的广播地址，从而实现投屏的效果</code></pre>
+<h3 id="网络层的功能"><a href="#网络层的功能" class="headerlink" title="网络层的功能"></a>网络层的功能</h3><pre><code>（1）定义
+    逻辑地址（IP地址）
+    路径选择
+
+（2）网络层的设备
+    路由器
+    功能：    
+        广播控制（阻隔广播风景）
+        逻辑寻址
+        路径选择
+        提供wan连接
+        流量控制
+    特性：
+        每一个接口都是一个广播域</code></pre>
+<h3 id="传输层的功能"><a href="#传输层的功能" class="headerlink" title="传输层的功能"></a>传输层的功能</h3><pre><code>（1）定义
+    两种传输方式
+
+（2）两种传输方式</code></pre>
+<p><img src="https://i.imgur.com/l82AMji.png"></p>
+<pre><code>（3）常用端口号</code></pre>
+<p><img src="https://i.imgur.com/NJIkJeB.png" alt="avatar"></p>
+<pre><code>（4）TCP三次握手机制</code></pre>
+<p><img src="https://i.imgur.com/gzEl523.png" alt="avatar"></p>
+<pre><code>（5）TCP简单确认机制</code></pre>
+<p><img src="https://i.imgur.com/63sBETY.png" alt="avatar"></p>
+<pre><code>（6）数据的封装与解封装</code></pre>
+<p><img src="https://i.imgur.com/uG7hqBJ.png" alt="avatar"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/08/22/OSI%E5%BC%80%E6%94%BE%E7%B3%BB%E7%BB%9F%E4%BA%92%E8%81%94%E6%A8%A1%E5%9E%8B/" data-id="cke4j8nnc000aj4t98pcddn28" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/internet/" rel="tag">internet</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/08/22/samba%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%9F%BA%E6%9C%AC%E6%90%AD%E5%BB%BA/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          samba服务器基本搭建
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/08/22/NTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AE%80%E5%8D%95%E9%85%8D%E7%BD%AE/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">NTP服务器简单配置</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/internet/" rel="tag">internet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux-network/" rel="tag">linux/network</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux-network-storage/" rel="tag">linux/network storage</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux-server/" rel="tag">linux/server</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux-storage/" rel="tag">linux/storage</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux-user/" rel="tag">linux/user</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/network/" rel="tag">network</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/windows/" rel="tag">windows</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/internet/" style="font-size: 13.33px;">internet</a> <a href="/tags/linux-network/" style="font-size: 10px;">linux/network</a> <a href="/tags/linux-network-storage/" style="font-size: 10px;">linux/network storage</a> <a href="/tags/linux-server/" style="font-size: 20px;">linux/server</a> <a href="/tags/linux-storage/" style="font-size: 16.67px;">linux/storage</a> <a href="/tags/linux-user/" style="font-size: 10px;">linux/user</a> <a href="/tags/network/" style="font-size: 10px;">network</a> <a href="/tags/windows/" style="font-size: 10px;">windows</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/08/22/%E7%BD%91%E5%8D%A1%E9%93%BE%E8%B7%AF%E8%81%9A%E5%90%88/">网卡链路聚合</a>
+          </li>
+        
+          <li>
+            <a href="/2020/08/22/%E4%BA%A4%E6%8D%A2%E6%9C%BA%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/">交换机的工作原理</a>
+          </li>
+        
+          <li>
+            <a href="/2020/08/22/%E7%A3%81%E7%9B%98%E7%9A%84%E6%8C%82%E8%BD%BD%E4%B8%8E%E4%BD%BF%E7%94%A8/">linux下设备的挂载与使用</a>
+          </li>
+        
+          <li>
+            <a href="/2020/08/22/windows%E5%B9%B3%E5%8F%B0%E4%B8%8B%E8%AE%BE%E7%BD%AE%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB/">windows下设置文件共享</a>
+          </li>
+        
+          <li>
+            <a href="/2020/08/22/VLAN%E6%8A%80%E6%9C%AF%E7%9A%84%E5%8E%9F%E7%90%86/">VLAN技术的原理</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

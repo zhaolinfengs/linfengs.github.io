@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>交换机的工作原理 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="交换机交换机工作在数据链路层，以数据帧作为传输载体，依靠mac地址表作为转发依据 工作原理1、基于mac地址学习 （收到终端发来的包，记录下端口） 2、收到一个广播，除源端口，所有端口转发 3、基于目的mac转发 4、在不同时间的不同端口收到相同的mac地址，选择最新的 交换机通信分析 假设这是一个刚刚建立的网络 pc1的ip:10.1.1.1  mac:54-89-98-5A-1D-F1  pc">
+<meta property="og:type" content="article">
+<meta property="og:title" content="交换机的工作原理">
+<meta property="og:url" content="http://yoursite.com/2020/08/22/%E4%BA%A4%E6%8D%A2%E6%9C%BA%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="交换机交换机工作在数据链路层，以数据帧作为传输载体，依靠mac地址表作为转发依据 工作原理1、基于mac地址学习 （收到终端发来的包，记录下端口） 2、收到一个广播，除源端口，所有端口转发 3、基于目的mac转发 4、在不同时间的不同端口收到相同的mac地址，选择最新的 交换机通信分析 假设这是一个刚刚建立的网络 pc1的ip:10.1.1.1  mac:54-89-98-5A-1D-F1  pc">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i.imgur.com/RGnGLGk.png">
+<meta property="article:published_time" content="2020-08-21T17:53:22.435Z">
+<meta property="article:modified_time" content="2019-09-04T09:21:39.393Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="internet">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/RGnGLGk.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 5.0.2"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-交换机的工作原理" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/08/22/%E4%BA%A4%E6%8D%A2%E6%9C%BA%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/" class="article-date">
+  <time datetime="2020-08-21T17:53:22.435Z" itemprop="datePublished">2020-08-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      交换机的工作原理
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="交换机"><a href="#交换机" class="headerlink" title="交换机"></a>交换机</h3><pre><code>交换机工作在数据链路层，以数据帧作为传输载体，依靠mac地址表作为转发依据</code></pre>
+<h3 id="工作原理"><a href="#工作原理" class="headerlink" title="工作原理"></a>工作原理</h3><pre><code>1、基于mac地址学习 （收到终端发来的包，记录下端口）
+2、收到一个广播，除源端口，所有端口转发
+3、基于目的mac转发
+4、在不同时间的不同端口收到相同的mac地址，选择最新的</code></pre>
+<h3 id="交换机通信分析"><a href="#交换机通信分析" class="headerlink" title="交换机通信分析"></a>交换机通信分析</h3><p><img src="https://i.imgur.com/RGnGLGk.png"></p>
+<pre><code>假设这是一个刚刚建立的网络
+pc1的ip:10.1.1.1 
+mac:54-89-98-5A-1D-F1
+
+pc2的ip:10.1.1.2
+mac：54-89-98-20-32-C5
+
+pc3的ip:10.1.1.3
+mac：54-89-98-85-0E-E2
+
+此时pc1执行pin 10.1.1.2 这条命令，由应用层产生数据，向下逐层封装，封装到数据链路层的时候
+因为不知道目的mac,所以以太网帧的封装不了的，此时，pc1向交换机发送一个arp requst包
+交换机收到arp requst包，解封装到数据链路层，交换机首先把剥开的mac地址
+与自己的mac地址表对比，发现自己的mac地址表里没有这个mac,所以就把这个mac保存在自己的mac地址表里面
+然后就会看到这个帧里面的类型，为0x0806,是一个广播包，马上把它转发到除源端口外的所有端口，
+两种情况：
+（1）pc2收到的时候解封装到网络层，更新自己的arp缓存表，记录下这个包的源ip和对应的源mac（即pc1的ip、mac）
+（2）然后发现这个包的目的IP是自己，它就会回一个arp reply单播包给pc1
+（3）而arp reply 在经过交换机的时候，交换机会解封装到数据链路层发现这个包里面的源mac自己的mac 地址表里面没有
+（4）然后更新自己的mac地址表，记录下这个mac 和这个mac进来的端口
+（5）pc1收到之后，更新自己的arp缓存表，记录下这个包的源ip和源mac(即pc2的ip、mac)
+（6）然后继续封装,完成之后，将ping的数据发给交换机，
+（7）交换机解封装，看到里面的目的mac,对照自己的mac地址表，将数据从对应的端口发出去
+
+第二种情况：
+ (1)pc3收到交换机发过来的arp requst包之后，解封装到数据链路层，
+（2）更新自己的qrp缓存表，记录下这个包的源mac 和 源ip(即pc1的 mac 和 ip
+（3）所以在arp缓存表有效的时间内，pc3与pc1通信，是不需要发 arp requst包的)</code></pre>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/08/22/%E4%BA%A4%E6%8D%A2%E6%9C%BA%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/" data-id="cke4j8nnp000vj4t94klo21cj" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/internet/" rel="tag">internet</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/08/22/%E7%BD%91%E5%8D%A1%E9%93%BE%E8%B7%AF%E8%81%9A%E5%90%88/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          网卡链路聚合
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/08/22/%E7%A3%81%E7%9B%98%E7%9A%84%E6%8C%82%E8%BD%BD%E4%B8%8E%E4%BD%BF%E7%94%A8/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">linux下设备的挂载与使用</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/internet/" rel="tag">internet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux-network/" rel="tag">linux/network</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux-network-storage/" rel="tag">linux/network storage</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux-server/" rel="tag">linux/server</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux-storage/" rel="tag">linux/storage</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux-user/" rel="tag">linux/user</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/network/" rel="tag">network</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/windows/" rel="tag">windows</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/internet/" style="font-size: 13.33px;">internet</a> <a href="/tags/linux-network/" style="font-size: 10px;">linux/network</a> <a href="/tags/linux-network-storage/" style="font-size: 10px;">linux/network storage</a> <a href="/tags/linux-server/" style="font-size: 20px;">linux/server</a> <a href="/tags/linux-storage/" style="font-size: 16.67px;">linux/storage</a> <a href="/tags/linux-user/" style="font-size: 10px;">linux/user</a> <a href="/tags/network/" style="font-size: 10px;">network</a> <a href="/tags/windows/" style="font-size: 10px;">windows</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/08/22/%E7%BD%91%E5%8D%A1%E9%93%BE%E8%B7%AF%E8%81%9A%E5%90%88/">网卡链路聚合</a>
+          </li>
+        
+          <li>
+            <a href="/2020/08/22/%E4%BA%A4%E6%8D%A2%E6%9C%BA%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/">交换机的工作原理</a>
+          </li>
+        
+          <li>
+            <a href="/2020/08/22/%E7%A3%81%E7%9B%98%E7%9A%84%E6%8C%82%E8%BD%BD%E4%B8%8E%E4%BD%BF%E7%94%A8/">linux下设备的挂载与使用</a>
+          </li>
+        
+          <li>
+            <a href="/2020/08/22/windows%E5%B9%B3%E5%8F%B0%E4%B8%8B%E8%AE%BE%E7%BD%AE%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB/">windows下设置文件共享</a>
+          </li>
+        
+          <li>
+            <a href="/2020/08/22/VLAN%E6%8A%80%E6%9C%AF%E7%9A%84%E5%8E%9F%E7%90%86/">VLAN技术的原理</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
