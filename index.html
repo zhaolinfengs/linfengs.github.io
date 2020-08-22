@@ -1,820 +1,476 @@
+
+
 <!DOCTYPE html>
-<html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
 <head>
-  <meta charset="utf-8">
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
   
-
-  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
   <title>Hexo</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://yoursite.com/index.html">
-<meta property="og:site_name" content="Hexo">
-<meta property="og:locale" content="en_US">
-<meta property="article:author" content="John Doe">
-<meta name="twitter:card" content="summary">
-  
-    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
-  
-<link rel="stylesheet" href="/css/style.css">
 
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_6peoq002giu.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
 <meta name="generator" content="Hexo 5.0.2"></head>
 
+
 <body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">Hexo</a>
-      </h1>
-      
+  <header style="height: 100vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Fluid</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                Home
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                Archives
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                Categories
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                Tags
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                About
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
     </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+          </div>
+
+          
+            <div class="scroll-down-bar">
+              <i class="iconfont icon-arrowdown"></i>
+            </div>
+          
+        </div>
       </div>
     </div>
-  </div>
-</header>
-      <div class="outer">
-        <section id="main">
-  
-    <article id="post-网卡链路聚合" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/08/22/%E7%BD%91%E5%8D%A1%E9%93%BE%E8%B7%AF%E8%81%9A%E5%90%88/" class="article-date">
-  <time datetime="2020-08-21T17:53:22.437Z" itemprop="datePublished">2020-08-22</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/08/22/%E7%BD%91%E5%8D%A1%E9%93%BE%E8%B7%AF%E8%81%9A%E5%90%88/">网卡链路聚合</a>
-    </h1>
-  
+  </header>
 
-      </header>
+  <main>
     
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="链路聚合"><a href="#链路聚合" class="headerlink" title="链路聚合"></a>链路聚合</h2><pre><code>  场景：
- 在数据量较大的服务器上，必须确保网络不中断的条件下，建立链路聚合，如果服务器一张网上宕机，另一张网上接替工作，而服务器的地址不变。</code></pre>
-<h3 id="一、添加两张网上"><a href="#一、添加两张网上" class="headerlink" title="一、添加两张网上"></a>一、添加两张网上</h3><pre><code>1.在vmware workstation 中为desktop1 添加两张网卡</code></pre>
-<h3 id="二、复制模板文件"><a href="#二、复制模板文件" class="headerlink" title="二、复制模板文件"></a>二、复制模板文件</h3><pre><code>1.寻找文件
+      <div class="container nopadding-md">
+        <div class="py-5" id="board"
+          style=margin-top:0>
+          
+          <div class="container">
+            <div class="row">
+              <div class="col-12 col-md-10 m-auto">
+                
+
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        <a href="/2020/08/22/%E7%BD%91%E5%8D%A1%E9%93%BE%E8%B7%AF%E8%81%9A%E5%90%88/">网卡链路聚合</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2020/08/22/%E7%BD%91%E5%8D%A1%E9%93%BE%E8%B7%AF%E8%81%9A%E5%90%88/">
+          
+          
+            
+          
+          链路聚合  场景：
+ 在数据量较大的服务器上，必须确保网络不中断的条件下，建立链路聚合，如果服务器一张网上宕机，另一张网上接替工作，而服务器的地址不变。
+一、添加两张网上1.在vmware workstation 中为desktop1 添加两张网卡
+二、复制模板文件1.寻找文件
 cd /usr/share/doc/teamd-1.27/example_ifcfgs/3/
 
-文件：ifcfg-eth1  ifcfg-eth2 ifcfg-team-test0
+文件：ifcfg-eth
+        </a>
+      </p>
 
-2.复制文件
-
-cp * /etc/sysconfig/network-scripts/          </code></pre>
-<h3 id="三、编辑模板文件"><a href="#三、编辑模板文件" class="headerlink" title="三、编辑模板文件"></a>三、编辑模板文件</h3><pre><code>1.来到网卡配置文件目录下
-cd /etc/sysconfig/network-scripts/
-
- 2.查看网卡名称
-ifconfig 
-
-3.将复制过来的两个模板文改为与网卡名称对应的文件
-mv ifcfg-eth1 ifcfg-ens33
-mv ifcfg-eht2 ifcfg-ens38
-
-4.更改两个网卡文件
-vim ifcfg-ens33
-内容：
-DEVICE=&quot;ens33
-DEVICETYPE=&quot;TeamPort&quot;
-ONBOOT=&quot;yes&quot;
-TEAM_MASTER=&quot;team_test0&quot;
-
-vim ifcfg-ens38
-内容：
-DEVICE=&quot;ens38&quot;
-DEVICETYPE=&quot;TeamPort&quot;
-ONBOOT=&quot;yes&quot;
-TEAM_MASTER=&quot;team_test0&quot;
-
-
-4.更改team_test0文件
-vim ifcfg-team-test0
-内容：
-DEVICE=&quot;team_test0&quot;-----设备名
-DEVICETYPE=&quot;Team&quot;-----设备类型
-ONBOOT=&quot;yes&quot;-----开机自启
-BOOTPROTO=none-----手动指定IP地址
-NETMASK=255.255.255.0-----子网掩码
-IPADDR=192.168.1.234-----IP地址
-TEAM_CONFIG=&#39;&#123;&quot;runner&quot;: &#123;&quot;name&quot;: &quot;activebackup&quot;&#125;&#125;&#39;----策略</code></pre>
-<h3 id="四、查看"><a href="#四、查看" class="headerlink" title="四、查看"></a>四、查看</h3><pre><code>nmcli connection show 
-teamdctl team_test0 state    //查看两张网卡的工作状态
-内容：
-setup:
-  runner: activebackup
-ports:
-  ens33
-    link watches:
-      link summary: up
-      instance[link_watch_0]:
-        name: ethtool
-        link: up
-        down count: 0
-  ens38
-    link watches:
-      link summary: up
-      instance[link_watch_0]:
-        name: ethtool
-        link: up
-        down count: 0
-runner:
-  active port: ens33                //这里可以看到活动的网卡
-
-
-ifconfig ens33 down              //关闭ens33，可以看到ens38会自动接替ens33的工作</code></pre>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/08/22/%E7%BD%91%E5%8D%A1%E9%93%BE%E8%B7%AF%E8%81%9A%E5%90%88/" data-id="cke4j8nnr000zj4t92g33haa3" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux-network/" rel="tag">linux/network</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-交换机的工作原理" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/08/22/%E4%BA%A4%E6%8D%A2%E6%9C%BA%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/" class="article-date">
-  <time datetime="2020-08-21T17:53:22.435Z" itemprop="datePublished">2020-08-22</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
+      <div class="index-btm post-metas">
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/08/22/%E4%BA%A4%E6%8D%A2%E6%9C%BA%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/">交换机的工作原理</a>
-    </h1>
-  
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-08-22 01:53" pubdate>
+              2020-08-22
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/linux-network/">linux/network</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
 
-      </header>
+  <div class="row mx-auto index-card">
     
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="交换机"><a href="#交换机" class="headerlink" title="交换机"></a>交换机</h3><pre><code>交换机工作在数据链路层，以数据帧作为传输载体，依靠mac地址表作为转发依据</code></pre>
-<h3 id="工作原理"><a href="#工作原理" class="headerlink" title="工作原理"></a>工作原理</h3><pre><code>1、基于mac地址学习 （收到终端发来的包，记录下端口）
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        <a href="/2020/08/22/%E4%BA%A4%E6%8D%A2%E6%9C%BA%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/">交换机的工作原理</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2020/08/22/%E4%BA%A4%E6%8D%A2%E6%9C%BA%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/">
+          
+          
+            
+          
+          交换机交换机工作在数据链路层，以数据帧作为传输载体，依靠mac地址表作为转发依据
+工作原理1、基于mac地址学习 （收到终端发来的包，记录下端口）
 2、收到一个广播，除源端口，所有端口转发
 3、基于目的mac转发
-4、在不同时间的不同端口收到相同的mac地址，选择最新的</code></pre>
-<h3 id="交换机通信分析"><a href="#交换机通信分析" class="headerlink" title="交换机通信分析"></a>交换机通信分析</h3><p><img src="https://i.imgur.com/RGnGLGk.png"></p>
-<pre><code>假设这是一个刚刚建立的网络
+4、在不同时间的不同端口收到相同的mac地址，选择最新的
+交换机通信分析
+假设这是一个刚刚建立的网络
 pc1的ip:10.1.1.1 
 mac:54-89-98-5A-1D-F1
 
-pc2的ip:10.1.1.2
-mac：54-89-98-20-32-C5
+pc
+        </a>
+      </p>
 
-pc3的ip:10.1.1.3
-mac：54-89-98-85-0E-E2
-
-此时pc1执行pin 10.1.1.2 这条命令，由应用层产生数据，向下逐层封装，封装到数据链路层的时候
-因为不知道目的mac,所以以太网帧的封装不了的，此时，pc1向交换机发送一个arp requst包
-交换机收到arp requst包，解封装到数据链路层，交换机首先把剥开的mac地址
-与自己的mac地址表对比，发现自己的mac地址表里没有这个mac,所以就把这个mac保存在自己的mac地址表里面
-然后就会看到这个帧里面的类型，为0x0806,是一个广播包，马上把它转发到除源端口外的所有端口，
-两种情况：
-（1）pc2收到的时候解封装到网络层，更新自己的arp缓存表，记录下这个包的源ip和对应的源mac（即pc1的ip、mac）
-（2）然后发现这个包的目的IP是自己，它就会回一个arp reply单播包给pc1
-（3）而arp reply 在经过交换机的时候，交换机会解封装到数据链路层发现这个包里面的源mac自己的mac 地址表里面没有
-（4）然后更新自己的mac地址表，记录下这个mac 和这个mac进来的端口
-（5）pc1收到之后，更新自己的arp缓存表，记录下这个包的源ip和源mac(即pc2的ip、mac)
-（6）然后继续封装,完成之后，将ping的数据发给交换机，
-（7）交换机解封装，看到里面的目的mac,对照自己的mac地址表，将数据从对应的端口发出去
-
-第二种情况：
- (1)pc3收到交换机发过来的arp requst包之后，解封装到数据链路层，
-（2）更新自己的qrp缓存表，记录下这个包的源mac 和 源ip(即pc1的 mac 和 ip
-（3）所以在arp缓存表有效的时间内，pc3与pc1通信，是不需要发 arp requst包的)</code></pre>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/08/22/%E4%BA%A4%E6%8D%A2%E6%9C%BA%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/" data-id="cke4j8nnp000vj4t94klo21cj" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/internet/" rel="tag">internet</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-磁盘的挂载与使用" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/08/22/%E7%A3%81%E7%9B%98%E7%9A%84%E6%8C%82%E8%BD%BD%E4%B8%8E%E4%BD%BF%E7%94%A8/" class="article-date">
-  <time datetime="2020-08-21T17:53:22.432Z" itemprop="datePublished">2020-08-22</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
+      <div class="index-btm post-metas">
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/08/22/%E7%A3%81%E7%9B%98%E7%9A%84%E6%8C%82%E8%BD%BD%E4%B8%8E%E4%BD%BF%E7%94%A8/">linux下设备的挂载与使用</a>
-    </h1>
-  
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-08-22 01:53" pubdate>
+              2020-08-22
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/internet/">internet</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
 
-      </header>
+  <div class="row mx-auto index-card">
     
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>注：linux中的所有设备只有在经过挂载后才可以正常使用</p>
-<h3 id="挂载的分类"><a href="#挂载的分类" class="headerlink" title="挂载的分类"></a>挂载的分类</h3><h4 id="1-临时挂载（mount-设备目录-挂载点目录）"><a href="#1-临时挂载（mount-设备目录-挂载点目录）" class="headerlink" title="1.临时挂载（mount /设备目录  /挂载点目录）"></a>1.临时挂载（mount /设备目录  /挂载点目录）</h4><h4 id="临时挂载："><a href="#临时挂载：" class="headerlink" title="临时挂载："></a>临时挂载：</h4><pre><code>需要临时性的调用存储设备，可用临时挂载,重启后自动卸载
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        <a href="/2020/08/22/%E7%A3%81%E7%9B%98%E7%9A%84%E6%8C%82%E8%BD%BD%E4%B8%8E%E4%BD%BF%E7%94%A8/">linux下设备的挂载与使用</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2020/08/22/%E7%A3%81%E7%9B%98%E7%9A%84%E6%8C%82%E8%BD%BD%E4%B8%8E%E4%BD%BF%E7%94%A8/">
+          
+          
+            
+          
+          注：linux中的所有设备只有在经过挂载后才可以正常使用
+挂载的分类1.临时挂载（mount /设备目录  /挂载点目录）临时挂载：需要临时性的调用存储设备，可用临时挂载,重启后自动卸载
 命令语法：
     mount /dev/sdb    /mnt/sdb
 下面是一个临时挂载实例：
-（1）[root@localhost ~]# lsblk            //查看分区表，是否有需要挂载的设备，如果没有在虚拟机添加即可
-    NAME          MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT
-    sda             8:0    0   40G  0 disk 
-    ├─sda1          8:1    0    1G  0 part /boot
-    └─sda2          8:2    0   39G  0 part 
-       ├─rhel-root 253:0    0   37G  0 lvm  /
-       └─rhel-swap 253:1    0    2G  0 lvm  [SWAP]
-    sdb             8:16   0   20G  0 disk                 //这里找到一个没有挂载的硬盘，sdb
-    sr0            11:0    1  4.2G  0 rom  /mnt/cdrom
+（1）[root@localhost ~]# lsblk            //查看分区表，是否有需要挂载的
+        </a>
+      </p>
 
-（2）[root@localhost ~]# lsblk -f                 //查看分区表详细信息，是否被格式化
-    NAME          FSTYPE      LABEL                  UUID                                   MOUNTPOINT
-    sda                                                                                     
-    ├─sda1        xfs                                7b098c20-4c39-4404-b1b6-d9e74ea76731   /boot
-    └─sda2        LVM2_member                        dgIvNr-jVu4-LMnp-RW5C-0az1-qH6A-C4XPuQ 
-      ├─rhel-root xfs                                c6732474-557a-472f-b4c9-63d47334f170   /
-      └─rhel-swap swap                               09c4d911-ba14-4886-95b8-aa9a321f0865   [SWAP]
-    sdb                                          //在这里可以看到，sdb没有带文件系统                             
-    sr0           iso9660     RHEL-7.6 Server.x86_64 2018-10-10-18-34-13-00                 /mnt/cdrom
-
-（3）[root@localhost ~]# fdisk /dev/sdb                 //对刚刚添加的硬盘进行一个分区操作
-    Welcome to fdisk (util-linux 2.23.2).
-
-    Changes will remain in memory only, until you decide to write them.
-    Be careful before using the write command.
-
-    Device does not contain a recognized partition table
-    Building a new DOS disklabel with disk identifier 0xbf9f7ca3.
-
-    Command (m for help): n    //新建分区  
-    Partition type:
-       p   primary (0 primary, 0 extended, 4 free)
-       e   extended
-    Select (default p):         //主分区和逻辑分区的选择，默认主分区
-    Using default response p
-    Partition number (1-4, default 1):             //分区编号，一般默认
-    First sector (2048-41943039, default 2048):     //起始扇区，一般默认
-    Using default value 2048
-    Last sector, +sectors or +size&#123;K,M,G&#125; (2048-41943039, default 41943039):     //结束扇区，一般+&#123;K,M,G&#125;
-    Using default value 41943039
-    Partition 1 of type Linux and of size 20 GiB is set        //创建成功
-
-    Command (m for help): w                    //保存退出
-
-（4）[root@localhost ~]# mkfs.xfs /dev/sdb1                //对刚刚创建的分区进行格式化操作
-    meta-data=/dev/sdb1              isize=512    agcount=4, agsize=1310656 blks
-             =                       sectsz=512   attr=2, projid32bit=1
-             =                       crc=1        finobt=0, sparse=0
-    data     =                       bsize=4096   blocks=5242624, imaxpct=25
-             =                       sunit=0      swidth=0 blks
-    naming   =version 2              bsize=4096   ascii-ci=0 ftype=1
-    log      =internal log           bsize=4096   blocks=2560, version=2
-             =                       sectsz=512   sunit=0 blks, lazy-count=1
-    realtime =none                   extsz=4096   blocks=0, rtextents=0
-
-（5）[root@localhost ~]# mkdir /mnt/sdb                //创建一个挂载点
-（5）[root@localhost ~]# mount /dev/sdb1 /mnt/sdb
-    [root@localhost ~]# lsblk
-    NAME          MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT
-    sda             8:0    0   40G  0 disk 
-    ├─sda1          8:1    0    1G  0 part /boot
-    └─sda2          8:2    0   39G  0 part 
-      ├─rhel-root 253:0    0   37G  0 lvm  /
-      └─rhel-swap 253:1    0    2G  0 lvm  [SWAP]
-    sdb             8:16   0   20G  0 disk 
-    └─sdb1          8:17   0   20G  0 part /mnt/sdb      //这里可以看到以已经挂载到我们刚刚创建的挂载点上了
-    sr0            11:0    1  4.2G  0 rom  /mnt/cdrom</code></pre>
-<h4 id="2-永久性挂载（vim-etc-fstab）"><a href="#2-永久性挂载（vim-etc-fstab）" class="headerlink" title="2.永久性挂载（vim /etc/fstab）"></a>2.永久性挂载（vim /etc/fstab）</h4><h4 id="永久性挂载："><a href="#永久性挂载：" class="headerlink" title="永久性挂载："></a>永久性挂载：</h4><pre><code>一次挂载，永久生效
-方法法：
-    写入挂载表 vim /etc/fstab
-    添加一行：
-        /设备目录        /挂载点         文件系统格式            挂载选项        硬盘开机检测 检测级别    
-下面是一个永久挂载实例：
-
- （1）[root@localhost ~]# lsblk                    //查看当前设备
-      NAME          MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT
-      sda             8:0    0   40G  0 disk 
-      ├─sda1          8:1    0    1G  0 part /boot
-      └─sda2          8:2    0   39G  0 part 
-        ├─rhel-root 253:0    0   37G  0 lvm  /
-        └─rhel-swap 253:1    0    2G  0 lvm  [SWAP]
-      sr0            11:0    1 1024M  0 rom  
-
- （2）添加一块硬盘，重启（在虚拟机设置里面有设置一个功能按钮，一直点到底就添加成功了）
-
- （3）[root@localhost ~]# lsblk            //可以查看一下我们添加一新硬盘为sdb
-         NAME          MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT
-      sda             8:0    0   40G  0 disk 
-      ├─sda1          8:1    0    1G  0 part /boot
-      └─sda2          8:2    0   39G  0 part 
-        ├─rhel-root 253:0    0   37G  0 lvm  /
-        └─rhel-swap 253:1    0    2G  0 lvm  [SWAP]
-      sdb             8:16   0   20G  0 disk 
-      sr0            11:0    1 1024M  0 rom  
-
-
- （4）[root@localhost ~]# fdisk /dev/sdb            //我们在这里执行一个分区操作
-    Welcome to fdisk (util-linux 2.23.2).
-
-    Changes will remain in memory only, until you decide to write them.
-    Be careful before using the write command.
-
-    Device does not contain a recognized partition table
-    Building a new DOS disklabel with disk identifier 0x77251762.
-
-    Command (m for help): n
-    Partition type:
-       p   primary (0 primary, 0 extended, 4 free)
-       e   extended
-    Select (default p): 
-    Using default response p
-    Partition number (1-4, default 1): 
-    First sector (2048-41943039, default 2048): 
-    Using default value 2048
-    Last sector, +sectors or +size&#123;K,M,G&#125; (2048-41943039, default 41943039): 
-    Using default value 41943039
-    Partition 1 of type Linux and of size 20 GiB is set
-
-    Command (m for help): 
-
- （5）[root@localhost ~]# mkfs.xfs /dev/sdb1    //对刚刚的创建的分区进行一个格式化操作
-      meta-data=/dev/sdb1              isize=512    agcount=4, agsize=1310656 blks
-               =                       sectsz=512   attr=2, projid32bit=1
-               =                       crc=1        finobt=0, sparse=0
-      data     =                       bsize=4096   blocks=5242624, imaxpct=25
-               =                       sunit=0      swidth=0 blks
-      naming   =version 2              bsize=4096   ascii-ci=0 ftype=1
-      log      =internal log           bsize=4096   blocks=2560, version=2
-               =                       sectsz=512   sunit=0 blks, lazy-count=1
-      realtime =none                   extsz=4096   blocks=0, rtextents=0
-
- （6）[root@localhost ~]# vim /etc/fstab
-      #
-      # /etc/fstab
-      # Created by anaconda on Mon Mar 18 03:41:38 2019
-      #
-      # Accessible filesystems, by reference, are maintained under &#39;/dev/disk&#39;
-      # See man pages fstab(5), findfs(8), mount(8) and/or blkid(8) for more info
-      #
-      /dev/mapper/rhel-root   /                       xfs     defaults        0 0
-      UUID=7b098c20-4c39-4404-b1b6-d9e74ea76731 /boot                   xfs     defaults        0 0
-      /dev/mapper/rhel-swap   swap                    swap    defaults        0 0
-添加：/dev/sdb1                 /mnt/sdb                  xfs      defaults          0 0
-    设备目录                     挂载点                    文件系统     选项              开机检查，检查级别
-
- （7）[root@localhost ~]# mkdir /mnt/sdb                //刚刚忘了创建的挂载点
-
- （8）[root@localhost ~]# mount -a                    //重读挂载表
- （9）[root@localhost ~]# lsblk                        //查看挂载设备
-      NAME          MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT
-      sda             8:0    0   40G  0 disk 
-      ├─sda1          8:1    0    1G  0 part /boot
-      └─sda2          8:2    0   39G  0 part 
-        ├─rhel-root 253:0    0   37G  0 lvm  /
-        └─rhel-swap 253:1    0    2G  0 lvm  [SWAP]
-      sdb             8:16   0   20G  0 disk 
-         └─sdb1          8:17   0   20G  0 part /mnt/sdb      //这里可以看到我们的sdb1已经挂载到/mnt/sdb上了，可以正常使用了
-      sr0            11:0    1 1024M  0 rom  </code></pre>
-<h4 id="3-自动性挂载（vim-etc-fstab）"><a href="#3-自动性挂载（vim-etc-fstab）" class="headerlink" title="3.自动性挂载（vim /etc/fstab）"></a>3.自动性挂载（vim /etc/fstab）</h4><h4 id="自动挂载："><a href="#自动挂载：" class="headerlink" title="自动挂载："></a>自动挂载：</h4><pre><code>有需要时触发条件，自动挂载，不使用时自动卸载
-配置自动挂载流程：
-（1）搭建Yum仓库
- [root@localhost ~]# mount /dev/sr0 /mnt/cdrom
- [root@localhost ~]# vim /etc/yum.repos.d/a.repo
- 内容：     [a]
-        name=a
-        gpgcheck=0
-        enabled=1
-        baseurl=file：///mnt/cdrom
- [root@localhost ~]# yum repolist
- Loaded plugins: langpacks, product-id, search-disabled-repos, subscription-manager
- This system is not registered with an entitlement server. You can use subscription-manager to register.
-    a                                                                                   | 4.3 kB  00:00:00     
-    (1/2): a/group_gz                                                                   | 146 kB  00:00:00     
-    (2/2): a/primary_db                                                                 | 4.2 MB  00:00:00     
-    repo id                                              repo name                                       status
-    a                                                    a                                               5,152
-    repolist: 5,152
-    仓库搭建成功 
-
-（2）[root@localhost ~]# yum install -y autofs      //安装自动挂载的组件程序包
-    Loaded plugins: langpacks, product-id, search-disabled-repos, subscription-manager
-    This system is not registered with an entitlement server. You can use subscription-manager to register.
-    Resolving Dependencies
-    --&gt; Running transaction check
-    ---&gt; Package autofs.x86_64 1:5.0.7-99.el7 will be installed
-    --&gt; Processing Dependency: libhesiod.so.0()(64bit) for package: 1:autofs-5.0.7-99.el7.x86_64
-    --&gt; Running transaction check
-    ---&gt; Package hesiod.x86_64 0:3.2.1-3.el7 will be installed
-    --&gt; Finished Dependency Resolution
-
-    Dependencies Resolved
-
-    ===========================================================================================================
-     Package                 Arch                    Version                          Repository          Size
-    ===========================================================================================================
-    Installing:
-     autofs                  x86_64                  1:5.0.7-99.el7                   a                  814 k
-    Installing for dependencies:
-     hesiod                  x86_64                  3.2.1-3.el7                      a                   30 k
-
-    Transaction Summary
-    ===========================================================================================================
-    Install  1 Package (+1 Dependent package)
-
-    Total download size: 843 k
-    Installed size: 5.1 M
-    Downloading packages:
-    -----------------------------------------------------------------------------------------------------------
-    Total                                                                       18 MB/s | 843 kB  00:00:00     
-    Running transaction check
-    Running transaction test
-    Transaction test succeeded
-    Running transaction
-      Installing : hesiod-3.2.1-3.el7.x86_64                                                               1/2 
-      Installing : 1:autofs-5.0.7-99.el7.x86_64                                                            2/2 
-    a/productid                                                                         | 1.6 kB  00:00:00     
-      Verifying  : hesiod-3.2.1-3.el7.x86_64                                                               1/2 
-      Verifying  : 1:autofs-5.0.7-99.el7.x86_64                                                            2/2 
-
-    Installed:
-      autofs.x86_64 1:5.0.7-99.el7                                                                             
-
-    Dependency Installed:
-      hesiod.x86_64 0:3.2.1-3.el7                                                                              
-
-    Complete!
-
-（3）[root@localhost ~]# vim /etc/auto.master     //编辑主配置文件
-添加一行：    
-    /mnt/           /etc/auto.file          --timeout=30
-
-（4）[root@localhost ~]# vim /etc/auto.file        //映射文件，默认没有，自行创建
-添加一行：
-    redhat          -fstype=xfs     :/dev/sdb1
-
- (5)[root@localhost ~]# lsblk -f                //检查一下sdb是不是xfs格式，如果不是则需要自行格式化：mkfs.xfs /dev/sdb
-    NAME          FSTYPE      LABEL                  UUID                                   MOUNTPOINT
-    sda                                                                                     
-    ├─sda1        xfs                                7b098c20-4c39-4404-b1b6-d9e74ea76731   /boot
-    └─sda2        LVM2_member                        dgIvNr-jVu4-LMnp-RW5C-0az1-qH6A-C4XPuQ 
-      ├─rhel-root xfs                                c6732474-557a-472f-b4c9-63d47334f170   /
-      └─rhel-swap swap                               09c4d911-ba14-4886-95b8-aa9a321f0865   [SWAP]
-    sdb                                                                                     
-    └─sdb1        xfs                                ad8d116b-6d99-441b-aca8-2ec798655d30   
-    sr0           iso9660     RHEL-7.6 Server.x86_64 2018-10-10-18-34-13-00                 /mnt/cdrom
-
-
- (6)[root@localhost ~]# lsblk                //验证一下sdb1是没有挂载上去的
-    NAME          MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT
-    sda             8:0    0   40G  0 disk 
-    ├─sda1          8:1    0    1G  0 part /boot
-    └─sda2          8:2    0   39G  0 part 
-      ├─rhel-root 253:0    0   37G  0 lvm  /
-      └─rhel-swap 253:1    0    2G  0 lvm  [SWAP]
-    sdb             8:16   0   20G  0 disk 
-    └─sdb1          8:17   0   20G  0 part                 //这里的挂载为空
-    sr0            11:0    1  4.2G  0 rom  /mnt/cdrom
-
- (7)[root@localhost ~]# systemctl restart autofs           //重启服务
-（8)[root@localhost ~]# ls /mnt/redhat                    //触发条件
-（9)[root@localhost ~]# lsblk                            //验证一下有没有挂载上去
-    NAME          MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT
-    sda             8:0    0   40G  0 disk 
-    ├─sda1          8:1    0    1G  0 part /boot
-    └─sda2          8:2    0   39G  0 part 
-      ├─rhel-root 253:0    0   37G  0 lvm  /
-      └─rhel-swap 253:1    0    2G  0 lvm  [SWAP]
-    sdb             8:16   0   20G  0 disk 
-    └─sdb1          8:17   0   20G  0 part /mnt/redhat    //这里显示为挂载上去了
-    sr0            11:0    1  4.2G  0 rom  /mnt/cdrom
-
-(10)自动卸载,时间是我们在主配置文件里面写的&quot;--timeout=30&quot;的30s,如果闲置30s,则会自动卸载</code></pre>
-<p>###心得体会：<br>    1.学习Linux是一件枯燥的事情,但学习linux也是一件有趣的事情<br>    2.学习linux没有统一的标准，流程，学习linux是一个不断积累的过程<br>    3.做的多了，会的也就多了，才算得上是懂了linux</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/08/22/%E7%A3%81%E7%9B%98%E7%9A%84%E6%8C%82%E8%BD%BD%E4%B8%8E%E4%BD%BF%E7%94%A8/" data-id="cke4j8nnq000xj4t956xb91au" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux-storage/" rel="tag">linux/storage</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-windows平台下设置文件共享" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/08/22/windows%E5%B9%B3%E5%8F%B0%E4%B8%8B%E8%AE%BE%E7%BD%AE%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB/" class="article-date">
-  <time datetime="2020-08-21T17:53:22.429Z" itemprop="datePublished">2020-08-22</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
+      <div class="index-btm post-metas">
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/08/22/windows%E5%B9%B3%E5%8F%B0%E4%B8%8B%E8%AE%BE%E7%BD%AE%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB/">windows下设置文件共享</a>
-    </h1>
-  
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-08-22 01:53" pubdate>
+              2020-08-22
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/linux-storage/">linux/storage</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
 
-      </header>
+  <div class="row mx-auto index-card">
     
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h4 id="环境："><a href="#环境：" class="headerlink" title="环境："></a>环境：</h4><pre><code>1.windows平台
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        <a href="/2020/08/22/windows%E5%B9%B3%E5%8F%B0%E4%B8%8B%E8%AE%BE%E7%BD%AE%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB/">windows下设置文件共享</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2020/08/22/windows%E5%B9%B3%E5%8F%B0%E4%B8%8B%E8%AE%BE%E7%BD%AE%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB/">
+          
+          
+            
+          
+          环境：1.windows平台
 2.由两台以上的主机
- 3.主机间要有物理连接（包括无线连接）</code></pre>
-<h3 id="一、任意目录创建共享文件夹"><a href="#一、任意目录创建共享文件夹" class="headerlink" title="一、任意目录创建共享文件夹"></a>一、任意目录创建共享文件夹</h3><pre><code>1.打开此电脑————&gt;打开任意磁盘————&gt;右击————&gt;新建————&gt;文件夹
+ 3.主机间要有物理连接（包括无线连接）
+一、任意目录创建共享文件夹1.打开此电脑————&gt;打开任意磁盘————&gt;右击————&gt;新建————&gt;文件夹
 
-2.选中文件夹————&gt;右击————&gt;属性————&gt;共享选项卡————&gt;共享————&gt;添加Everyone用户————&gt;共享</code></pre>
-<h3 id="二、打开guest用户"><a href="#二、打开guest用户" class="headerlink" title="二、打开guest用户"></a>二、打开guest用户</h3><pre><code>1.打开控制面板————&gt;用户帐户————&gt;用户帐户————&gt;管理其他用户————&gt;选择guest用户————&gt;启用</code></pre>
-<h3 id="三、编辑组策略编辑器"><a href="#三、编辑组策略编辑器" class="headerlink" title="三、编辑组策略编辑器"></a>三、编辑组策略编辑器</h3><pre><code>1.win+r运行————&gt;输入gpedit.msc————&gt;计算机配置————&gt;windows设置————&gt;安全设置————&gt;
+2.选中文件夹————&gt;右击————&gt;属性————&gt;共享选项卡————&gt;共享————&gt;添加Everyone用户————&gt;共享
+二、打开g
+        </a>
+      </p>
 
-2.本地策略————&gt;用户权限分配————&gt;找到“拒绝从网络访问这台计算机”————&gt;删除guest用户选项</code></pre>
-<h3 id="四、配置网络"><a href="#四、配置网络" class="headerlink" title="四、配置网络"></a>四、配置网络</h3><pre><code>要求：将提供共享文件的主机和接收文件共享的主机配置在同一个局域网内,并且保证两台主机的连通性
-例：
-    pc1 server 的ip: 10.10.128.1/24
-    pc2 client 的ip: 10.10.128.2/24
-测试方法：
-    在pc1使用Ping 命令测试到pc2的连通性
-    在pc2使用ping 命令测试到pc1的连通性</code></pre>
-<h3 id="五、说明"><a href="#五、说明" class="headerlink" title="五、说明"></a>五、说明</h3><pre><code>1.windows 版本不同，设置步骤有细微差别
-2.windows xp 只要设置共享文件夹即可实现局域网共享
-3.windows 7 则按上面操作即可
-4.windows 10 按上面操作即可
-5.windows server 的操作步骤也是一样的</code></pre>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/08/22/windows%E5%B9%B3%E5%8F%B0%E4%B8%8B%E8%AE%BE%E7%BD%AE%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB/" data-id="cke4j8nnm000qj4t9e3ep1yan" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/windows/" rel="tag">windows</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-VLAN技术的原理" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/08/22/VLAN%E6%8A%80%E6%9C%AF%E7%9A%84%E5%8E%9F%E7%90%86/" class="article-date">
-  <time datetime="2020-08-21T17:53:22.427Z" itemprop="datePublished">2020-08-22</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
+      <div class="index-btm post-metas">
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/08/22/VLAN%E6%8A%80%E6%9C%AF%E7%9A%84%E5%8E%9F%E7%90%86/">VLAN技术的原理</a>
-    </h1>
-  
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-08-22 01:53" pubdate>
+              2020-08-22
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/windows/">windows</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
 
-      </header>
+  <div class="row mx-auto index-card">
     
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h3><pre><code>我们学习一种技术是这样一个流程：
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        <a href="/2020/08/22/VLAN%E6%8A%80%E6%9C%AF%E7%9A%84%E5%8E%9F%E7%90%86/">VLAN技术的原理</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2020/08/22/VLAN%E6%8A%80%E6%9C%AF%E7%9A%84%E5%8E%9F%E7%90%86/">
+          
+          
+            
+          
+          引言我们学习一种技术是这样一个流程：
 （1）为什么要有这个技术
 （2）这个技术的原理是什么
 （3）这个技术的配置是什么
 （4）了解这个技术的排错
-下面我们来了解学习一下vlan技术：</code></pre>
-<h3 id="一、VLAN技术的背景"><a href="#一、VLAN技术的背景" class="headerlink" title="一、VLAN技术的背景"></a>一、VLAN技术的背景</h3><h4 id="1-交换机的工作原理"><a href="#1-交换机的工作原理" class="headerlink" title="1.交换机的工作原理"></a>1.交换机的工作原理</h4><pre><code> 这里我们可以从交换机讲起，我们众所周知，交换机有几个特性：
+下面我们来了解学习一下vlan技术：
+一、VLAN技术的背景1.交换机的工作原理 这里我们可以从交换机讲起，我们众所周知，交换机有几个特性：
  1.基于目的mac转发
  2.基于目的mac学习
  3.收到广播包，除了源端口外所有端口转发
- 4.在不同的时间收到相同的mac数据包，学习最新的那个端口
- 我们可以从一张图片中可以来分析一下：</code></pre>
-<p><img src="https://i.imgur.com/MlQTJfx.png"></p>
-<pre><code>我们可以看到，在如图的这样一个网络中，我们需要实现网络互联，假设从pc1到pc3需要通信，那么数据包在pc1封装，但是缺少dmac，所以此时我们的pc1就会发送一个apr广播
-包目的是全1，在数据包到达pc3之前，我途经的交换机会收到pc1的数据包，学习经过数据包的sip,并且会 执行一个动作，将sip与数据进行的端口进行一个绑定，写入到本交换
-机中的mac地址表中。下次再有数据包经过会真的匹配本交换机的mac地址表。mac地表更新完毕的同时，交换机的第三个特性就表现出来了，收到广播包，除了源端口外所有端口转
-发。所以pc1的数据包可以转发到每一个区域。    </code></pre>
-<p><img src="https://i.imgur.com/CekxSGW.png"></p>
-<h4 id="2-广播风暴的概念"><a href="#2-广播风暴的概念" class="headerlink" title="2.广播风暴的概念"></a>2.广播风暴的概念</h4><pre><code>由于二层设备的特点，我们的网络中会出现许多的多余的广播包，占用我们的带宽，影响我们的网络速率，但是二层设备又无法避免</code></pre>
-<h4 id="二、VLAN技术原理"><a href="#二、VLAN技术原理" class="headerlink" title="二、VLAN技术原理"></a>二、VLAN技术原理</h4><pre><code>VLAN技术的出现是为了限制广播域，为了隔离广播风暴的大范围转发，从而从一定程度上影响整个网络的速率
-VLAN技术的实质是从逻辑上将物理的端口划到同一区域，有了这样的技术，我们广播包就只会在同的vlan区域转发，对于同的vlan区域，则不能转发过去。
+ 4.在不同的时
+        </a>
+      </p>
 
-具体实现方法：
-（1）具体的数据包从pc端封装完成，转发致交换机，而交换机则根据数据源端口所在的vlan区域自动的在数据包的前面加上所在vlan的vid
-（2）交换机从端口收到一个vlan的数据包，再将数据包剥开，将vid与交换机所有的vlan id作匹配，同的vlan区域的所有端口转发。</code></pre>
-<h3 id="三、VLAN技术的配置"><a href="#三、VLAN技术的配置" class="headerlink" title="三、VLAN技术的配置"></a>三、VLAN技术的配置</h3><pre><code>&lt;Huawei&gt;system-view 
-Enter system view, return user view with Ctrl+Z.
-[Huawei]
-[Huawei]
-[Huawei]vlan 10
-[Huawei]int GigabitEthernet 0/0/1
-[Huawei-GigabitEthernet0/0/1]port link-type access
-[Huawei-GigabitEthernet0/0/1]port default vlan 10</code></pre>
-<h3 id="四、排错"><a href="#四、排错" class="headerlink" title="四、排错"></a>四、排错</h3>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/08/22/VLAN%E6%8A%80%E6%9C%AF%E7%9A%84%E5%8E%9F%E7%90%86/" data-id="cke4j8nnh000gj4t93fdz0sye" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/network/" rel="tag">network</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-STP生成树协议" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/08/22/STP%E7%94%9F%E6%88%90%E6%A0%91%E5%8D%8F%E8%AE%AE/" class="article-date">
-  <time datetime="2020-08-21T17:53:22.424Z" itemprop="datePublished">2020-08-22</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
+      <div class="index-btm post-metas">
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/08/22/STP%E7%94%9F%E6%88%90%E6%A0%91%E5%8D%8F%E8%AE%AE/">STP生成树协议</a>
-    </h1>
-  
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-08-22 01:53" pubdate>
+              2020-08-22
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/network/">network</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
 
-      </header>
+  <div class="row mx-auto index-card">
     
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="stp协议的背景"><a href="#stp协议的背景" class="headerlink" title="stp协议的背景"></a>stp协议的背景</h3><pre><code>为了解决单点故障的问题，提出冗余的概念，但是又产生了新的问题————环路
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        <a href="/2020/08/22/STP%E7%94%9F%E6%88%90%E6%A0%91%E5%8D%8F%E8%AE%AE/">STP生成树协议</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2020/08/22/STP%E7%94%9F%E6%88%90%E6%A0%91%E5%8D%8F%E8%AE%AE/">
+          
+          
+            
+          
+          stp协议的背景为了解决单点故障的问题，提出冗余的概念，但是又产生了新的问题————环路
 表现形式为：
 （1）MAC地址表抖动
 （2）多帧复制
-（3）广播风暴</code></pre>
-<h3 id="stp-spanning-tree-pro-生成树协议"><a href="#stp-spanning-tree-pro-生成树协议" class="headerlink" title="stp (spanning-tree pro) 生成树协议"></a>stp (spanning-tree pro) 生成树协议</h3><h4 id="先了解几个概念："><a href="#先了解几个概念：" class="headerlink" title="先了解几个概念："></a>先了解几个概念：</h4><pre><code>Brige ID: 简称BID 即网桥ID ，网桥ID代表在当前环境下的唯一一台交换机
+（3）广播风暴
+stp (spanning-tree pro) 生成树协议先了解几个概念：Brige ID: 简称BID 即网桥ID ，网桥ID代表在当前环境下的唯一一台交换机
     组成：
     （1）优先级，代表一个交换机的优先程度，越小越优先）
-    （2）MAC地址，交换机每个端口下都有一张网卡，值最小的mac，代表交换机mac
 
-Port ID：简称PID 即端口ID，用来表示交换机的唯一一个端口
-    组成：
-    （1）端口号
-    （2）MAC地址
+        </a>
+      </p>
 
-开销：衡量一根链路上传递数据花费的代价
-    HUAWEI官方参考数值
-    10M带宽            开销 20万
-    100M带宽            开销 2万
-    1000M带宽        开销 2000</code></pre>
-<h4 id="STP的工作原理"><a href="#STP的工作原理" class="headerlink" title="STP的工作原理"></a>STP的工作原理</h4><pre><code>第一步：选举根网桥
-    Root:控制整个网络的稳定
-    选举：
-        比较BID值的大小
-        （1）比较优先级，值越小越优先，
-        （2）若是优先级相同，则比较BID的另一部分，mac地址，取小的为根网桥</code></pre>
-<p><img src="https://i.imgur.com/6573T6U.png"></p>
-<pre><code>第二步：选举根端口（每个非根网桥只有一个）
-    Root port 简称RP:非根网桥接收来自根网桥的信息的端口
-    选举：
-        （1）比较到根网桥的开销，越小的越优先
-        （2）比较直连网桥的BID
-        （3）比较直连端口的PID</code></pre>
-<p><img src="https://i.imgur.com/zBi728g.png"></p>
-<pre><code>第三步：选取指定端口
-    DP：发送来自根网桥的信息，每一根链路只有一个指定端口
-    选举：
-        （1）比较到根网桥的开销，越小越优先（根网桥上所有的端口都为指定端口）
-        （2）比较端口所在网桥的BID</code></pre>
-<p><img src="https://i.imgur.com/UNYJqOB.png"></p>
-<pre><code>第四步：阻塞没有身份的所有端口</code></pre>
-<p><img src="https://i.imgur.com/7eyanqH.png"></p>
-<h4 id="BPDU-协议数据单元-Brige-PDU-也是数据帧的一种"><a href="#BPDU-协议数据单元-Brige-PDU-也是数据帧的一种" class="headerlink" title="BPDU:协议数据单元 Brige PDU 也是数据帧的一种"></a>BPDU:协议数据单元 Brige PDU 也是数据帧的一种</h4><pre><code>    confguration BPDU: 配置BPDU
-        （1）出现在stp刚启动的时候，用于网桥之间相互交换信息    
-        （2）出现在stp稳定之后，根网桥会定时向非根网发送BPDU，宣告自己的存在
-
-    TCN topology change notifacation PDU：网络拓扑改变BPDU
-        （1）出现在根网桥宕机的时候</code></pre>
-<h4 id="五种端口状态"><a href="#五种端口状态" class="headerlink" title="五种端口状态"></a>五种端口状态</h4><pre><code>disable      关闭        stp没有启动的时候
-blocking     阻塞        不能发送PDU,只能接收PDU
-listening     监听         出现在stp刚刚启动的时候，交换机相互交换信息confguration BPDU
-learning    学习        出现在stp选举的时候
-forwardin    转发        出现在stp已经稳定之后，可以正常转发数据</code></pre>
-<h4 id="用于配置stp的命令"><a href="#用于配置stp的命令" class="headerlink" title="用于配置stp的命令"></a>用于配置stp的命令</h4><pre><code>    stp     enable        启动stp
-    stp    mode stp        将stp的模式设置为stp
-    stp priority 0         设置设备的优先级，0~32768  必须为4096的倍数    </code></pre>
-<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><pre><code>（1）stp是网络协议里唯一一个遵循越小越优先的协议
-（2）在stp里面，网桥只有两种身份，根网桥和非根网桥
-（3）在stp里面的端口只有两种角色，根端口，指定端口，没有身份的端口将会被阻塞
-（4）根端口的作用是非根网桥用来接收来自根网桥的信息
-（5）指定端口的作用是发送来处根网桥的信息</code></pre>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/08/22/STP%E7%94%9F%E6%88%90%E6%A0%91%E5%8D%8F%E8%AE%AE/" data-id="cke4j8nne000dj4t92v8t73og" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/internet/" rel="tag">internet</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-samba服务器借借权操作" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/08/22/samba%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%80%9F%E5%80%9F%E6%9D%83%E6%93%8D%E4%BD%9C/" class="article-date">
-  <time datetime="2020-08-21T17:53:22.421Z" itemprop="datePublished">2020-08-22</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
+      <div class="index-btm post-metas">
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/08/22/samba%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%80%9F%E5%80%9F%E6%9D%83%E6%93%8D%E4%BD%9C/">samba服务器借权操作</a>
-    </h1>
-  
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-08-22 01:53" pubdate>
+              2020-08-22
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/internet/">internet</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
 
-      </header>
+  <div class="row mx-auto index-card">
     
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="一、搭建yum仓库"><a href="#一、搭建yum仓库" class="headerlink" title="一、搭建yum仓库"></a>一、搭建yum仓库</h3><pre><code> 1.挂载(提前创建挂载点)
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        <a href="/2020/08/22/samba%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%80%9F%E5%80%9F%E6%9D%83%E6%93%8D%E4%BD%9C/">samba服务器借权操作</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2020/08/22/samba%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%80%9F%E5%80%9F%E6%9D%83%E6%93%8D%E4%BD%9C/">
+          
+          
+            
+          
+          一、搭建yum仓库 1.挂载(提前创建挂载点)
     vim /etc/fstab
     添加一行内容：
     /dev/sr0        /mnt/cdrom        iso9660        defaults        0 0
@@ -824,112 +480,47 @@ forwardin    转发        出现在stp已经稳定之后，可以正常转发�
 
  3.编辑仓库文件
     vim /etc/yum.repo.d/a.repo
-    添加内容：
-        [a]
-        name=a
-        gpgcheck=0
-        enabled=1
-        baseurl=file:///mnt/cdrom</code></pre>
-<h3 id="二、安装samba程序包"><a href="#二、安装samba程序包" class="headerlink" title="二、安装samba程序包"></a>二、安装samba程序包</h3><pre><code>    yum install -y samba*</code></pre>
-<h3 id="三、编辑samba主配置文件"><a href="#三、编辑samba主配置文件" class="headerlink" title="三、编辑samba主配置文件"></a>三、编辑samba主配置文件</h3><pre><code>    vim /etc/samba/smb.conf
-       添加一个区域文件：
-    [shared]                                        //共享名
-    path = /tmp/joinlabs                            //共享路径
-    write list = sarah                                //写入列表，这个列表的里的用户是被赋予写权限的
-    valid users = natasha sarah                        //允许访问的合法用户
-    public = no                                        //
-    browseable = yes</code></pre>
-<h3 id="四、创建共享目录（如果目录存在则不用创建）"><a href="#四、创建共享目录（如果目录存在则不用创建）" class="headerlink" title="四、创建共享目录（如果目录存在则不用创建）"></a>四、创建共享目录（如果目录存在则不用创建）</h3><pre><code>    mkdir /tmp/joinlabs
-    chmod o+w /tmp/joinlabs                            //给予其他人写入权限</code></pre>
-<h3 id="五、关闭防火墙-amp-SElinux"><a href="#五、关闭防火墙-amp-SElinux" class="headerlink" title="五、关闭防火墙&amp;SElinux"></a>五、关闭防火墙&amp;SElinux</h3><pre><code>    firewall-cmd --add-service=samba --permanent    //放行samba服务    
-    firewall-cmd --reload                           //重载防火墙
-    systemctl status firewalld                        //查看防火墙的状态
-    setenforce 0                                    //关闭selinux
-    getenforce                                        //查看selinux的运行状态</code></pre>
-<h3 id="六、重启服务"><a href="#六、重启服务" class="headerlink" title="六、重启服务"></a>六、重启服务</h3><pre><code>    systemctl restart smb        //重启smb服务
-    systemctl status smb    //查看smb服务运行状态</code></pre>
-<h3 id="七、创建用户、配置samba访问密码"><a href="#七、创建用户、配置samba访问密码" class="headerlink" title="七、创建用户、配置samba访问密码"></a>七、创建用户、配置samba访问密码</h3><pre><code>    useradd natasha                                 //创建natasha用户，上面列表里没有写入权限但是有访问权限的用户
-    useradd sarah                                    //创建sarah用户，上面列表里有写入权限的用户，稍后我们将以natasha的身份向sarah借写入权限
-    smbpasswd natasha -a                            //配置natasha用户的samba服务的访问密码
-    smbpasswd sarah -a                                //配置sarah用户的samba服务访问密码</code></pre>
-<h3 id="八、登录到samba服务器"><a href="#八、登录到samba服务器" class="headerlink" title="八、登录到samba服务器"></a>八、登录到samba服务器</h3><pre><code>    smbclient //192.168.2.10/shared -U natasha%redhat    //登录samba服务器</code></pre>
-<h3 id="九、挂载到本地"><a href="#九、挂载到本地" class="headerlink" title="九、挂载到本地"></a>九、挂载到本地</h3><pre><code> 1.安装cifs组件
-    yum install -y cifs*
+    添加内容
+        </a>
+      </p>
 
- 2.写入挂载表
-    vim /etc/fstab
-    添加一行内容：
-    //192.168.2.10/shared        /mnt/shared            cifs    defaults,user=natasha,password=redhat,multiuser,sec=ntlmssp    0 0
-
- 3.重读挂载表
-    mount -a
-
- 4.查看设备挂载情况 (这个时候可以看到有一条网络挂载的记录
-    df -h
-    //192.168.2.10/shared   17G  1.2G   16G   7% /mnt/shared
-    mount                                                //查询挂载选项是否生效
-    //192.168.2.10/shared on /mnt/shared type cifs (rw,relatime,vers=default,sec=ntlmssp,cache=strict,multiuser,domain=,uid=0,noforceuid,gid=0,noforcegid,addr=192.168.2.10,file_mode=0755,dir_mode=0755,soft,nounix,serverino,mapposix,noperm,rsize=1048576,wsize=1048576,echo_interval=60,actimeo=1)
-        ！！可以看到我们写的挂载选项已经生效</code></pre>
-<h3 id="十、测试权限"><a href="#十、测试权限" class="headerlink" title="十、测试权限"></a>十、测试权限</h3><pre><code> 1.切换到natasha用户（即没有写入权限的用户）
-    su - natasha 
-    cd /mnt/shared
-    mkdir 1
-    mkdir: cannot create directory ‘1’: Permission denied     提示权限拒绝，
- 2.切换到sarah用户（即有写入权限的用户）
-     su - sarah 
-    cd /mnt/shared
-    mkdir 1
-    mkdir: cannot create directory ‘1’: Permission denied
- 3.原因：
-    我们执行的操作是在挂载点上创建目录，而我们的挂载表里是以natasha用户挂载的，所以在挂载点上执行操作是受到挂载用户权限限制的，下面让我们来借权：
- 4.借权
-    su - natasha 
-        或
-    su - sarah 
-     cifscreds  add  192.168.2.10  -u sarah
-    Password: 输入密码
-    mkdir 1
-    ll
-    发现在natasha用户下文件创建成功，则证明借权成功</code></pre>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/08/22/samba%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%80%9F%E5%80%9F%E6%9D%83%E6%93%8D%E4%BD%9C/" data-id="cke4j8nnl000nj4t9dlou2plu" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux-server/" rel="tag">linux/server</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-samba服务器基本搭建" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/08/22/samba%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%9F%BA%E6%9C%AC%E6%90%AD%E5%BB%BA/" class="article-date">
-  <time datetime="2020-08-21T17:53:22.419Z" itemprop="datePublished">2020-08-22</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
+      <div class="index-btm post-metas">
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/08/22/samba%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%9F%BA%E6%9C%AC%E6%90%AD%E5%BB%BA/">samba服务器基本搭建</a>
-    </h1>
-  
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-08-22 01:53" pubdate>
+              2020-08-22
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/linux-server/">linux/server</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
 
-      </header>
+  <div class="row mx-auto index-card">
     
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="一、准备工作："><a href="#一、准备工作：" class="headerlink" title="一、准备工作："></a>一、准备工作：</h3><pre><code>1.搭建一个本地Yum仓库
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        <a href="/2020/08/22/samba%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%9F%BA%E6%9C%AC%E6%90%AD%E5%BB%BA/">samba服务器基本搭建</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2020/08/22/samba%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%9F%BA%E6%9C%AC%E6%90%AD%E5%BB%BA/">
+          
+          
+            
+          
+          一、准备工作：1.搭建一个本地Yum仓库
 （1）挂载
     vim /etc/fstab 
     添加一行：    
@@ -937,253 +528,99 @@ forwardin    转发        出现在stp已经稳定之后，可以正常转发�
 （2）编辑仓库文件
     vim /etc/yum.repo.d/a.repo
     内容：
-    [a]                    //仓库名
-    name=a              //描述
-    gpgcheck=0            //校验
-    enabled=1            //是否启用
-    baseurl=file:///mnt/cdrom        //url
-(3)添加挂载点
-    mkdir /mnt/cdrom
+    [a
+        </a>
+      </p>
 
-(4)重读挂载表
-    mount -a
-    mount: /dev/sr0 is write-protected, mounting read-only
-
-(5)列出仓库
-yum repolist            //列出仓库资源
-Loaded plugins: langpacks, product-id, search-disabled-repos, subscription-manager
-This system is not registered with an entitlement server. You can use subscription-manager to register.
-a                                                                                   | 4.3 kB  00:00:00     
-(1/2): a/group_gz                                                                   | 146 kB  00:00:00     
-(2/2): a/primary_db                                                                 | 4.2 MB  00:00:00     
-repo id                                              repo name                                       status
-a                                                    a                                               5,152
-repolist: 5,152</code></pre>
-<h3 id="二、配置samba服务"><a href="#二、配置samba服务" class="headerlink" title="二、配置samba服务"></a>二、配置samba服务</h3><pre><code>(1)安装samba组件
-yum install -y samba
-
-(2)编辑主配置文件
-vim /etc/samba/smb.conf
-内容：
-[redhat]
-comment = hello word
-path = /tmp/share
-browseable = Yes
-public  = Yes
-writeable  = Yes
-
-(3)创建共享文件夹
-mkdir /tmp/share
-
-(4)配置samba服务登录用户密码(前提是alex真实存在)
-smbpasswd -a alex
-提示如下:
-New SMB password:
-Retype new SMB password:
-Added user alex.
-
-(5)关闭防火墙    
-systemctl stop firewalld.service 
-
-(6)关闭selinux
-setenforce 0
-
-samba服务配置完成</code></pre>
-<h3 id="三、测试"><a href="#三、测试" class="headerlink" title="三、测试"></a>三、测试</h3><h4 id="windows平台下测试："><a href="#windows平台下测试：" class="headerlink" title="windows平台下测试："></a>windows平台下测试：</h4><pre><code>（1）打“此电脑”，在地址栏输入\\IP地址
-（2）输入登录用户和密码
-（3）右击，“映射网络驱动器”
-（4）在此电脑下可以看到</code></pre>
-<h4 id="linux平台下测试"><a href="#linux平台下测试" class="headerlink" title="linux平台下测试"></a>linux平台下测试</h4><pre><code>（1）安装组件
-    yum install -y cifs-utils
-
-（2）创建挂载目录
-    mkdir /mnt/smb
-（3）挂载
-    mount -t cifs  //10.10.128.200/tmp/share /mnt/smb/ -o username=alex
-（6）查看
-    lsblk</code></pre>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/08/22/samba%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%9F%BA%E6%9C%AC%E6%90%AD%E5%BB%BA/" data-id="cke4j8nnn000sj4t9esc2h8sq" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux-server/" rel="tag">linux/server</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-OSI开放系统互联模型" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/08/22/OSI%E5%BC%80%E6%94%BE%E7%B3%BB%E7%BB%9F%E4%BA%92%E8%81%94%E6%A8%A1%E5%9E%8B/" class="article-date">
-  <time datetime="2020-08-21T17:53:22.417Z" itemprop="datePublished">2020-08-22</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
+      <div class="index-btm post-metas">
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/08/22/OSI%E5%BC%80%E6%94%BE%E7%B3%BB%E7%BB%9F%E4%BA%92%E8%81%94%E6%A8%A1%E5%9E%8B/">OSI开放系统互联模型</a>
-    </h1>
-  
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-08-22 01:53" pubdate>
+              2020-08-22
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/linux-server/">linux/server</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
 
-      </header>
+  <div class="row mx-auto index-card">
     
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="一、概念"><a href="#一、概念" class="headerlink" title="一、概念"></a>一、概念</h3><pre><code>网络技术的基础：OSI （开放系统互联模型）
-也是所有网络的理论依据</code></pre>
-<h5 id="三个名词："><a href="#三个名词：" class="headerlink" title="三个名词："></a>三个名词：</h5><pre><code>IOS:互联网操作系统 
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        <a href="/2020/08/22/OSI%E5%BC%80%E6%94%BE%E7%B3%BB%E7%BB%9F%E4%BA%92%E8%81%94%E6%A8%A1%E5%9E%8B/">OSI开放系统互联模型</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2020/08/22/OSI%E5%BC%80%E6%94%BE%E7%B3%BB%E7%BB%9F%E4%BA%92%E8%81%94%E6%A8%A1%E5%9E%8B/">
+          
+          
+            
+          
+          一、概念网络技术的基础：OSI （开放系统互联模型）
+也是所有网络的理论依据
+三个名词：IOS:互联网操作系统 
 ISO:国际标准化组织
-OSI:开放系统互联模型</code></pre>
-<h5 id="四个点："><a href="#四个点：" class="headerlink" title="四个点："></a>四个点：</h5><pre><code>（1）为什么有这个技术
+OSI:开放系统互联模型
+四个点：（1）为什么有这个技术
 （2）原理
 （3）配置
-（4）排错</code></pre>
-<h3 id="二、OSI七层模型出现的原因"><a href="#二、OSI七层模型出现的原因" class="headerlink" title="二、OSI七层模型出现的原因"></a>二、OSI七层模型出现的原因</h3><pre><code>（1）以前的网络是一个整体
+（4）排错
+二、OSI七层模型出现的原因（1）以前的网络是一个整体
 （2）各个厂商之间不兼容
-（3）不利于开发和排错</code></pre>
-<h3 id="三、原理"><a href="#三、原理" class="headerlink" title="三、原理"></a>三、原理</h3><pre><code>按照功能将网络分为七层，每一层都有各自的功能，相互独立，却又相互联系
+（3）不利于开发和排错
+三、原理按照功能将网络分为七层，每一层都有各自的功能，相互独立
+        </a>
+      </p>
 
-![](https://i.imgur.com/bsITheX.png)</code></pre>
-<h3 id="物理层的功能"><a href="#物理层的功能" class="headerlink" title="物理层的功能"></a>物理层的功能</h3><pre><code>（1）定义：
-    介质类型  
-        有线：双绞线、同轴电缆、光纤
-        无线：无线电、微波
-
-    线缆标准：    
-        568B：橙白/橙/绿白/蓝/蓝白/绿/棕白/棕
-        568A：绿白/绿/橙白/蓝/蓝白/橙/棕白/棕
-
-    传输距离：
-        双绞线100m
-
-    信号类型
-        电信号
-        光信号
-
-（2）物理层的设备
-    Hub（集线器）：信号的放大和复制
-    特性:
-        所有设备在同一冲突域
-        所有设备在同一广播域
-        所有设备共享相同带宽（连接在hub上的设备是分时间片的使用带宽，达到名义上的相同带宽）
-
-    CSMA/CD（载波监听多点接入/碰撞检测）机制
-        CSMA/CD机制出现的原因：随着接入的设备越多，冲突也就越大
-        CSMA/CD机制提出：一个时间内只能有一台设备使用带宽，设备在使用链路时，要先对链路进行监听，如果有人在传输数据，则需要等待
-        如果没有人在传输数据，则不需要等待，在链路上发布jam信号，传输数据
-        如果别的设备此时需要传输数据，而监听到链路上的jam信号
-        则不会立即传输数据，而是等待当前设备传输完成后，链路上没有jam信号了，再进行传输            </code></pre>
-<h3 id="数据链路层的功能"><a href="#数据链路层的功能" class="headerlink" title="数据链路层的功能"></a>数据链路层的功能</h3><pre><code>（1）定义
-    源和目的物理地址（MAC）
-    帧校验序列FCS
-
-（2）数据帧的标准
-     (1) 以太网                点到多点               一般用于交换机
-     (2) PPP                 点到点            一根链路上只有两台设备
-     (3) FR帧中继标准            点到多点            指定链路，要提前预设好线路 ，不用mac,不用ip,用FR标识号
-
-（3）以太网帧的标准
-    IEEE 802.1 (没人用)
-    ETHERNET II  (点到多点链路)
-
-    帧组成：
-    FLAG    SMAC    DMAC    TYPE    DATA    FCS
-
-    FLAG:标志，标识一个帧的开始
-    SMAC:源mac地址
-    DMAC:目的mac地址
-    TYPE:类型，表明这个帧承载的上层协议
-            0X0800        上层协议为IP        
-            0X0806        上层协议为ARP
-    DATA:数据部分
-    FCS: 帧校验
-
-（4）数据链路层的设备
-    交换机
-    特性：
-        每一个端口都是一个冲突域
-        广播包向所有端口转发
-
-（5）极域软件的通信工作原理
-    利用广播的原理，由教师端的pc只需要向该网段的广播地址发送自己的屏幕图形，所以该网段内的所有主机都能收到老师端的屏幕数据
-    因为所有的主机，在开机状态下，都会自动监听本机所在网段的广播地址，从而实现投屏的效果</code></pre>
-<h3 id="网络层的功能"><a href="#网络层的功能" class="headerlink" title="网络层的功能"></a>网络层的功能</h3><pre><code>（1）定义
-    逻辑地址（IP地址）
-    路径选择
-
-（2）网络层的设备
-    路由器
-    功能：    
-        广播控制（阻隔广播风景）
-        逻辑寻址
-        路径选择
-        提供wan连接
-        流量控制
-    特性：
-        每一个接口都是一个广播域</code></pre>
-<h3 id="传输层的功能"><a href="#传输层的功能" class="headerlink" title="传输层的功能"></a>传输层的功能</h3><pre><code>（1）定义
-    两种传输方式
-
-（2）两种传输方式</code></pre>
-<p><img src="https://i.imgur.com/l82AMji.png"></p>
-<pre><code>（3）常用端口号</code></pre>
-<p><img src="https://i.imgur.com/NJIkJeB.png" alt="avatar"></p>
-<pre><code>（4）TCP三次握手机制</code></pre>
-<p><img src="https://i.imgur.com/gzEl523.png" alt="avatar"></p>
-<pre><code>（5）TCP简单确认机制</code></pre>
-<p><img src="https://i.imgur.com/63sBETY.png" alt="avatar"></p>
-<pre><code>（6）数据的封装与解封装</code></pre>
-<p><img src="https://i.imgur.com/uG7hqBJ.png" alt="avatar"></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/08/22/OSI%E5%BC%80%E6%94%BE%E7%B3%BB%E7%BB%9F%E4%BA%92%E8%81%94%E6%A8%A1%E5%9E%8B/" data-id="cke4j8nnc000aj4t98pcddn28" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/internet/" rel="tag">internet</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-NTP服务器简单配置" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/08/22/NTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AE%80%E5%8D%95%E9%85%8D%E7%BD%AE/" class="article-date">
-  <time datetime="2020-08-21T17:53:22.415Z" itemprop="datePublished">2020-08-22</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
+      <div class="index-btm post-metas">
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/08/22/NTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AE%80%E5%8D%95%E9%85%8D%E7%BD%AE/">NTP服务器简单配置</a>
-    </h1>
-  
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-08-22 01:53" pubdate>
+              2020-08-22
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/internet/">internet</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
 
-      </header>
+  <div class="row mx-auto index-card">
     
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h4 id="系统环境：rhel-7-6"><a href="#系统环境：rhel-7-6" class="headerlink" title="系统环境：rhel 7.6"></a>系统环境：rhel 7.6</h4><h3 id="简单思路："><a href="#简单思路：" class="headerlink" title="简单思路："></a>简单思路：</h3><pre><code>1.服务器地址：10.10.128.1
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        <a href="/2020/08/22/NTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AE%80%E5%8D%95%E9%85%8D%E7%BD%AE/">NTP服务器简单配置</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2020/08/22/NTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AE%80%E5%8D%95%E9%85%8D%E7%BD%AE/">
+          
+          
+            
+          
+          系统环境：rhel 7.6简单思路：1.服务器地址：10.10.128.1
   客户端地址：10.10.128.2-3
 2.准备工作：
 （1）关闭防火墙
@@ -1191,156 +628,186 @@ OSI:开放系统互联模型</code></pre>
 （3）搭建yum仓库
 3.配置服务器
 4.配置客户端
-5.测试    </code></pre>
-<h3 id="一、设置网络"><a href="#一、设置网络" class="headerlink" title="一、设置网络"></a>一、设置网络</h3><pre><code>    set server:    ifconfig ens33 10.10.128.1/24 up
-    set client: ifconfig ens33 10.10.128.2/24 up    </code></pre>
-<h3 id="二、准备工作"><a href="#二、准备工作" class="headerlink" title="二、准备工作"></a>二、准备工作</h3><pre><code>    1.设置防火墙
-        systemctl stop firewalld.service      //关闭防火墙
-        systemctl status firewalld.service     //查看防火墙状态
+5.测试    
+一、设置网络    set server:    ifconfig ens33 10.10.128.1/24 up
+    set client: 
+        </a>
+      </p>
 
-    2.关闭selinux
-        setenforce 0
-
-    3.搭建Yum仓库
-        vim /etc/yum.repo.d/a.repo
-        内容：
-        [a]
-        name=a
-        gpgcheck=0
-        enabled=1
-        baseurl=file:///mnt/cdrom</code></pre>
-<h3 id="三、配置服务器"><a href="#三、配置服务器" class="headerlink" title="三、配置服务器"></a>三、配置服务器</h3><pre><code>    1.安装NTP组件
-        yum install -y ntp 
-    2.修改主配置文件</code></pre>
-<h3 id="四、配置客户端"><a href="#四、配置客户端" class="headerlink" title="四、配置客户端"></a>四、配置客户端</h3><h3 id="五、测试"><a href="#五、测试" class="headerlink" title="五、测试"></a>五、测试</h3>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/08/22/NTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AE%80%E5%8D%95%E9%85%8D%E7%BD%AE/" data-id="cke4j8nn70005j4t94ea13fxe" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux-server/" rel="tag">linux/server</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-
-
-  <nav id="page-nav">
-    
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
-  </nav>
-
-</section>
+      <div class="index-btm post-metas">
         
-          <aside id="sidebar">
-  
-    
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
-    <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/internet/" rel="tag">internet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux-network/" rel="tag">linux/network</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux-network-storage/" rel="tag">linux/network storage</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux-server/" rel="tag">linux/server</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux-storage/" rel="tag">linux/storage</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux-user/" rel="tag">linux/user</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/network/" rel="tag">network</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/windows/" rel="tag">windows</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
-    <div class="widget tagcloud">
-      <a href="/tags/internet/" style="font-size: 13.33px;">internet</a> <a href="/tags/linux-network/" style="font-size: 10px;">linux/network</a> <a href="/tags/linux-network-storage/" style="font-size: 10px;">linux/network storage</a> <a href="/tags/linux-server/" style="font-size: 20px;">linux/server</a> <a href="/tags/linux-storage/" style="font-size: 16.67px;">linux/storage</a> <a href="/tags/linux-user/" style="font-size: 10px;">linux/user</a> <a href="/tags/network/" style="font-size: 10px;">network</a> <a href="/tags/windows/" style="font-size: 10px;">windows</a>
-    </div>
-  </div>
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
-    <div class="widget">
-      <ul>
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-08-22 01:53" pubdate>
+              2020-08-22
+            </time>
+          </div>
         
-          <li>
-            <a href="/2020/08/22/%E7%BD%91%E5%8D%A1%E9%93%BE%E8%B7%AF%E8%81%9A%E5%90%88/">网卡链路聚合</a>
-          </li>
         
-          <li>
-            <a href="/2020/08/22/%E4%BA%A4%E6%8D%A2%E6%9C%BA%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/">交换机的工作原理</a>
-          </li>
         
-          <li>
-            <a href="/2020/08/22/%E7%A3%81%E7%9B%98%E7%9A%84%E6%8C%82%E8%BD%BD%E4%B8%8E%E4%BD%BF%E7%94%A8/">linux下设备的挂载与使用</a>
-          </li>
-        
-          <li>
-            <a href="/2020/08/22/windows%E5%B9%B3%E5%8F%B0%E4%B8%8B%E8%AE%BE%E7%BD%AE%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB/">windows下设置文件共享</a>
-          </li>
-        
-          <li>
-            <a href="/2020/08/22/VLAN%E6%8A%80%E6%9C%AF%E7%9A%84%E5%8E%9F%E7%90%86/">VLAN技术的原理</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-</aside>
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/linux-server/">linux/server</a>
+            
+          </div>
         
       </div>
-      <footer id="footer">
+    </article>
+  </div>
+
+
+
+  <nav aria-label="navigation">
+    <span class="pagination" id="pagination">
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="iconfont icon-arrowright"></i></a>
+    </span>
+  </nav>
   
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2020 John Doe<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+  <script>
+    for (ele of document.getElementById("pagination").getElementsByTagName("a")) {
+      ele.href += '#board';
+    }
+  </script>
+
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
     </div>
   </div>
-</footer>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
     </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
     
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    
 
-
-  
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-
-  
-<script src="/fancybox/jquery.fancybox.pack.js"></script>
-
-
-
-
-<script src="/js/script.js"></script>
-
-
-
-
+    
   </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "An elegant Material-Design theme for Hexo&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </body>
 </html>
