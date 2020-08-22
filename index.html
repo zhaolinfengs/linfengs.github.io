@@ -176,6 +176,46 @@
     
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
+        <a href="/2020/08/22/%E9%85%8D%E7%BD%AEKVM%E8%99%9A%E6%8B%9F%E6%9C%BA/">网卡链路聚合</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2020/08/22/%E9%85%8D%E7%BD%AEKVM%E8%99%9A%E6%8B%9F%E6%9C%BA/">
+          
+          
+            
+          
+          ##kvm虚拟机简单布署###1、    配置网络####编辑配置文件    vim /etc/sysconfig/network-scripts/ifcfg-ens33    文件内容    TYPE=Ethernet    DEVICE=ens33    BOOTPROTO=static    NAME=ens33    ONBOOT=yes    IPADDR=192.168.35.1   
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-08-22 23:43" pubdate>
+              2020-08-22
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/linux-network/">linux/network</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
         <a href="/2020/08/22/%E7%BD%91%E5%8D%A1%E9%93%BE%E8%B7%AF%E8%81%9A%E5%90%88/">网卡链路聚合</a>
       </h1>
 
@@ -599,56 +639,6 @@ OSI:开放系统互联模型
             <i class="iconfont icon-tags"></i>
             
               <a href="/tags/internet/">internet</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        <a href="/2020/08/22/NTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AE%80%E5%8D%95%E9%85%8D%E7%BD%AE/">NTP服务器简单配置</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2020/08/22/NTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AE%80%E5%8D%95%E9%85%8D%E7%BD%AE/">
-          
-          
-            
-          
-          系统环境：rhel 7.6简单思路：1.服务器地址：10.10.128.1
-  客户端地址：10.10.128.2-3
-2.准备工作：
-（1）关闭防火墙
-（2）关闭selinux
-（3）搭建yum仓库
-3.配置服务器
-4.配置客户端
-5.测试    
-一、设置网络    set server:    ifconfig ens33 10.10.128.1/24 up
-    set client: 
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2020-08-22 01:53" pubdate>
-              2020-08-22
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/linux-server/">linux/server</a>
             
           </div>
         

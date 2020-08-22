@@ -160,8 +160,8 @@
               
   <div class="mt-3 post-meta">
     <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2020-08-22 01:53" pubdate>
-      August 22, 2020 am
+    <time datetime="2020-08-22 23:43" pubdate>
+      August 22, 2020 pm
     </time>
   </div>
 
@@ -171,7 +171,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      410 字
+      407 字
     </span>
   
 
@@ -214,78 +214,7 @@
             <h1 style="display: none">网卡链路聚合</h1>
             
             <div class="markdown-body" id="post-body">
-              <h2 id="链路聚合"><a href="#链路聚合" class="headerlink" title="链路聚合"></a>链路聚合</h2><pre><code>  场景：
- 在数据量较大的服务器上，必须确保网络不中断的条件下，建立链路聚合，如果服务器一张网上宕机，另一张网上接替工作，而服务器的地址不变。</code></pre>
-<h3 id="一、添加两张网上"><a href="#一、添加两张网上" class="headerlink" title="一、添加两张网上"></a>一、添加两张网上</h3><pre><code>1.在vmware workstation 中为desktop1 添加两张网卡</code></pre>
-<h3 id="二、复制模板文件"><a href="#二、复制模板文件" class="headerlink" title="二、复制模板文件"></a>二、复制模板文件</h3><pre><code>1.寻找文件
-cd /usr/share/doc/teamd-1.27/example_ifcfgs/3/
-
-文件：ifcfg-eth1  ifcfg-eth2 ifcfg-team-test0
-
-2.复制文件
-
-cp * /etc/sysconfig/network-scripts/          </code></pre>
-<h3 id="三、编辑模板文件"><a href="#三、编辑模板文件" class="headerlink" title="三、编辑模板文件"></a>三、编辑模板文件</h3><pre><code>1.来到网卡配置文件目录下
-cd /etc/sysconfig/network-scripts/
-
- 2.查看网卡名称
-ifconfig 
-
-3.将复制过来的两个模板文改为与网卡名称对应的文件
-mv ifcfg-eth1 ifcfg-ens33
-mv ifcfg-eht2 ifcfg-ens38
-
-4.更改两个网卡文件
-vim ifcfg-ens33
-内容：
-DEVICE=&quot;ens33
-DEVICETYPE=&quot;TeamPort&quot;
-ONBOOT=&quot;yes&quot;
-TEAM_MASTER=&quot;team_test0&quot;
-
-vim ifcfg-ens38
-内容：
-DEVICE=&quot;ens38&quot;
-DEVICETYPE=&quot;TeamPort&quot;
-ONBOOT=&quot;yes&quot;
-TEAM_MASTER=&quot;team_test0&quot;
-
-
-4.更改team_test0文件
-vim ifcfg-team-test0
-内容：
-DEVICE=&quot;team_test0&quot;-----设备名
-DEVICETYPE=&quot;Team&quot;-----设备类型
-ONBOOT=&quot;yes&quot;-----开机自启
-BOOTPROTO=none-----手动指定IP地址
-NETMASK=255.255.255.0-----子网掩码
-IPADDR=192.168.1.234-----IP地址
-TEAM_CONFIG=&#39;&#123;&quot;runner&quot;: &#123;&quot;name&quot;: &quot;activebackup&quot;&#125;&#125;&#39;----策略</code></pre>
-<h3 id="四、查看"><a href="#四、查看" class="headerlink" title="四、查看"></a>四、查看</h3><pre><code>nmcli connection show 
-teamdctl team_test0 state    //查看两张网卡的工作状态
-内容：
-setup:
-  runner: activebackup
-ports:
-  ens33
-    link watches:
-      link summary: up
-      instance[link_watch_0]:
-        name: ethtool
-        link: up
-        down count: 0
-  ens38
-    link watches:
-      link summary: up
-      instance[link_watch_0]:
-        name: ethtool
-        link: up
-        down count: 0
-runner:
-  active port: ens33                //这里可以看到活动的网卡
-
-
-ifconfig ens33 down              //关闭ens33，可以看到ens38会自动接替ens33的工作</code></pre>
+              <p>##kvm虚拟机简单布署<br>###1、    配置网络<br>####编辑配置文件<br>    vim /etc/sysconfig/network-scripts/ifcfg-ens33<br>    文件内容<br>    TYPE=Ethernet<br>    DEVICE=ens33<br>    BOOTPROTO=static<br>    NAME=ens33<br>    ONBOOT=yes<br>    IPADDR=192.168.35.1<br>    NETMASK=255.255.255.0<br>    GATEWAY=192.168.1.1<br>    DNS1=114.114.114.114<br>###2、    利用win-scp传输镜像到redhat linux<br>    确定传输机和redhatl linux在同一网段，相互联通<br>###3、搭建仓库<br>    连接cd-rom<br>    挂载cd-rom——mount /dev/sr0 /mnt/cdrom<br>    文件创建  &gt;/etc/yum.repo.d/a.repo<br>    文件内容：<br>              [redhat]<br>              name=redhat<br>             gpgcheck=0<br>             enabled=1<br>              baseurl=file:///mnt/cdrom<br>    查看仓库资源<br>              yum repolist<br>###3、    配置网络桥<br>####编辑网上配置文件<br>    vim /etc/systconfig/network-scripts/ifcfg-ens22<br>    内容：<br>        DEVICE=ens33<br>        TYPE=Ethernet<br>        ONBOOT=yes<br>        BOOTPROTO=none<br>        BRIDGE=”br0”<br>    安装网桥组件<br>        rpm -qa | grep bridge                //查看是否已安装<br>        yum install -y bridge *                //如果没有安装则执行安装操作<br>    配置网桥文件<br>    &gt; /etc/sysconfig/network-scripts/ifcfg-br0           //这个文件一般没有，需要管理员自行创建<br>    内容：<br>        DEVICE=”br0”<br>        TYPE=Bridge<br>        ONBOOT=yes<br>        BOOTPROTO=none<br>        IPADDR=192.168.1.1<br>        NETMASK=255.255.255.0<br>    查看网上配置文件和网桥配置文件<br>    vim /etc/sysconifg/network-scripts/ifcfg-ens33 /etc/sysconfig/network-scripts/ifcfg-br0 -o<br>###4、    重启网络服务<br>    systemctl restart network      //重启网上<br>       如果报错：<br>    systemctl stop NetworkManager  //关闭网络管理<br>    systemctl disable    NetworkManager.service        //移除开机启动<br>    systemctl restart network             //重启网卡<br>###5、    安装应用软件<br>    yum install -y  qemu-kvm*  virt-manager*  libvirt*          //安装qemu-kvm、virt-manager、libvirt 三个组件<br>###6、    重启虚拟服务<br>    systemctl  restart libvirtd     //重启虚拟服务<br>###7、    启动图形化界面<br>    virt-manager   //启动图形化界面<br>###8、    用图形界面完成配置虚拟机信息<br>###9、    开机 </p>
 
             </div>
             <hr>
@@ -309,18 +238,12 @@ ifconfig ens33 down              //关闭ens33，可以看到ens38会自动接�
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2020/08/22/%E9%85%8D%E7%BD%AEKVM%E8%99%9A%E6%8B%9F%E6%9C%BA/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">网卡链路聚合</span>
-                        <span class="visible-mobile">Previous</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2020/08/22/%E4%BA%A4%E6%8D%A2%E6%9C%BA%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/">
-                        <span class="hidden-mobile">交换机的工作原理</span>
+                      <a href="/2020/08/22/%E7%BD%91%E5%8D%A1%E9%93%BE%E8%B7%AF%E8%81%9A%E5%90%88/">
+                        <span class="hidden-mobile">网卡链路聚合</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
