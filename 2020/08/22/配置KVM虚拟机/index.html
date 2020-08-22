@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
-  <title>网卡链路聚合 - Hexo</title>
+  <title>配置KVM虚拟机 - Hexo</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -211,7 +211,7 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto" id="post">
             <!-- SEO header -->
-            <h1 style="display: none">网卡链路聚合</h1>
+            <h1 style="display: none">配置KVM虚拟机</h1>
             
             <div class="markdown-body" id="post-body">
               <p>##kvm虚拟机简单布署<br>###1、    配置网络<br>####编辑配置文件<br>    vim /etc/sysconfig/network-scripts/ifcfg-ens33<br>    文件内容<br>    TYPE=Ethernet<br>    DEVICE=ens33<br>    BOOTPROTO=static<br>    NAME=ens33<br>    ONBOOT=yes<br>    IPADDR=192.168.35.1<br>    NETMASK=255.255.255.0<br>    GATEWAY=192.168.1.1<br>    DNS1=114.114.114.114<br>###2、    利用win-scp传输镜像到redhat linux<br>    确定传输机和redhatl linux在同一网段，相互联通<br>###3、搭建仓库<br>    连接cd-rom<br>    挂载cd-rom——mount /dev/sr0 /mnt/cdrom<br>    文件创建  &gt;/etc/yum.repo.d/a.repo<br>    文件内容：<br>              [redhat]<br>              name=redhat<br>             gpgcheck=0<br>             enabled=1<br>              baseurl=file:///mnt/cdrom<br>    查看仓库资源<br>              yum repolist<br>###3、    配置网络桥<br>####编辑网上配置文件<br>    vim /etc/systconfig/network-scripts/ifcfg-ens22<br>    内容：<br>        DEVICE=ens33<br>        TYPE=Ethernet<br>        ONBOOT=yes<br>        BOOTPROTO=none<br>        BRIDGE=”br0”<br>    安装网桥组件<br>        rpm -qa | grep bridge                //查看是否已安装<br>        yum install -y bridge *                //如果没有安装则执行安装操作<br>    配置网桥文件<br>    &gt; /etc/sysconfig/network-scripts/ifcfg-br0           //这个文件一般没有，需要管理员自行创建<br>    内容：<br>        DEVICE=”br0”<br>        TYPE=Bridge<br>        ONBOOT=yes<br>        BOOTPROTO=none<br>        IPADDR=192.168.1.1<br>        NETMASK=255.255.255.0<br>    查看网上配置文件和网桥配置文件<br>    vim /etc/sysconifg/network-scripts/ifcfg-ens33 /etc/sysconfig/network-scripts/ifcfg-br0 -o<br>###4、    重启网络服务<br>    systemctl restart network      //重启网上<br>       如果报错：<br>    systemctl stop NetworkManager  //关闭网络管理<br>    systemctl disable    NetworkManager.service        //移除开机启动<br>    systemctl restart network             //重启网卡<br>###5、    安装应用软件<br>    yum install -y  qemu-kvm*  virt-manager*  libvirt*          //安装qemu-kvm、virt-manager、libvirt 三个组件<br>###6、    重启虚拟服务<br>    systemctl  restart libvirtd     //重启虚拟服务<br>###7、    启动图形化界面<br>    virt-manager   //启动图形化界面<br>###8、    用图形界面完成配置虚拟机信息<br>###9、    开机 </p>
@@ -225,7 +225,7 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/linux-network/">linux/network</a>
+                      <a class="hover-with-bg" href="/tags/linux-KVM/">linux/KVM</a>
                     
                   </div>
                 
@@ -382,7 +382,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "网卡链路聚合&nbsp;",
+        "配置KVM虚拟机&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,
